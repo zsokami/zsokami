@@ -34,8 +34,8 @@
 			function encode(text, cs = defaultCs) {
 				let cipher = cs[3] + cs[1] + cs[0]
 				let offset = 0
-				for (const c of text) {
-					const code = c.charCodeAt(0)
+				for (const i in text) {
+					const code = text.charCodeAt(i)
 					for (let b = 12; b >= 0; b -= 4) {
 						const hex = (code >>> b) + offset++ & 15
 						cipher += cs[hex >>> 2]
