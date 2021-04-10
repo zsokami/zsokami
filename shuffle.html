@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>乱序器</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<style>
+			body {
+				margin: 0;
+			}
+			
+			#grid {
+				width: 100vw;
+				height: 100vh;
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				grid-template-rows: 1fr auto 1fr;
+				gap: 0.5rem;
+				padding: 0.5rem;
+				box-sizing: border-box;
+			}
+			
+			textarea {
+				grid-column: 1 / 4;
+			}
+			
+			#seedText {
+				text-align: center;
+			}
+		</style>
+		<script>
+			const defaultSeed = 718335940;
+			
+			const multiplier = 0x5DEECE66D;
+    		const addend = 0xB;
+    		const mask = 2 ** 48 - 1;
+    
+    		let seed;
+    
+    		function setSeed(_seed = defaultSeed) {
+    			if (isNaN(_seed)) {
+    				const s = _seed;
+    				_seed = 0;
+    				for (let i = s.length; i-- > 0;) {
+    					_seed = _seed * 31 + s.charCodeAt(i) | 0;
+    				}
+    			}
+    			seed = initialScramble(_seed);
+    		}
+    
+    		function initialScramble(seed) {
+        		return ((seed / 2 ** 32 ^ multiplier / 2 ** 32) & mask / 2 ** 32) * 2 ** 32 + (((seed ^ multiplier) & mask) >>> 0);
+   	 	}
+   
+    		function next(bits) {
+    			seed = Number(BigInt(seed) * BigInt(multiplier) + BigInt(addend) & BigInt(mask));
+		        return seed / 2 ** (48 - bits) | 0;
+		    }
+		
+			function nextInt(bound) {
+				const m = bound - 1;
+		        let r = next(31);
+		        if ((bound & m) == 0)
+		            r = Number(BigInt(bound) * BigInt(r) >> BigInt(31));
+		        else {
+		            for (let u = r; u - (r = u % bound) + m > 0x7FFFFFFF; u = next(31));
+		        }
+		        return r;
+		    }
+		
+			function shuffle(original, seed) {
+			    setSeed(seed);
+			    const codes = [...original];
+			    for (let i = codes.length; i > 1;) {
+			        const j = nextInt(i--);
+			        const t = codes[j];
+			        codes[j] = codes[i];
+			        codes[i] = t;
+			    }
+			    return codes.join('');
+			}
+			  
+			function restore(shuffled, seed) {
+			    setSeed(seed);
+			    const codes = [...shuffled];
+			    const J = new Array(codes.length);
+			    for (let i = codes.length; i > 1;) {
+			        const j = nextInt(i--);
+			        J[i] = j;
+			    }
+			    for (let i = 1; i < codes.length; i++) {
+			        const j = J[i];
+			        const t = codes[j];
+			        codes[j] = codes[i];
+			        codes[i] = t;
+			    }
+			    return codes.join('');
+			}
+			
+			function shuffleClick() {
+				shuffled.value = shuffle(original.value, seedText.value);
+			}
+			
+			function restoreClick() {
+				original.value = restore(shuffled.value, seedText.value);
+			}
+			
+			onload = () => {
+				seedText.value = defaultSeed;
+			}
+		</script>
+	</head>
+	<body>
+		<div id="grid">
+			<textarea id="original" placeholder="原文"></textarea>
+			<button onclick="shuffleClick()">打乱↓↓</button>
+			<input type="text" id="seedText">
+			<button onclick="restoreClick()">还原↑↑</button>
+			<textarea id="shuffled" placeholder="乱文"></textarea>
+		</div>
+	</body>
+</html>
