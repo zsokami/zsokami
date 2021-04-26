@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>游戏帮助-小黄贪吃蛇</title>
+		<link rel="stylesheet" href="css/main.css">
+		<style>
+			article {
+				flex: 1;
+				margin: 10px 30px;
+				counter-reset: i;
+			}
+
+			article>h1 {
+				font-size: 2rem;
+				text-align: center;
+			}
+
+			section {
+				margin: auto;
+				max-width: 950px;
+				counter-reset: j;
+			}
+
+			section>* {
+				animation: float-up 0.5s both;
+			}
+
+			@keyframes float-up {
+				from {
+					transform: translateY(100%);
+					opacity: 0;
+				}
+			}
+			
+			section>h1, section>h4 {
+				margin: 0.5em 0;
+			}
+			
+			section>h1~* {
+				text-indent: 1em;
+			}
+			
+			section>h4+* {
+				text-indent: 2em;
+			}
+
+			section>h1::before {
+				counter-increment: i;
+				content: counter(i) "、";
+			}
+			
+			section>h4::before {
+				counter-increment: j;
+				content: counter(i) "." counter(j) "、";
+			}
+
+			p {
+				font-size: 1.2rem;
+			}
+
+			span {
+				display: inline-block;
+				text-indent: 0;
+			}
+
+			.keys, #grass {
+				vertical-align: middle;
+				filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.3));
+				margin: 3px;
+			}
+
+			.keys {
+				font-size: 0;
+			}
+
+			#grass {
+				font-size: 2rem;
+			}
+
+			.keys>* {
+				font-size: 1rem;
+				font-weight: bold;
+				background: #ffc400;
+				border: solid #E9B300;
+				border-width: 3px 3px 5px;
+				border-radius: 9px;
+				width: 2.5em;
+				line-height: 2.5em;
+				text-align: center;
+			}
+
+			.keys>:first-child {
+				display: block;
+				margin: 0 auto 1px;
+			}
+
+			.keys>:nth-child(3) {
+				margin: 0 1px;
+			}
+
+			.wasd>:nth-child(1)::before {
+				content: "W";
+			}
+
+			.wasd>:nth-child(2)::before {
+				content: "A";
+			}
+
+			.wasd>:nth-child(3)::before {
+				content: "S";
+			}
+
+			.wasd>:nth-child(4)::before {
+				content: "D";
+			}
+
+			.arrows>:nth-child(1)::before {
+				content: "↑";
+			}
+
+			.arrows>:nth-child(2)::before {
+				content: "←";
+			}
+
+			.arrows>:nth-child(3)::before {
+				content: "↓";
+			}
+
+			.arrows>:nth-child(4)::before {
+				content: "→";
+			}
+		</style>
+		<script src="js/core.js"></script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<script src="js/bg.js"></script>
+			<div id="container">
+				<script src="js/header.js"></script>
+				<article>
+					<h1>游戏帮助</h1>
+					<section>
+						<h1>基本操作</h1>
+						<p>
+							单人模式(生存、挑战)中使用
+							<span class="keys wasd">
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+							或
+							<span class="keys arrows">
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+							控制蛇前进的方向;
+						</p>
+						<p>
+							另外，草地区域是也是一个方向盘
+							<canvas id="grass"></canvas>
+							如图所示，可通过点击草地控制蛇的方向(支持移动端)。
+						</p>
+						<p>
+							双人模式(双人对战)中使用
+							<span class="keys wasd">
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+							控制小黄，使用
+							<span class="keys arrows">
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+							控制小绿。
+						</p>
+						<script>
+							const size = Game.tw * 2;
+							grass.width = grass.height = size;
+							const ctx = grass.getContext('2d');
+							Game.fill(ctx, 0, 0, 2, 2, Game.ID.Ground.GRASS);
+							ctx.strokeStyle = ctx.fillStyle = 'white';
+							ctx.font = getComputedStyle(grass).font;
+							ctx.textAlign = 'center';
+							ctx.textBaseline = 'middle';
+							ctx.moveTo(0, 0);
+							ctx.lineTo(size, size);
+							ctx.moveTo(size, 0);
+							ctx.lineTo(0, size);
+							ctx.stroke();
+							const a = size / 2;
+							const b = size / 5;
+							ctx.fillText('左', b, a);
+							ctx.fillText('上', a, b);
+							ctx.fillText('右', b * 4, a);
+							ctx.fillText('下', a, b * 4);
+						</script>
+					</section>
+					<section>
+						<h1>高阶技巧</h1>
+						<p>慢速移动时，可通过不断快速地转换方向来临时加快速度。(致敬诺基亚《SnakeⅡ》的即时响应操作机制)</p>
+					</section>
+					<section>
+						<h1>模式与玩法</h1>
+						<h4>生存模式</h4>
+						<p>生存模式有两个周目，一周目有时会出现红苹果，长到56的长度即可通关一周目，并进入二周目...(后面请自行探索)</p>
+						<h4>挑战模式</h4>
+						<p>挑战模式即闯关，只有青苹果，速度固定为2，每关目标是铺满全图。</p>
+						<h4>双人对战模式</h4>
+						<p>小黄迎来了一条新朋友：小绿。它们俩很喜欢互相较量谁最能吃...</p>
+					</section>
+					<section>
+						<h1>预告</h1>
+						<p>后续将继续完善ui，和完善双人对战模式，并增加更多经典和创新的玩法(包含但不限于：迷宫，道具，大地图冒险，穿越，合作)，敬请期待(you sheng zhi nian)</p>
+					</section>
+					<script>
+						document.querySelectorAll('section>*').forEach((item, i) => item.style.animationDelay = 0.15 * i + 's');
+					</script>
+				</article>
+				<script src="js/footer.js"></script>
+			</div>
+		</div>
+	</body>
+</html>
