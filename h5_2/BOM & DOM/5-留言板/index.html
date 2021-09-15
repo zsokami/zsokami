@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>留言板</title>
+		<link rel="stylesheet" href="css/my_control.css">
+		<style>
+			body {
+				max-width: 800px;
+				margin: auto;
+				padding: 20px;
+			}
+			
+			body>* {
+				margin: 0 0 20px 0;
+			}
+			
+			p {
+				border-radius: 10px;
+				box-shadow: 0 0 5px #bbb;
+				padding: 2.5em 10px;
+				text-indent: 2em;
+				transition: 0.3s;
+				position: relative;
+			}
+			
+			p:hover {
+				box-shadow: 0 0 15px #bbb;
+			}
+			
+			p::before, p::after {
+				position: absolute;
+				text-indent: 0;
+			}
+			
+			p:before {
+				content: attr(writer) "：";
+				left: 10px;
+				top: 10px;
+				font-weight: bold;
+			}
+			
+			p::after {
+				content: attr(time);
+				right: 10px;
+				bottom: 10px;
+				color: #bbb;
+			}
+			
+			#top {
+				text-align: right;
+			}
+			
+			textarea.control {
+				display: block;
+				width: 100%;
+				margin-bottom: 10px;
+				resize: vertical;
+				padding: 10px;
+				font-size: 1em;
+				font-family: unset;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<textarea rows="4" class="control" id="text"></textarea>
+			<input type="button" class="control" id="postBtn" value="留言">
+		</div>
+		<script>
+			postBtn.onclick = () => {
+				addMessage(text.value, '你');
+				text.value = '';
+			}
+
+			addMessage('欢迎使用留言板。');
+
+			function addMessage(text, writer = '系统') {
+				const p = document.createElement('p');
+				p.setAttribute('writer', writer);
+				p.setAttribute('time', now());
+				p.innerText = text;
+				document.getElementById('top').after(p);
+			}
+
+			function now() {
+				const d = new Date();
+				return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+					.replace(/\d+/g, d => d.padStart(2, 0));
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,106 @@
+.flower {
+	--size: 8em;
+	--r: calc(var(--size) * 0.1);
+	--R: calc(var(--size) / 2 - var(--r));
+	--petal: calc(var(--R) / 1.414);
+	--shadow: 0 0 calc(var(--size) * 0.028) yellow;
+	position: absolute;
+	right: calc(0% - var(--R));
+	top: calc(50% - var(--size) / 2);
+	width: var(--size);
+	height: var(--size);
+	padding: var(--R);
+	box-sizing: border-box;
+	animation: rot 30s linear infinite;
+	/* 子元素启用 3D 模式 */
+	transform-style: preserve-3d;
+}
+
+.flower:not(:hover) {
+	animation-play-state: paused;
+}
+
+.flower>:not(:last-child) {
+	position: absolute;
+	width: var(--petal);
+	height: var(--petal);
+	border-radius: 100% 0;
+	--xy: calc(var(--r) / 1.414);
+	--pos: calc(50% + var(--xy));
+	left: var(--pos);
+	bottom: var(--pos);
+	--k: 1;
+	--step: calc(1turn / 12 * var(--k));
+	background: linear-gradient(to right bottom, hsl(var(--step), 100%, 70%) 20%, hsl(var(--step), 100%, 40%) 50%, hsl(var(--step), 100%, 70%) 80%);
+	/* rotate3d 让花瓣绕中轴旋转一个角度，实现依次重叠效果 translateZ -1 修复z轴溢出 */
+	transform: translateZ(-1px) rotate(var(--step)) rotate3d(1, -1, 0, -1deg);
+	transform-origin: calc(0% - var(--xy)) calc(100% + var(--xy));
+	box-shadow: var(--shadow);
+}
+
+.flower>:nth-child(2) {
+	--k: 2;
+}
+
+.flower>:nth-child(3) {
+	--k: 3;
+}
+
+.flower>:nth-child(4) {
+	--k: 4;
+}
+
+.flower>:nth-child(5) {
+	--k: 5;
+}
+
+.flower>:nth-child(6) {
+	--k: 6;
+}
+
+.flower>:nth-child(7) {
+	--k: 7;
+}
+
+.flower>:nth-child(8) {
+	--k: 8;
+}
+
+.flower>:nth-child(9) {
+	--k: 9;
+}
+
+.flower>:nth-child(10) {
+	--k: 10;
+}
+
+.flower>:nth-child(11) {
+	--k: 11;
+}
+
+.flower>:nth-child(12) {
+	--k: 12;
+}
+
+.flower>:last-child {
+	background:
+		repeating-linear-gradient(to right, transparent, rgba(255, 255, 0, 0.2) 10%),
+		repeating-linear-gradient(to bottom, transparent, rgba(255, 255, 0, 0.2) 10%),
+		radial-gradient(orange, orangered 50%);
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	transform: scale(1.7);
+	box-shadow: var(--shadow);
+}
+
+@keyframes rot {
+	from {
+		transform: rotate(0);
+	}
+
+	to {
+		transform: rotate(1turn);
+	}
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>团队风采</title>
+		<style>
+			.wrapper {
+				margin: 150px auto;
+				width: 800px;
+				text-align: center;
+			}
+			img {
+				border: 3px solid white;
+				border-radius: 10px;
+			}
+			p {
+				text-align: justify;
+				text-indent: 2em;
+				text-shadow: 0 5px 5px grey;
+			}
+			p, h3 {
+				animation: alpha 1s 1s both;
+			}
+			#i1, #i3 {
+				animation: move1 1s both, shadow .3s .5s both;
+			}
+			#i2, #i4 {
+				animation: move2 1s both, shadow .3s .5s both;
+			}
+			#i3 {
+				margin-left: -320px;
+			}
+			#i4 {
+				margin-left: 320px;
+			}
+			#p1, #p2 {
+				margin-top: 120px;
+			}
+			#t1 {
+				margin-bottom: 100px;
+				color: red;
+				text-shadow: 0 5px 5px #f88;
+			}
+			#t2 {
+				color: green;
+				text-shadow: 0 5px 5px #8f8;
+			}
+			#i5 {
+				box-shadow: 0 0 10px grey;
+				/*自定义速度曲线，简单实现回弹效果*/
+				transition: 1.5s cubic-bezier(0.3, 2, 0.4, 0.7);
+			}
+			#i5:hover {
+				border-color: orange;
+				box-shadow: 0 0 30px grey;
+				transform: rotate(360deg) scale(1.2);
+			}
+			@keyframes move1 {
+				from {
+					transform-origin: 0 -100px;
+					transform: rotate(-60deg) translate(-200px, -200px);
+				}
+				to {
+					transform: rotate(-30deg);
+				}
+			}
+			@keyframes move2 {
+				from {
+					transform-origin: 100% -100px;
+					transform: rotate(60deg) translate(200px, -200px);
+				}
+				to {
+					transform: rotate(30deg);
+				}
+			}
+			@keyframes shadow {
+				from {
+					box-shadow: 0 0px 0px grey;
+				}
+				to {
+					box-shadow: 0 0 30px grey;
+				}
+			}
+			@keyframes alpha {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<img id="i1" src="img/recruit-01.jpg" />
+			<img id="i2" src="img/recruit-02.jpg" />
+			<p id="p1">为了吸引、激励和保留优秀人才，公司为员工提供完善的培训与发展体系，关注员工成长，同时在兼顾市场竞争力和内部公平的基础上为员工提供全面、富有竞争力的薪酬福利体系。良好的企业发展前景、 广阔的个人发展平台、快乐向上的工作环境。</p>
+			<h3 id="t1">我们的管理团队</h3>
+			<img id="i3" src="img/recruit-03.jpg" />
+			<img id="i4" src="img/recruit-04.jpg" />
+			<p id="p2">为了吸引、激励和保留优秀人才，公司为员工提供完善的培训与发展体系，关注员工成长，同时在兼顾市场竞争力和内部公平的基础上为员工提供全面、富有竞争力的薪酬福利体系。良好的企业发展前景、 广阔的个人发展平台、快乐向上的</p>
+			<h3 id="t2">我们的部门风采</h3>
+			<img id="i5" src="img/recruit-05.jpg" />
+			<p id="p3">为了吸引、激励和保留优秀人才，公司为员工提供完善的培训与发展体系，关注员工成长，同时在兼顾市场竞争力和内部公平的基础上为员工提供全面、富有竞争力的薪酬福利体系。良好的企业发展前景、 广阔的个人发展空间。</p>
+		</div>
+		<script src="js/rings.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,177 @@
+﻿
+
+/*---------------------------- RESET 重置所有样式 ----------------------------------------*/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+	margin: 0;
+	padding: 0;
+}
+
+body, button, input, select, textarea {
+	font-family: "Trebuchet MS", Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+h1 { font-size: 18px; }
+h2 { font-size: 16px; }
+h3 { font-size: 14px; }
+h4, h5, h6 { font-size: 100%; }
+
+ul, ol { list-style: none; }
+
+a {
+	text-decoration: none;
+	color:#333;
+}
+
+a:hover {
+	text-decoration: underline;
+	color:#c00;
+}
+
+address, cite, dfn, em, var { font-style: normal; }
+legend { color: #000; }
+fieldset, img { border: none; }
+button, input, select, textarea { font-size: 100%; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+
+/*---------------------------- RESET 重置所有样式 结束 ----------------------------------------*/
+
+/* 页面头部、尾部、首页的公共样式表 */
+em { width:100%; font-style:normal; }
+i{ font-style:normal;}
+.clear { clear:both; }
+.red { color:#c00; }
+.tfoot, .thead { line-height:0; }
+.thead i { display:none; }
+.none { display:none; }
+.block { display:block; }
+
+
+
+/*----------------------------头部样式---------------------------------------已选用的样式1008-*/
+/*顶部菜单*/
+
+#header {
+	width:990px;
+	margin:0 auto;
+}
+
+/*导航链接样式*/
+.nav {
+	float:left;
+	clear:both;
+	background:url(../images/01navbg.png) no-repeat;
+	height:37px;
+	width:990px;
+}
+
+.nav ul {
+	width:815px;
+	float:left;
+	z-index: 999;
+}
+
+.nav li {
+	float:left;
+	position:relative;
+	z-index:1;
+	min-width:65px;
+	_width:65px;
+	display:inline;
+	text-indent:13px;
+	background:url(../images/01navli.png) no-repeat left top;
+	margin:0 5px 0 0;
+}
+
+.nav li em {
+	min-width:65px;
+	_width:65px;
+	display:block;
+	padding:0 5px 0 0;
+}
+
+.nav a {
+	min-width:45px;
+	_width:45px;
+	padding:0 10px 0 5px;
+	white-space:nowrap;
+	font-size:14px;
+	line-height:37px;
+	font-weight:bold;
+	height:37px;
+	display:block;
+	background:url(../images/01nav_putdown.png) no-repeat right center;
+}
+
+.nav li ul li a:hover {
+	background:url(../images/01ulhover.jpg) no-repeat left 2px;
+	color:#c00;
+}
+
+.nav li ul {
+	position:absolute;
+	top:34px;
+	left:0;
+	width:200px;
+	border:1px solid #8c8c8c;
+	border-top:none;
+	min-height:60px;
+	_height:60px;
+	display:none;
+	background:#f2f2f2;
+	padding:10px 0;
+	float:left;
+	clear:both;
+	z-index:999;
+}
+
+.nav li ul li {
+	width:190px;
+	margin:0 0 0 5px;
+	height:32px;
+	border-bottom:1px solid #cbcbcb;
+	text-indent:8px;
+	overflow:hidden;
+	background:none;
+}
+
+.nav li ul li a {
+	background:none;
+	width:190px;
+	height:30px;
+	font-size:12px;
+	line-height:30px;
+	font-weight:bold;
+	white-space:nowrap;
+	display:block;
+	color:#333;
+}
+
+.nav li.on {
+	background:url(../images/01nav01.png) no-repeat;
+}
+
+.nav li.on em {
+	background:url(../images/01nav02.png) no-repeat right top;
+	width:100%;
+}
+
+#n0 {
+	text-align:center;
+	background:none;
+	text-indent:0;
+}
+
+#n0 a {
+	background:none;
+	padding:0;
+}
+
+#n0 em {
+	padding:0;
+}
+
+
+/*导航链接样式结束*/

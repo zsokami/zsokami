@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<style>
+			.bg, .bg:after {
+				position: fixed;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+			}
+
+			.bg {
+				z-index: -1;
+				background: url(img/bg.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+
+			.bg:after {
+				content: "";
+				background: rgba(15, 20, 30, 0.5);
+				transition: background 2.5s ease-in-out;
+			}
+
+			.preload .bg:after {
+				background: #000;
+			}
+		</style>
+	</head>
+
+	<body class="preload">
+		<div class="bg"></div>
+		<script>
+			setTimeout(() => document.body.classList.remove('preload'), 100);
+		</script>
+	</body>
+
+</html>

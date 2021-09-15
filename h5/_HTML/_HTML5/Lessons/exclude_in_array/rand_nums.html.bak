@@ -1,0 +1,32 @@
+<meta name="viewport" content="width=180">
+
+<script>
+
+var a = [];
+
+var time = now();
+
+loop:
+while(a.length < 100) {
+  var n = parseInt(Math.random() * 100);
+  for(var i in a)
+    if(a[i] == n)
+      continue loop;
+  a.push(n);
+}
+
+var d = now() - time;
+
+document.write('<div style="width:180px; white-space:pre-wrap; word-wrap: break-word">');
+
+document.writeln(a);
+
+document.writeln(d);
+
+document.write('</div>');
+
+function now() {
+  return new Date().getTime();
+}
+
+</script>

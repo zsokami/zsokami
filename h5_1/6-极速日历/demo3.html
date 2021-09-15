@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>极速日历</title>
+		<style>
+			html, body {
+				--primary-bg-color: #444;
+				--secondary-bg-color: #3A3A3A;
+				--tertiary-bg-color: #4A4A4A;
+				--normal-color: transparent;
+				--hover-color: #999;
+				--active-color: #CCC;
+				--today-normal-color: #0078D7;
+				--today-hover-color: #66AEE7;
+				--today-active-color: #AACFFF;
+				--checked-normal-color: var(--today-active-color);
+				--checked-hover-color: var(--today-normal-color);
+				--checked-active-color: var(--today-hover-color);
+				--rest-color: #0E0;
+				--work-color: #F60;
+				height: 100%;
+				margin: 0;
+				background: var(--primary-bg-color);
+				color: white;
+				text-align: center;
+			}
+			
+			table {
+				position: relative;
+				z-index: 1;
+			}
+			
+			caption {
+				text-align: left;
+				text-indent: 1em;
+				line-height: 2em;
+			}
+			
+			td {
+				position: relative;
+				width: 3.5em;
+				height: 3.5em;
+				text-align: center;
+				border: 2px solid var(--normal-color);
+			}
+			
+			td:hover {
+				border-color: var(--hover-color);
+			}
+			
+			td:active {
+				border-color: var(--active-color);
+			}
+			
+			.checked {
+				border-color: var(--checked-normal-color);
+			}
+			
+			.checked:hover {
+				border-color: var(--checked-hover-color);
+			}
+			
+			.checked:active {
+				border-color: var(--checked-active-color);
+			}
+			
+			.today {
+				border-color: var(--today-normal-color);
+				background: var(--today-normal-color);
+			}
+			
+			.today:hover {
+				border-color: var(--today-hover-color);
+			}
+			
+			.today:active {
+				border-color: var(--today-active-color);
+			}
+			
+			.today.checked {
+				box-shadow: 0 0 0 2px var(--secondary-bg-color) inset;
+			}
+			
+			.other:not(.checked) {
+				opacity: .3;
+			}
+			
+			td::after {
+				position: absolute;
+				top: 3px;
+				right: 3px;
+				font-size: 0.5em;
+			}
+			
+			.rest::after {
+				content: "休";
+				color: var(--rest-color);
+			}
+			
+			.work::after {
+				content: "班";
+				color: var(--work-color);
+			}
+			
+			td::before {
+				display: block;
+				width: 100px;
+				height: 160px;
+				position: absolute;
+				right: 100%;
+				top: 10px;
+				margin-right: 2px;
+				margin-top: -2px;
+				z-index: 1;
+				opacity: 0;
+				transition: .1s;
+				pointer-events: none;
+			}
+			
+			tr:nth-child(1)>td:nth-child(6)::before {
+				content: "";
+				background: url(img/qingming.png) center/cover no-repeat;
+			}
+			
+			tr:nth-child(3)>td:nth-child(7)::before {
+				content: "";
+				background: url(img/guyu.png) center/cover no-repeat;
+			}
+			
+			tr:nth-child(1)>td:nth-child(6):hover::before,
+			tr:nth-child(3)>td:nth-child(7):hover::before {
+				top: 0;
+				opacity: 1;
+				pointer-events: auto;
+			}
+			
+			tr:nth-child(1)>td:nth-child(6):active::before,
+			tr:nth-child(3)>td:nth-child(7):active::before {
+				top: -50px;
+				right: -4px;
+				width: 224px;
+				height: 358.4px;
+			}
+			
+			
+			.scrollable {
+				display: inline-block;
+				height: 100%;
+				border-left: 3px solid;
+				border-right: 3px solid;
+				opacity: .7;
+				cursor: default;
+				overflow: hidden;
+				fill: var(--tertiary-bg-color);
+			}
+			
+			.scrollable:hover {
+				background: var(--secondary-bg-color);
+				opacity: 1;
+			}
+			
+			.scrollable::before, .scrollable::after {
+				content: "";
+				display: block;
+				height: 100%;
+			}
+			
+			.center {
+				position: fixed;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+			
+			svg {
+				cursor: pointer;
+				transition: .2s;
+			}
+			
+			.scrollable:hover {
+				fill: #F00;
+			}
+			
+			.scrollable:hover svg:active {
+				fill: #E00;
+			}
+			
+			.win:hover {
+				fill: #0F0;
+			}
+			
+			.win:hover svg {
+				animation: win .4s .1s paused;
+			}
+			
+			.win:hover svg:active {
+				fill: #0E0;
+			}
+			
+			@keyframes win{
+				0% {
+					fill: #F00;
+				}
+				25% {
+					fill: #0F0;
+				}
+				50% {
+					fill: #F00;
+				}
+				75% {
+					fill: #FF0;
+				}
+				100% {
+					fill: #0F0;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="scrollable">
+			<div class="center">
+				<svg width="300" height="150" viewBox="0 0 300 300" preserveAspectRatio="none">
+					<polygon points="75 0,75 150,0 150,150 300,300 150,225 150,225,0"/>
+				</svg>
+				<div></div>
+				<svg width="300" height="150" viewBox="0 0 300 300" preserveAspectRatio="none" transform="rotate(180)">
+					<polygon points="75 0,75 150,0 150,150 300,300 150,225 150,225,0"/>
+				</svg>
+			</div>
+			<table>
+				<caption>2020年4月</caption>
+				<thead>
+					<tr>
+						<th>一</th>
+						<th>二</th>
+						<th>三</th>
+						<th>四</th>
+						<th>五</th>
+						<th>六</th>
+						<th>日</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>30<br />初七</td>
+						<td>31<br />初八</td>
+						<td>1<br />愚人节</td>
+						<td>2<br />初十</td>
+						<td>3<br />十一</td>
+						<td>4<br />清明节</td>
+						<td>5<br/>十三</td>
+					</tr>
+					<tr>
+						<td>6<br />十四</td>
+						<td>7<br />十五</td>
+						<td>8<br />十六</td>
+						<td>9<br />十七</td>
+						<td>10<br />十八</td>
+						<td>11<br />十九</td>
+						<td>12<br />廿十</td>
+					</tr>
+					<tr>
+						<td>13<br />廿一</td>
+						<td>14<br />廿二</td>
+						<td>15<br />廿三</td>
+						<td>16<br />廿四</td>
+						<td>17<br />廿五</td>
+						<td>18<br />廿六</td>
+						<td>19<br />谷雨</td>
+					</tr>
+					<tr>
+						<td>20<br />廿八</td>
+						<td>21<br />廿九</td>
+						<td>22<br />三十</td>
+						<td>23<br />初一</td>
+						<td>24<br />初二</td>
+						<td>25<br />初三</td>
+						<td>26<br />初四</td>
+					</tr>
+
+					<tr>
+						<td>27<br />初五</td>
+						<td>28<br />初六</td>
+						<td>29<br />初七</td>
+						<td>30<br />初八</td>
+						<td>1<br />劳动节</td>
+						<td>2<br />初十</td>
+						<td>3<br />十一</td>
+					</tr>
+					<tr>
+						<td>4<br />青年节</td>
+						<td>5<br />立夏</td>
+						<td>6<br />十四</td>
+						<td>7<br />十五</td>
+						<td>8<br />十六</td>
+						<td>9<br />十七</td>
+						<td>10<br />母亲节</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script>
+			// 添加特殊 td 的 css 类
+
+			const tds = document.getElementsByTagName('td');
+
+			let cur_checked = index();
+
+			if (~cur_checked) {
+				cur_checked = tds[cur_checked];
+				cur_checked.classList.add('today', 'checked');
+			} else {
+				cur_checked = tds[0];
+			}
+			
+			[[[[2, 30, 2], [4, 1, 10]], 'other'],
+			[[[3, 4, 3], [4, 1, 5]], 'rest'],
+			[[[3, 26, 1], [4, 9, 1]], 'work']].forEach(r => r[0].forEach(i => {
+				for (let j = index(2020, i[0], i[1]), k = j + i[2]; j < k; tds[j++].classList.add(r[1]));
+			}));
+			
+			// 绑定 td 点击事件：切换样式
+
+			function tdClick(e) {
+				cur_checked.classList.remove('checked');
+				this.classList.add('checked');
+				cur_checked = this;
+			}
+
+			[].forEach.call(tds, ele => ele.onclick = tdClick);
+			
+			/**
+			 * 获取日期对应的 td 位置下标
+			 * @return {Number} 返回下标，不在日历范围内返回 -1
+			 */
+			function index() {
+				let i = (new (Function.prototype.bind.apply(Date, [0].concat(Array.from(arguments))))() - new Date(2020, 2, 30)) / (1000 * 60 * 60 * 24) | 0;
+				return i >= 0 && i < 42 ? i : -1;
+			}
+
+			// 外层 div 滚动处理
+
+			const div = document.querySelector('.scrollable');
+			
+			let cur_frame_id;
+			let speed = 2;
+			
+			div.onmouseenter = function() {
+				cancelAnimationFrame(cur_frame_id);
+			}
+			
+			div.onmouseleave = function() {
+				cur_frame_id = requestAnimationFrame(autoScroll);
+			}
+			
+			div.onmouseleave();
+			
+			function autoScroll() {
+				scrollThrough(div, 0, speed);
+				cur_frame_id = requestAnimationFrame(autoScroll);
+			}
+			
+			div.onmousewheel = function(e) {
+				scroll(this, e.deltaX, e.deltaY);
+			}
+			
+			function scroll(ele, dx, dy) {
+				const
+					sx = dx / 177,
+					sy = dy / 177,
+					startTime = new Date();
+				let
+					lx = 0,
+					ly = 0;
+				(function scrollFrame() {
+					const dt = new Date() - startTime;
+					if (dt >= 177) {
+						scrollThrough(ele, dx - lx, dy - ly);
+					} else {
+						const
+							ox = Math.round(sx * dt),
+							oy = Math.round(sy * dt);
+						scrollThrough(ele, ox - lx, oy - ly);
+						lx = ox;
+						ly = oy;
+						requestAnimationFrame(scrollFrame);
+					}
+				})();
+			}
+			
+			function scrollThrough(ele, dx, dy) {
+				const
+					w = ele.scrollWidth - ele.clientWidth,
+					h = ele.scrollHeight - ele.clientHeight,
+					left = (ele.scrollLeft + dx) % w,
+					top = (ele.scrollTop + dy) % h;
+				ele.scrollTo(left < 0 ? left + w : left, top < 0 ? top + h : top);
+			}
+
+			// 游戏逻辑
+			
+			const TOLERANCE = 16; // 容错范围
+			
+			const svg = document.querySelectorAll('svg');
+
+			document.querySelector('.center>div').style.height = document.querySelector('table').offsetHeight + TOLERANCE * 2 + 'px';
+			
+			div.addEventListener('mouseenter', function() {
+				if (Math.abs((this.scrollHeight - this.clientHeight) / 2 - this.scrollTop) <= TOLERANCE) {
+					this.classList.add('win');
+					svg.forEach(ele => ele.style.animationPlayState = 'running');
+					speed += 2;
+				} else {
+					this.classList.remove('win');
+					svg.forEach(ele => ele.style.animationPlayState = 'paused');
+				}
+			});
+			
+			function svgClick() {
+				scroll(div, 0, (div.scrollHeight - div.clientHeight) / 2 - div.scrollTop);
+				div.classList.add('win');
+			}
+			
+			svg.forEach(ele => ele.onclick = svgClick);
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>寻雷-----by 十一郎</title> 
+<style type="text/css"> 
+<!-- 
+td { 
+font-size: 18px; 
+font-weight: bold; 
+color: #FF0000; 
+text-align: center; 
+height: 25px; 
+width: 25px; 
+border-top-width: 1px; 
+border-right-width: 2px; 
+border-bottom-width: 2px; 
+border-left-width: 1px; 
+border-top-style: solid; 
+border-right-style: solid; 
+border-bottom-style: solid; 
+border-left-style: solid; 
+border-top-color: #0000FF; 
+border-right-color: #0000FF; 
+border-bottom-color: #0000FF; 
+border-left-color: #0000FF; 
+} 
+div { 
+font-family: "宋体", "新宋体", "黑体"; 
+font-size: 12px; 
+font-weight: bold; 
+color: #00e000; 
+float: none; 
+margin-right: auto; 
+margin-left: auto; 
+height: 100px; 
+width: 500px; 
+text-align: center; 
+} 
+--> 
+</style> 
+<script language="javascript"> 
+var data=new Array(10);
+for(i=0;i<10;i++){
+data[i]=[0,0,0,0,0,0,0,0,0,0];
+}
+var da=new Array(10);
+for(i=0;i<10;i++){
+da[i]=[0,0,0,0,0,0,0,0,0,0];
+}
+var ss=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+var first=1;
+var ge=100;
+function sl(n,m){
+var count=0;
+do{ 
+var a=Math.floor(Math.random()*10); 
+var b=Math.floor(Math.random()*10); 
+if(data[a][b]!="shit"){ 
+if(a==n&&b==m){
+continue;
+}
+var ee=0;
+for(k in ss){
+if(a==n+ss[k][0]&&b==m+ss[k][1]){
+ee=1;
+}
+}
+if(ee){
+continue;
+}
+data[a][b]="shit"; 
+count+=1;
+for(k in ss){
+var p=a+ss[k][0],q=b+ss[k][1];
+if(p>=0&&p<10&&q>=0&&q<10&&data[p][q]!="shit"){
+data[p][q]++;
+}
+}
+} 
+}while(count<10) 
+}
+function pop(){ 
+event.bubbles=true; 
+var number=parseInt(event.srcElement.getAttribute("id")); 
+var j=number % 10; 
+var i=(number-j)/10; 
+if(da[i][j]==1)return;
+if(first){
+first=0;
+sl(i,j);
+}
+if(data[i][j]=="shit"){ 
+alert(number+": boom！！！中雷了！！！"); 
+check();
+return; 
+} 
+document.getElementById(event.srcElement.getAttribute("id")).innerHTML=data[i][j]; 
+da[i][j]=1;ge--;
+if(data[i][j]==0){ 
+var dat=[[i,j]];
+for(g=0;g<dat.length;g++){
+for(k in ss){ 
+var p=dat[g][0]+ss[k][0],q=dat[g][1]+ss[k][1];
+var r=""+p+""+q; 
+var oElement=document.getElementById(r); 
+if(oElement&&da[p][q]==0){
+oElement.innerHTML=data[p][q]; 
+da[p][q]=1;ge--;
+if(data[p][q]==0){
+//var ee=1;
+//for(x in dat)if(p==dat[x][0]&&q==dat[x][1]){ee=0;break;}
+//if(ee)
+dat.push([p,q]);
+}
+}
+} 
+}
+} 
+document.getElementById("100").innerHTML=""+ge;
+if(ge==10){
+alert("全部雷都找出来了，成功过关！！！");
+check();
+}
+} 
+function check(){ 
+ge=0;
+for(var i=0;i<10;i++){ 
+for(var j=0;j<10;j++){ 
+var no=""+i+""+j; 
+document.getElementById(no).innerHTML=data[i][j]; 
+da[i][j]=1;
+}}} 
+</script> 
+</head> 
+
+<body> 
+<table id="lei" border="1" align="center" onclick="pop();" > 
+<tr> 
+<td id="00">&nbsp;</td> 
+<td id="01">&nbsp;</td> 
+<td id="02">&nbsp;</td> 
+<td id="03">&nbsp;</td> 
+<td id="04">&nbsp;</td> 
+<td id="05">&nbsp;</td> 
+<td id="06">&nbsp;</td> 
+<td id="07">&nbsp;</td> 
+<td id="08">&nbsp;</td> 
+<td id="09">&nbsp;</td> 
+</tr> 
+<tr> 
+<td id="10">&nbsp;</td> 
+<td id="11">&nbsp;</td> 
+<td id="12">&nbsp;</td> 
+<td id="13">&nbsp;</td> 
+<td id="14">&nbsp;</td> 
+<td id="15">&nbsp;</td> 
+<td id="16">&nbsp;</td> 
+<td id="17">&nbsp;</td> 
+<td id="18">&nbsp;</td> 
+<td id="19">&nbsp;</td> 
+</tr> 
+<tr> 
+<td id="20">&nbsp;</td> 
+<td id="21">&nbsp;</td> 
+<td id="22">&nbsp;</td> 
+<td id="23">&nbsp;</td> 
+<td id="24">&nbsp;</td> 
+<td id="25">&nbsp;</td> 
+<td id="26">&nbsp;</td> 
+<td id="27">&nbsp;</td> 
+<td id="28">&nbsp;</td> 
+<td id="29">&nbsp;</td> 
+</tr> 
+<tr> 
+<td id="30">&nbsp;</td> 
+<td id="31">&nbsp;</td> 
+<td id="32">&nbsp;</td> 
+<td id="33">&nbsp;</td> 
+<td id="34">&nbsp;</td> 
+<td id="35">&nbsp;</td> 
+<td id="36">&nbsp;</td> 
+<td id="37">&nbsp;</td> 
+<td id="38">&nbsp;</td> 
+<td id="39">&nbsp;</td> 
+</tr> 
+<tr> 
+<td id="40">&nbsp;</td> 
+<td id="41">&nbsp;</td> 
+<td id="42">&nbsp;</td> 
+<td id="43">&nbsp;</td> 
+<td id="44">&nbsp;</td> 
+<td id="45">&nbsp;</td> 
+<td id="46">&nbsp;</td> 
+<td id="47">&nbsp;</td> 
+<td id="48">&nbsp;</td> 
+<td id="49">&nbsp;</td> 
+</tr> 
+<tr> 
+<td id="50">&nbsp;</td> 
+<td id="51">&nbsp;</td> 
+<td id="52">&nbsp;</td> 
+<td id="53">&nbsp;</td> 
+<td id="54">&nbsp;</td> 
+<td id="55">&nbsp;</td> 
+<td id="56">&nbsp;</td> 
+<td id="57">&nbsp;</td> 
+<td id="58">&nbsp;</td> 
+<td id="59">&nbsp;</td> 
+</tr> 
+<tr> 
+<td id="60">&nbsp;</td> 
+<td id="61">&nbsp;</td> 
+<td id="62">&nbsp;</td> 
+<td id="63">&nbsp;</td> 
+<td id="64">&nbsp;</td> 
+<td id="65">&nbsp;</td> 
+<td id="66">&nbsp;</td> 
+<td id="67">&nbsp;</td> 
+<td id="68">&nbsp;</td> 
+<td id="69">&nbsp;</td> 
+</tr> 
+<tr> 
+<td id="70">&nbsp;</td> 
+<td id="71">&nbsp;</td> 
+<td id="72">&nbsp;</td> 
+<td id="73">&nbsp;</td> 
+<td id="74">&nbsp;</td> 
+<td id="75">&nbsp;</td> 
+<td id="76">&nbsp;</td> 
+<td id="77">&nbsp;</td> 
+<td id="78">&nbsp;</td> 
+<td id="79">&nbsp;</td> 
+</tr> 
+<tr> 
+<td id="80">&nbsp;</td> 
+<td id="81">&nbsp;</td> 
+<td id="82">&nbsp;</td> 
+<td id="83">&nbsp;</td> 
+<td id="84">&nbsp;</td> 
+<td id="85">&nbsp;</td> 
+<td id="86">&nbsp;</td> 
+<td id="87">&nbsp;</td> 
+<td id="88">&nbsp;</td> 
+<td id="89">&nbsp;</td> 
+</tr> 
+<tr> 
+<td id="90">&nbsp;</td> 
+<td id="91">&nbsp;</td> 
+<td id="92">&nbsp;</td> 
+<td id="93">&nbsp;</td> 
+<td id="94">&nbsp;</td> 
+<td id="95">&nbsp;</td> 
+<td id="96">&nbsp;</td> 
+<td id="97">&nbsp;</td> 
+<td id="98">&nbsp;</td> 
+<td id="99">&nbsp;</td> 
+<td id="100">&nbsp;</td>
+</tr> 
+</table> 
+</body> 
+</html> 

@@ -1,0 +1,112 @@
+var c = canvas.getContext('2d');
+var w = canvas.width = innerWidth
+var h = canvas.height = innerHeight;
+var cx = w / 2, cy = h / 2;
+
+var r = 500;
+var long = r - 80;
+var short = r - 40;
+var tR = 380;
+var lC = '#000';
+var lW = c.lineWidth;
+var lP = c.lineCap;
+
+var hHand = {
+  length: 200,
+  width: 40,
+  cap: 'round',
+  color: '#000'
+}
+var iHand = {
+  length: 280,
+  width: 20,
+  cap: 'round',
+  color: '#000'
+}
+var sHand = {
+  length: 380,
+  width: 10,
+  cap: 'round',
+  color: '#f00'
+}
+
+var lastTime;
+
+init();
+run();
+
+function run() {
+  var d = new Date();
+  d = Math.floor(d.getTime() / 1000) - d.getTimezoneOffset() * 60;
+  if(d != lastTime) {
+    lastTime = d;
+    draw(d);
+  }
+  setTimeout(run, 50);
+}
+
+//绘制
+function draw(time) {
+  c.clearRect(0, 0, w, h);
+  
+  c.lineWidth = lW;
+  c.lineCap = lP;
+  drawCircle(r + 10, lC);
+  
+  var i = 5;
+  while(1) {
+    if(i % 5) {
+      drawLine(rad(i, 60), short, r, lC);
+    } else {
+      if(i == 65) break;
+      var ang = rad(i, 60);
+      drawLine(ang, long, r, lC);
+      c.fillText(
+        Math.floor(i / 5),
+        cx + Math.sin(ang) * tR,
+        cy - Math.cos(ang) * tR);
+    }
+    ++i;
+  }
+  
+  drawHand(rad(time, 43200), hHand);
+  drawHand(rad(time, 3600), iHand);
+  drawHand(rad(time, 60), sHand);
+}
+
+//画针
+function drawHand(ang, hand) {
+  c.lineWidth = hand.width;
+  c.lineCap = hand.cap;
+  drawLine(ang, 0, hand.length, hand.color);
+}
+
+//画线
+function drawLine(ang, r, R, color) {
+  var sin = Math.sin(ang);
+  var cos = Math.cos(ang);
+  c.beginPath();
+  c.moveTo(cx + sin * r, cy - cos * r);
+  c.lineTo(cx + sin * R, cy - cos * R);
+  c.strokeStyle = color;
+  c.stroke();
+}
+
+//画圆
+function drawCircle(r, color) {
+  c.beginPath();
+  c.arc(cx, cy, r, 0, Math.PI * 2);
+  c.strokeStyle = color;
+  c.stroke();
+}
+
+//弧度
+function rad(a, b) {
+  return Math.PI * 2 * a / b;
+}
+
+function init() {
+  c.textAlign = 'center';
+  c.textBaseline = 'middle';
+  c.font = '50px monospace';
+}

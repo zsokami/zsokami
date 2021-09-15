@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			.box {
+				background: #000;
+				opacity: 0.5;
+			}
+
+			/* 1、父元素添加 ::after 清除浮动 (推荐) */
+			.box::after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+
+			/* 2、父元素 overflow 设为非 visible 值 (推荐) */
+			.box {
+				overflow: hidden;
+			}
+
+			/* 3、父元素改为行内块元素 */
+			.box {
+				display: inline-block;
+				width: 100%;
+			}
+
+			/* 4、父元素改为浮动元素，其后的一个元素清除浮动 */
+			.box {
+				float: left;
+				width: 100%;
+			}
+			.box+* {
+				clear: both;
+			}
+
+			/**
+			 * 总结：
+			 * 方法 1 中，伪元素清除浮动使得其位于浮动元素下方，
+			 * 因为本身不是浮动元素，所以能够被父元素看到并包裹。
+			 * 方法 2 3 4 则是触发 BFC，利用了 BFC 可以看到浮动元素的特性。
+			 */
+
+			.item {
+				background: red;
+				width: 100px;
+				height: 100px;
+				margin: 20px;
+				float: left;
+			}
+
+			.other {
+				background: blue;
+				width: 50px;
+				height: 50px;
+			}
+			
+			span {
+				background: orange;
+			}
+			
+			.top {
+				background: blue;
+				width: 50%;
+				height: 100px;
+				float: left;
+				/* position: relative;
+				z-index: -1; */
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div class="top"></div> -->
+		<div class="box">
+			<div class="item"></div>
+			<div class="item"></div>
+		</div>
+		<div class="box">
+			<div class="item"></div>
+		</div>
+		<span>aaa</span>
+		<div class="other">1</div>
+		<div class="other">2</div>
+		<div class="other">3</div>
+		<div class="other">4</div>
+		<div class="other">5</div>
+		<div class="other">6</div>
+		<div class="other">7</div>
+		<div class="other">8</div>
+		<div class="other">9</div>
+		<div class="other">10</div>
+	</body>
+</html>

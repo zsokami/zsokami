@@ -1,0 +1,102 @@
+/*幻灯片CSS*/
+.content{
+	width: 1280px;
+	margin: 0 auto;
+}
+#slider {
+	float: left;
+	width: 100%;
+	height: 500px;
+	position: relative;
+	overflow: hidden;
+	border: solid 1px #b99f81;
+	margin: 0 auto;
+}
+/*#slider ul#show {
+	width:463px;
+	height:1201px;
+	position:absolute;
+	top: 2px;
+	left: 1px;
+}*/
+#slider ul#show {
+	width:7290px;
+	height:500px;
+	position:absolute;
+}
+#slider ul#show li {
+	float:left;
+	cursor:pointer;
+}
+#slider img {
+	display:block;
+	width:1280px;
+	height:500px!important;/*火狐*/
+
+ 	*height:300px!important;/*IE7+*/
+	height:296px;/*IE6*/
+}
+
+.aui-banner-circle ul li {
+	display: inline-block;
+	vertical-align: baseline;
+	zoom: 1;
+	width: 6px;
+	height: 6px;	
+	background: url(../img/icon-q1.png) no-repeat;
+	background: url(../img/icon-q1.png) no-repeat\9;
+	background-size: 6px 6px;
+	border-radius: 2px;
+	cursor: pointer;
+	margin-left: 4px;
+	margin-right: 4px;
+}
+
+.aui-banner-circle ul .on {
+	width: 24px;
+	height: 6px;
+	background: url(../img/icon-q2.png) no-repeat;
+	background: url(../img/icon-q2.png) no-repeat\9;
+	background-size: 24px 6px;
+}
+
+.aui-banner-circle {
+	position: absolute;
+	display: inline-block;
+	vertical-align: baseline;
+	zoom: 1;
+	width: auto;
+	bottom: 40px;
+	padding: 5px 46%;
+	padding-bottom: 3px;
+	border-radius: 16px;
+	text-align: center;
+}
+#number {
+	width:150px;
+	height:25px;
+	position:absolute;
+	bottom:5px;
+	right:5px;
+}
+#number li {
+	float:left;
+	width:20px;
+	height:20px;
+	text-align:center;
+	line-height:20px;
+	background:#fff;
+	border:solid 1px #b50000;
+	margin-left:5px;
+}
+#number li.on {
+	color: #fff;
+	line-height:20px;
+	width: 20px;
+	height: 20px;
+	font-size: 14px;
+	border:none;
+	background:#b50000;
+	font-weight: bold;
+	cursor:pointer;
+}

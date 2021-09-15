@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			body {
+				width: max-content;
+				margin: auto;
+			}
+		</style>
+		<script src="js/GET.js"></script>
+	</head>
+	<body>
+		<script>
+			if (!GET['name']) {
+				document.write('<h2>请先登录</h2><p><span id="countdown"></span>秒后自动跳转登录页面，<a href="login.html">立即跳转</a></p>');
+				jump(3, 'login.html');
+			} else {
+				document.write(`<h2>${GET['name']}，您好</h2>`);
+				GET['email'] && document.write(`<p>您的邮箱是：${GET['email']}</p>`);
+			}
+
+			function jump(sec, url) {
+				(function update() {
+					countdown && (countdown.innerText = sec);
+					if (sec > 0) {
+						sec--;
+						setTimeout(update, 1000);
+					} else {
+						location.href = url;
+					}
+				})();
+			}
+		</script>
+	</body>
+</html>

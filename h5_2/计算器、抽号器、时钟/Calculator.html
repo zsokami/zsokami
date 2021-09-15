@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>计算器</title>
+		<style>
+			#container {
+				display: grid;
+				grid-template-columns: repeat(4, 40px);
+				grid-auto-rows: 40px;
+				gap: 6px;
+				background: #ccc;
+				padding: 6px;
+				width: min-content;
+				margin: auto;
+				border-radius: 12px;
+				box-shadow: 3px 3px 1px #bbb, 4px 4px 8px #bbb;
+			}
+
+			#container>* {
+				font: 1.2em bold;
+				border-radius: 6px;
+				line-height: 40px;
+				user-select: none;
+			}
+
+			#out {
+				grid-column: span 4;
+				background: #fff;
+				padding: 0 6px;
+				overflow: hidden;
+				white-space: nowrap;
+				box-shadow: 2px 2px 4px #888 inset;
+			}
+
+			#out~* {
+				text-align: center;
+				background: #efefef;
+				box-shadow: 2px 2px 2px #999;
+				transition: 0.1s;
+			}
+
+			#out~:hover {
+				background: #e6e6e6;
+			}
+
+			#out~:active, #out~.active {
+				background: #e0e0e0;
+				box-shadow: 0 0 0 #999, 0.5px 0.5px 2px #999 inset;
+				transform: scale(0.97);
+			}
+
+			.wide {
+				grid-column: span 2;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div id="out"></div>
+			<div class="wide">AC</div>
+			<div>/</div>
+			<div>%</div>
+			<div>7</div>
+			<div>8</div>
+			<div>9</div>
+			<div>+</div>
+			<div>4</div>
+			<div>5</div>
+			<div>6</div>
+			<div>-</div>
+			<div>1</div>
+			<div>2</div>
+			<div>3</div>
+			<div>*</div>
+			<div class="wide">0</div>
+			<div>.</div>
+			<div>=</div>
+		</div>
+		<script src="js/Calculator.js"></script>
+	</body>
+</html>

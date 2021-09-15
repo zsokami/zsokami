@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			form {
+				background: #fafafa;
+			}
+			* {
+				--normal-c: #DADCE0;
+				--active-c: skyblue;
+				font-family: sans-serif;
+			}
+			
+			form {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				width: 16rem;
+			}
+			
+			hr {
+				margin: 0;
+				border: none;
+				width: 100%;
+			}
+			
+			label, input {
+				margin: 4px 0;
+			}
+			
+			input[type=radio], input[type=checkbox] {
+				margin: 0 0.5rem;
+			}
+			
+			.control {
+				font-size: 1rem;
+				border: 1px solid var(--normal-c);
+				border-radius: 6px;
+				padding: 6px;
+				margin: 1px;
+				box-sizing: border-box;
+				flex: 1;
+			}
+			
+			.control:focus {
+				border-color: var(--active-c);
+				outline: none;
+			}
+			
+			#pwd {
+				padding-right: 1.3rem;
+			}
+			
+			#reveal {
+				width: 0;
+				height: 1rem;
+				position: relative;
+				left: calc((-17px) / 2 - 0.75rem);
+				cursor: pointer;
+				fill: var(--normal-c);
+			}
+			
+			#reveal.checked {
+				fill: var(--active-c);
+			}
+			
+			textarea {
+				resize: none;
+			}
+			
+			input[type=radio] {
+				display: none;
+			}
+			
+			input[type=radio]:checked+*::before {
+				content: "";
+				display: inline-block;
+				width: 1em;
+				height: 1em;
+				
+			}
+			
+			input[type=radio]:checked+* {
+				background: red;
+			}
+			
+			#submit {
+				--l: 74.7%;
+				--bg: hsl(300, 47.3%, var(--l));
+				--dir: bottom;
+				width: 4em;
+				height: 2em;
+				margin: 1em;
+				border-radius: 1em;
+				border: 2px outset var(--bg);
+				background: linear-gradient(to var(--dir), white, var(--bg));
+				color: #800080;
+			}
+			
+			#submit:hover {
+				--l: 80%;
+			}
+			
+			#submit:active {
+				border-style: inset;
+				--dir: top;
+			}
+			
+			#submit:focus {
+				outline: none;
+			}
+		</style>
+	</head>
+	<body>
+		<form action="" method="post" name="form1" id="form2">
+			<h3>申请表</h3>
+			<hr>
+			<label>姓名：</label><input class="control" name="name1" id="name2" type="text" pattern="[0-9]+">
+			<hr>
+			<label>密码：</label><input class="control" type="password" id="pwd">
+			<label for="pwd" id="reveal">
+				<svg width="1rem" height="1rem" viewBox="0 0 1433 1024">
+					<path d="M716.8 989.9008c-242.0736 0-462.848-137.0112-662.3232-410.9312-27.136-37.1712-27.136-96.768 0-133.9392C253.952
+			171.1104 474.7264 34.0992 716.8 34.0992s462.848 137.0112 662.3232 410.9312c27.136 37.1712 27.136 96.768 0 133.9392C1179.648 852.8896
+			958.8736 989.9008 716.8 989.9008z m0-819.2C514.3552 170.7008 327.2704 281.8048 150.7328 512 327.2704 742.1952 514.2528 853.2992
+			716.8 853.2992c202.4448 0 389.5296-111.104 566.0672-341.2992C1106.3296 281.8048 919.3472 170.7008 716.8 170.7008z m0 563.2a221.9008
+			221.9008 0 1 1 0-443.8016 221.9008 221.9008 0 0 1 0 443.8016zM716.8 614.4a102.4 102.4 0 1 0 0-204.8 102.4 102.4 0 0 0 0 204.8z"></path>
+				</svg>
+			</label>
+			<hr>
+			<label>照片：</label>
+			<hr>
+			<input type="file">
+			<hr>
+			<label>感兴趣的职位：</label>
+			<hr>
+			<input type="radio" name="position" id="p1"><label for="p1">Web设计</label>
+			<input type="radio" name="position" id="p2"><label for="p2">Web开发</label>
+			<hr>
+			<label>向往城市：</label>
+			<select class="control">
+				<option hidden>请选择</option>
+				<option value="0">广东</option>
+				<option value="1">深圳</option>
+			</select>
+			<hr>
+			<label>协议：</label>
+			<hr>
+			<textarea class="control" rows="5" readonly>求职信息必须真实、准确，本网站只负责向企业推荐。</textarea>
+			<hr>
+			<input type="checkbox" id="c1"><label for="c1">我认真阅读并接受以上协议。</label>
+			<hr>
+			<label>经验：</label>
+			<select class="control">
+				<option value="0">无经验</option>
+				<option value="1">有经验</option>
+			</select>
+			<hr>
+			<input type="submit" id="submit">
+			<input type="reset">
+		</form>
+		<script>
+			reveal.onclick = function() {
+				reveal.classList.toggle('checked');
+				pwd.type = reveal.classList.contains('checked') ? 'text' : 'password';
+			}
+		</script>
+	</body>
+</html>

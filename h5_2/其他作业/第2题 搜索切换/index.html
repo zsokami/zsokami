@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="./css/style.css">
+<title>搜索切换</title>
+
+<script src="js/jquery.min.js"></script>
+<script>
+	$(function() {
+		$('#search-bd li').mouseenter(function() {
+			$(this).addClass('selected').siblings().removeClass('selected');
+			$('.pholder').eq($(this).index()).removeClass('s2').siblings('.pholder').addClass('s2');
+		});
+	});
+</script>
+</head>
+<body>
+
+<div class="search-form">
+	<div id="search-bd" class="search-bd">
+		<ul>
+			<li class="selected">找商品</li>
+			<li>找商家</li>
+		</ul>
+	</div>
+	<div id="search-hd" class="search-hd">
+		<div class="search-bg"></div>
+		<input type="text" id="s1" class="search-input">
+		<input type="text" id="s2" class="search-input">
+		<span class="s1 pholder">食品半价抢疯</span>
+		<span class="s2 pholder">搜商家名称</span>
+		<button id="submit" class="btn-search" value="搜索">搜索</button>
+	</div>
+</div>
+</body>
+</html>

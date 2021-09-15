@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#t1, #t2, #t3 {
+				float: left;
+				margin: 8px;
+			}
+			
+			#t2 {
+				background: black;
+				border-spacing: 2;
+			}
+			
+			#t2 * {
+				background: white;
+			}
+			
+			#t3 {
+				border-collapse: collapse;
+			}
+			
+			#t3 * {
+				border: 2px solid black;
+			}
+			
+			#tb {
+				border-collapse: collapse;
+			}
+			
+			#tb caption {
+				font-size: 1.5em;
+				font-weight: bold;
+				color: purple;
+			}
+			
+			#tb td {
+				border: 2px dashed green;
+				color: green;
+			}
+			
+			#tb>thead th {
+				border: 2px solid red;
+				border-bottom: none;
+				color: red;
+				background: #fee;
+			}
+			
+			#tb>tfoot th {
+				border: 2px solid blue;
+				border-top: none;
+				color: blue;
+				background: #eef;
+			}
+			
+			col:nth-child(1) {
+				background: #ffe;
+			}
+			
+			col:nth-child(2) {
+				background: #efe;
+			}
+			
+			td {
+				text-align: center;
+			}
+			
+			table {
+				margin: 20px;
+				float: left;
+			}
+
+			br {
+				clear: both;
+			}
+			
+			p {
+				margin: 0 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<table id="t1" bordercolor="black" border="1" cellspacing="0">
+			<tr>
+				<th colspan="2">Header</th>
+			</tr>
+			<tr>
+				<td rowspan="2">1</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>3</td>
+			</tr>
+			<tr>
+				<td rowspan="2">Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+			</tr>
+		</table>
+
+		<table id="t2">
+			<tr>
+				<th colspan="2">Header</th>
+			</tr>
+			<tr>
+				<td rowspan="2">Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td rowspan="2">Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+			</tr>
+		</table>
+
+		<table id="t3">
+			<tr>
+				<th colspan="2">Header</th>
+			</tr>
+			<tr>
+				<td rowspan="2">Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td rowspan="2">Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+			</tr>
+		</table>
+
+		<table id="tb">
+			<caption>Title</caption>
+			<colgroup>
+				<col />
+				<col />
+			</colgroup>
+			<thead>
+				<tr>
+					<th colspan="2">Header</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr>
+					<td rowspan="2">Data</td>
+					<td>Data</td>
+				</tr>
+				<tr>
+					<td>Data</td>
+				</tr>
+				<tr>
+					<td rowspan="2">Data</td>
+					<td>Data</td>
+				</tr>
+				<tr>
+					<td>Data</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="2">Footer</th>
+				</tr>
+			</tfoot>
+		</table>
+		<br />
+		
+		<table border="1">
+			<tr>
+				<td rowspan="2">跨行</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+		</table>
+		<table border="1">
+			<tr>
+				<td colspan="2">跨列</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+		</table>
+		<table border="1">
+			<tr>
+				<td rowspan="2" colspan="2">跨行 跨列</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+		</table>
+		<br />
+		<p>
+			在跨行时，被跨的行的单元格数量应相应的减少
+		</p>
+	</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="css/my_control.css">
+		<style>
+			form {
+				display: grid;
+				grid-template-columns: auto auto;
+				justify-content: start;
+				align-items: center;
+				gap: 10px;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<form>
+			<label>编号：</label>
+			<input type="text" class="control" id="no">
+			<label>姓名：</label>
+			<input type="text" class="control" id="name">
+		</form>
+		<input type="button" class="control" value="点击选择" onclick="open('select.html', null, `left=${screenLeft+offsetLeft},top=${screenTop+offsetTop+120},width=200,height=200`)">
+	</body>
+</html>

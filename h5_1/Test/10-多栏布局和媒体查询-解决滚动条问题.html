@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.wrapper {
+				overflow: hidden;
+			}
+
+			header, footer, header>* {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: white;
+			}
+
+			header, footer {
+				background: darkgrey;
+				min-height: 50px;
+			}
+
+			header>* {
+				background: rgba(0, 0, 0, 0.3);
+				flex: none;
+				width: 100px;
+				height: 100px;
+				margin: 10px;
+			}
+
+			header>:first-child {
+				animation: float-from-bottom 1s both, left-anim 6s 3s infinite;
+			}
+
+			header>:last-child {
+				animation: float-from-right 1s 1s both, right-anim 6s 3s infinite;
+			}
+
+			article {
+				column-count: 2;
+				/* column-width: 200px; */
+				gap: 50px;
+				column-rule: 3px dotted grey;
+				/* height: 50vh;
+				column-fill: auto; */
+			}
+
+			/* @media (max-width: 600px) {
+				article {
+					column-count: 1;
+				}
+			} */
+
+			@media (orientation: portrait) {
+				article {
+					column-count: 1;
+				}
+			}
+
+			article {
+				margin: 1rem 0;
+			}
+			
+			article * {
+				margin: 0 0 1rem 0;
+			}
+
+			h1, h3 {
+				text-align: center;
+			}
+
+			h1 {
+				padding: 1rem 0;
+				column-span: all;
+			}
+
+			section {
+				break-inside: avoid;
+			}
+
+			p {
+				text-indent: 2em;
+			}
+
+			@keyframes float-from-bottom {
+				from {
+					transform: translateY(1000px);
+					opacity: 0;
+				}
+			}
+
+			@keyframes float-from-right {
+				from {
+					transform: translateX(1000px);
+					opacity: 0;
+				}
+			}
+
+			@keyframes left-anim {
+				10%, 20% {
+					transform: translateX(200%);
+				}
+
+				30% {
+					transform: translateX(-1000%);
+				}
+
+				40%, 50% {
+					transform: translateX(-200%);
+				}
+
+				60% {
+					transform: translate(-200%, 1000%);
+				}
+
+				70%, 80% {
+					transform: translateX(-200%);
+				}
+			}
+			
+			@keyframes right-anim {
+				10%, 20% {
+					transform: translateX(-200%);
+				}
+			
+				30% {
+					transform: translateX(1000%);
+				}
+			
+				40%, 50% {
+					transform: translateX(200%);
+				}
+			
+				60% {
+					transform: translate(200%, 1000%);
+				}
+			
+				70%, 80% {
+					transform: translateX(200%);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<header>
+				<div>平</div>
+				<div>移</div>
+			</header>
+			<article>
+				<h1>多栏布局和媒体查询</h1>
+				<section>
+					<h3>标题</h3>
+					<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p>
+					<p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p>
+				</section>
+				<section>
+					<h3>标题</h3>
+					<p>内内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p>
+				</section>
+			</article>
+			<footer>footer</footer>
+		</div>
+	</body>
+</html>

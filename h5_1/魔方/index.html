@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>魔方</title>
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				margin: 0;
+				overflow: hidden;
+			}
+
+			.magic-cube {
+				--primary-color: black;
+				--magic-cube-size: 300px;
+				--piece-size: calc(var(--magic-cube-size) / 3);
+				position: relative;
+				left: 50%;
+				top: 50%;
+				width: 0;
+				perspective: calc(var(--magic-cube-size) * 4);
+			}
+
+			.magic-cube * {
+				position: absolute;
+				transform-style: preserve-3d;
+			}
+
+			.rotor {
+				transform-origin: 50% 50% calc(var(--magic-cube-size) / -2);
+				transform: rotateX(-30deg) rotateY(30deg);
+			}
+
+			/* 小方块3D定位 */
+
+			.piece {
+				--nhalf: calc(var(--piece-size) / -2);
+				transform-origin: 50% 50% calc(var(--magic-cube-size) / -2);
+				transform: rotate(0) translate3d(calc(var(--piece-size) * (var(--x) - 1)), calc(var(--piece-size) * (var(--y) - 1)), calc(var(--piece-size) * (var(--z) - 2)));
+			}
+
+			.piece:nth-child(3n+1) {
+				--x: 0;
+			}
+
+			.piece:nth-child(3n+2) {
+				--x: 1;
+			}
+
+			.piece:nth-child(3n) {
+				--x: 2;
+			}
+
+			.piece:nth-child(9n+1), .piece:nth-child(9n+2), .piece:nth-child(9n+3) {
+				--y: 0;
+			}
+
+			.piece:nth-child(9n+4), .piece:nth-child(9n+5), .piece:nth-child(9n+6) {
+				--y: 1;
+			}
+
+			.piece:nth-child(9n+7), .piece:nth-child(9n+8), .piece:nth-child(9n+9) {
+				--y: 2;
+			}
+
+			.piece:nth-child(-n+9) {
+				--z: 0;
+			}
+
+			.piece:nth-child(n+10):nth-child(-n+18) {
+				--z: 1;
+			}
+
+			.piece:nth-child(n+19) {
+				--z: 2;
+			}
+
+			/* 小方块的六个面 */
+
+			.piece>* {
+				left: var(--nhalf);
+				top: var(--nhalf);
+				width: var(--piece-size);
+				height: var(--piece-size);
+				background: var(--primary-color);
+				border: calc(var(--piece-size) / 20) solid var(--primary-color);
+				box-sizing: border-box;
+				transform-origin: 50% 50% var(--nhalf);
+			}
+
+			.piece>:nth-child(2) {
+				transform: rotateY(180deg);
+			}
+
+			.piece>:nth-child(3) {
+				transform: rotateY(-90deg);
+			}
+
+			.piece>:nth-child(4) {
+				transform: rotateY(90deg);
+			}
+
+			.piece>:nth-child(5) {
+				transform: rotateX(90deg);
+			}
+
+			.piece>:nth-child(6) {
+				transform: rotateX(-90deg);
+			}
+
+			/* 六大面颜色 */
+
+			.piece:nth-child(3n+1)>:nth-child(3) {
+				background: blue;
+			}
+
+			.piece:nth-child(3n)>:nth-child(4) {
+				background: green;
+			}
+
+			.piece:nth-child(9n+1)>:nth-child(5),
+			.piece:nth-child(9n+2)>:nth-child(5),
+			.piece:nth-child(9n+3)>:nth-child(5) {
+				background: white;
+			}
+
+			.piece:nth-child(9n+7)>:nth-child(6),
+			.piece:nth-child(9n+8)>:nth-child(6),
+			.piece:nth-child(9n+9)>:nth-child(6) {
+				background: yellow;
+			}
+
+			.piece:nth-child(-n+9)>:nth-child(2) {
+				background: red;
+			}
+
+			.piece:nth-child(n+19)>:nth-child(1) {
+				background-color: darkorange;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="magic-cube">
+			<div class="mover">
+				<div class="rotor">
+					<script>
+						document.currentScript.outerHTML = `<div class="piece">${'<div></div>'.repeat(6)}</div>`.repeat(27);
+					</script>
+				</div>
+			</div>
+		</div>
+		<script src="js/index.js"></script>
+	</body>
+</html>

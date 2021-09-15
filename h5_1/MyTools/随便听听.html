@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>随便听听</title>
+	</head>
+	<body>
+		<audio src="https://api.uomg.com/api/rand.music?sort=热歌榜" controls></audio>
+		<script>
+			document.querySelector('audio').onended = function() {
+				// 热歌榜/新歌榜/飙升榜/抖音榜/电音榜
+				this.src = 'https://api.uomg.com/api/rand.music?sort=热歌榜';
+				this.play();
+			}
+		</script>
+	</body>
+</html>

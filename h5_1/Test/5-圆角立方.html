@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			:root {
+				--size: 300px;
+				--w: 300px;
+				/* --r: 0px; */
+				/* --w: calc(var(--size) - var(--r) * 2); */
+			}
+
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				margin: 0;
+				background: black;
+				display: flex;
+			}
+
+			.wrapper {
+				margin: auto;
+				width: var(--w);
+				height: var(--w);
+				perspective: calc(var(--size) * 4);
+			}
+
+			.wrapper * {
+				width: 100%;
+				height: 100%;
+				transform-origin: 50% 50% calc(var(--size) / -2);
+				transform-style: preserve-3d;
+				position: absolute;
+			}
+
+			.rotor {
+				transform: rotateX(-30deg);
+				animation: rot 10s linear infinite;
+			}
+
+			@keyframes rot {
+				to {
+					transform: rotateX(-30deg) rotateY(1turn);
+				}
+			}
+
+			.box {
+				counter-reset: i;
+			}
+
+			.box>:nth-child(-n+6) {
+				background: ghostwhite;
+				display: flex;
+			}
+
+			.box>:nth-child(2) {
+				transform: rotateY(-90deg);
+			}
+
+			.box>:nth-child(3) {
+				transform: rotateX(90deg);
+			}
+
+			.box>:nth-child(4) {
+				transform: rotateX(-90deg);
+			}
+
+			.box>:nth-child(5) {
+				transform: rotateY(90deg);
+			}
+
+			.box>:nth-child(6) {
+				transform: rotateY(180deg);
+			}
+
+			.box>:nth-child(-n+6)::before {
+				margin: auto;
+				counter-increment: i;
+				content: counter(i);
+				font: bold calc(var(--w) / 3) monospace;
+				color: black;
+			}
+			/* 
+			.box>:nth-child(n+7) {
+				background: white;
+			}
+			
+			.box>:nth-child(n+7)::before {
+				content: '';
+				position: absolute;
+				width: var(--w);
+				height: var(--r);
+				transform: matrix3d(1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, -50, -25, 1);
+				background: white;
+			}
+			
+			.box>:nth-child(8) {
+				transform: rotateX(90deg);
+			}
+			
+			.box>:nth-child(9) {
+				transform: rotateX(180deg);
+			}
+			
+			.box>:nth-child(10) {
+				transform: rotateX(270deg);
+			} */
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="rotor">
+				<div class="box">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<!-- 
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div> -->
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

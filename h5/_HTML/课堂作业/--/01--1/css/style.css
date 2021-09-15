@@ -1,0 +1,14 @@
+@charset "utf-8";
+#main {
+	width: 900px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#main #menu {
+	text-align: center;
+	background-image: url(../images/ind_r3_c11.jpg);
+}
+body {
+	background-color: #008785;
+	padding-top: 50px;
+}

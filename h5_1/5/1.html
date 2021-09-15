@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>中国政区简图</title>
+		<style>
+			.wrapper {
+				width: 800px;
+				margin: auto;
+			}
+			
+			.content {
+				padding: 5px 10px;
+				background: #eee;
+			}
+			
+			polygon {
+				stroke-linejoin: round;
+				stroke-linecap: round;
+				fill-rule: evenodd;
+				fill: transparent;
+				fill-opacity: .2;
+				stroke: #666;
+				transition: .5s cubic-bezier(.3, 2, .4, .7);
+			}
+			
+			:not(#China):not(.hover)>polygon {
+				stroke: #999;
+				stroke-dasharray: 1, 6;
+			}
+			
+			.hover polygon {
+				fill: #099;
+				stroke: #099;
+			}
+			
+			text {
+				font-size: 12px;
+				text-anchor: middle;
+				dominant-baseline: middle;
+				transition: .5s cubic-bezier(.3, 2, .4, .7);
+			}
+			
+			.hover text {
+				fill: #099;
+				font-size: 16px;
+				font-weight: bold;
+			}
+			
+			#gotop {
+				position: fixed;
+				right: 5%;
+				bottom: 5%;
+				width: 50px;
+				height: 50px;
+				border: 6px double #099;
+				border-radius: 50%;
+				text-align: center;
+				font: bold 36px/50px 华文彩云;
+				color: #099;
+				background: #eff;
+				cursor: pointer;
+				user-select: none;
+				-webkit-user-select: none;
+				transition: .5s cubic-bezier(.3, 2, .4, .7);
+			}
+			
+			#gotop:hover {
+				border-style: solid;
+				background: #cdd;
+				transition: .5s;
+			}
+			
+			#gotop.hide {
+				bottom: -70px;
+				transition: .5s cubic-bezier(.6, .3, .7, -1);
+			}
+			
+			h2, h3 {
+				text-align: center;
+			}
+			
+			h2 {
+				text-indent: 1em;
+				letter-spacing: 1em;
+				color: #099;
+			}
+			
+			p {
+				text-indent: 3em;
+				letter-spacing: .5em;
+				line-height: 1.5em;
+				text-align: justify;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<svg width="800" height="800"></svg>
+			<div class="content">
+				<h2 id="beijing">北京概况</h2>
+
+				<h3>人口规模</h3>
+
+				<p>2020年，北京市总人口规模规划控制在1800万人左右，年均增长率控制在1.4%以内。其中户籍人口1350万人左右，居住半年以上外来人口450万人左右。</p>
+
+				<p>2020年，北京市城镇人口规模规划控制在1600万人左右，占全市人口的比例为90%左右。</p>
+
+				<p>考虑到影响城市人口集聚的多方面因素及其不确定性，为适应首都城市经济社会的快速发展，根据对城市实际发展速度的动态监测，适时调整城市基础设施建设及城市空间布局，积极应对各种发展状况，始终保持城市规划对城市发展和建设的调控作用，统筹人口、资源与环境，实现协调发展。考虑到人口流动以及其它不确定因素，本次规划的城市基础设施等相关指标暂按2000万人预留。</p>
+
+				<h3>城镇人口引导与分布</h3>
+
+				<p>(1)积极引导人口的合理分布，通过疏散中心城的产业和人口，大力推进城市化进程，促进人口向新城和小城镇集聚。2020年，中心城人口规划控制在850万人以内，新城人口约570万人，小城镇及城镇组团人口约180万人。</p>
+
+				<p>(2)严格控制中心城人口规模，进一步疏解旧城人口，合理调整中心城的人口分布。中心城中心地区人口约540万人(其中旧城人口约110万人)，边缘集团人口约270万人，绿化隔离地区及外围地区人口约40万人。</p>
+
+				<p>(3)积极促进区域协调发展和整体生态环境的改善，引导人口在区域层面上的合理分布，保证远期北京人口规模突破规划控制的1800万人时，区域具有足够的集聚和吸纳能力。　</p>
+
+				<p>(4)加强人口的引导与管理，努力控制首都人口过快增长。坚持计划生育的基本国策，做好流动人口的管理服务工作。积极探索，充分运用法律、经济和行政等多种手段对人口的增长与分布实行有效的引导和调控。</p>
+
+				<h3>城镇人口结构与素质</h3>
+
+				<p>(1)适应北京人口年龄结构变化的趋势，满足不同年龄段人口的工作、生活需要。重点关注进入老龄化社会带来的城市问题和服务需求，在公共服务设施保障等方面提供必要的政策支持。</p>
+
+				<p>(2)结合首都经济社会发展的特点，发挥城市规划的宏观调控作用，积极推动社会结构的持续优化。</p>
+
+				<p>(3)不断增强中心城的辐射带动作用，积极推进城市化进程，大力提高全市人口素质，着力优化中心城的人口素质结构。</p>
+
+				<h3>城镇建设用地规模</h3>
+
+				<p>2020年，北京市建设用地规模控制在1650平方公里，人均建设用地控制在105平方米。其中中心城城镇建设用地规模约778平方公里，人均建设用地控制在92平方米；新城城镇建设用地规模约640平方公里，人均建设用地控制在112平方米；镇及城镇组团城镇建设用地规模约212平方公里，人均建设用地控制在120平方米以内。</p>
+
+				<h3>城镇建设用地控制</h3>
+
+				<p>(1)切实加强土地资源的管理，形成节约用地的发展模式，严格控制城镇建设用地规模。</p>
+
+				<p>(2)建立城市发展的动态监控机制，依据人口增长和经济发展的趋势与变化，调控城市建设用地投放总量和建设时序，并适时调整规划应对方案。</p>
+
+				<p>(3)城镇建设用地的投放与城市发展重点紧密结合，积极推动新城建设，实现城市空间结构的调整。</p>
+
+				<h2 id="guangdong">广东历史概况</h2>
+
+				<p>广东，《吕氏春秋》中称“百越”，《史记》中称“南越”，《汉书》称“南粤”，越与粤通，也简称粤，泛指岭南一带地方。广东的先民很早就在这片土地上生息、劳动、繁衍。在历史长河中，广州、广东的名称次第出现，逐渐演化成广东省及其辖境。</p>
+
+				<h3>先秦以前</h3>
+
+				<p>距今约12.9万年以前，岭南出现了早期古人（马坝人）。商与西周时代，广东先民便与中原商、周王朝有了经济文化往来。春秋战国时代，岭南与吴、越、楚国关系密切，交往频繁。历史上楚庭、南武城的传说，反映出这一时期岭南与楚、越的关系。《国语·楚语上》也有“抚征南海”的记载，可见当时岭南与楚国有军事、政治关系。</p>
+
+				<h3>秦至南朝时期</h3>
+
+				<p>公元前222年，秦王嬴政统一六国后，“因南征百越之君”，派屠睢率领50万秦军攻打岭南；公元前214年，秦军基本上占领岭南。随即，秦始皇将所夺取的岭南地区，设“桂林、象郡、南海”三郡。南海郡辖境是东南濒南海，西到今广西贺州，北连南岭，包括今粤东、粤北、粤中和粤西的一部分，辖番禺、龙川、博罗、揭阳、四会5个县，郡治番禺。今广东省的大部分地区属南海郡，此外，湛江等地属象郡，粤西有一部分属桂林郡，粤北部分地区属长沙郡。这是广东历史上第一次划分行政区。</p>
+
+				<p>秦末，南海郡尉任嚣病危，委任龙川县令赵佗代职。任嚣死后，赵佗即起兵隔绝五岭通中原的道路。秦亡之际，赵佗武力攻并桂林、象郡，建立南越国，自称“南越武王”。当时，广东除今连州及乐昌北境属长沙郡管辖外，都属南越国地盘。公元前111年（元鼎六年），汉武帝派伏波将军路博德和楼船将军杨仆率领大军平定南越。汉朝将南越地重新划分为南海、苍梧、郁林、和浦、交趾、九真、日南、儋耳、珠崖9个郡。为了便于监督各郡官吏，汉朝又设立13个常驻监察机构，称为“十三部”，其中设在苍梧郡广信县（今封开）的交趾部，专门负责纠核岭南九郡。东汉末，交趾部改为交州，除监察权外，还拥有军政大权，成为郡上一级政府，地方行政制度也就从郡县二级变为州、郡、县三级：州设刺史（权重的叫“牧”），郡设太守，县仍设令或长。今广东省境包括交州辖下的整个南海郡（粤中、粤东），还包括苍梧郡、和浦郡、荆州贵阳郡和扬州豫章郡的一部。其中南海郡较秦代增置3个县：揭阳、中宿（今清远）和增城。</p>
+
+				<p>东汉末，赤壁之战后逐渐形成魏、蜀、吴三国鼎立的局面。公元210年（汉献帝建安十五年），吴国的孙权任命步骘为交州刺史，率兵抵番禺。217年（建安二十二年），步骘把交州州治从广信东迁番禺。264年（吴景帝永安七年），东吴为便于治理，又把南海、苍梧、郁林、高梁4个郡（今两广大部）从交州划出，另设广州，州治番禺，广州由此得名。而交州则辖交趾、九真、日南、和浦、珠崖5个郡。东吴时期，今广东省境除广州辖下的4郡外，还包括荆州始兴郡和海南岛。</p>
+
+				<p>西晋时，今广东省腹地属当时的广州，粤北属荆州，雷州半岛和海南岛属交州。东晋时期，北方战乱连年，中原及关陇人民大批南迁，广东人口大增。</p>
+
+				<p>南北朝时代，中国政局南北分裂。南朝存在的170年间，朝廷更替频繁，州、郡、县废兴繁复，沿革杂乱。</p>
+
+				<h3>隋、唐、五代十国时期</h3>
+
+				<p>隋朝初年，设广州、循州（今惠州）两个总管府统领诸州。隋炀帝废州为郡，改为郡、县两级，大加省并，今广东省境分属10郡、74县。</p>
+
+				<p>唐初地方设州、县。岭南45州分属广州、桂州、容州、邕州、安南5个都督府（又称岭南五管）。655年以后，5府皆隶于广州，长官称为五府（管）经略使，由广州刺史兼任。756年（肃宗至德六年），升五府经略使为岭南节度使。862年（懿宗咸通三年），岭南道划分为东、西道，东道治广州，广东属岭南东道，这是广东省名中“东”字的由来。</p>
+
+				<p>五代十国时期，岭南为南汉王刘氏占据，行政区划基本上继承唐朝的建制。南汉升广州为兴王府，在州县稀疏的粤东和粤北，增置1府4州。南汉后期，全境共辖60州、214县。</p>
+
+				<h3>宋、元、明、清时期</h3>
+
+				<p>宋代地方行政制度分路、州（府、军）、县三级。今广东省境包括广南东路14州和广南西路境内的7州，共61县。宋朝对唐制有所继承又有所调整。粤西及海南岛裁撤8个州，而粤东、粤北除循唐制外，仍保留南汉所增置的4个州。997年（宋太宗至道三年），广南路分为广南东路和广南西路，东路治所在广州，西路治所在桂州，广东大部分属广南东路，“广东”即广南东路的简称。</p>
+
+				<p>元朝地方行政制度分省、路、府（州、军）、县四级，另有道，是省以下、路府之上的承转机构。今广东省境分为广东道和海北海南道。广东道道治在广州，海北海南道道治在今雷州市。</p>
+
+				<p>明朝洪武二年（1369年），改广东道为广东等处行中书省，并将海北海南道改隶广东，广东成为明朝的十三行省之一。而且，过去长期与广西同属一个大区的雷州半岛、海南岛划拨广东统辖，结束了广东以往隶属不同政区的状况，广东省区域轮廓自此基本形成。终明之世，广东设10府1直隶州，统辖7州75县。其中，属明代新置的有顺德、从化、高明、饶平、惠来、大浦、普宁、澄海等22县。</p>
+
+				<p>清初承袭明制，地方行政机关分省、道、府、县4级，但将明时的布政使司正式改称为省。“广东省”名称正式使用，所辖范围与明广东布政使司相同。清设总督管辖广东、广西两省，称“两广总督”，初驻肇庆，1746年（乾隆十一年）移广州。</p>
+
+				<p>1841年，鸦片战争中清政府战败，被迫签订《中英南京条约》，香港（时属新安县）正式沦为英国的殖民地。1887年，葡萄牙诱逼清政府签订《中葡和好通商条约》，侵占澳门（时属香山县）。</p>
+
+				<h3>民国时期</h3>
+
+				<p>1911年，武昌起义成功推翻清王朝，建立中华民国，孙中山就任临时大总统。民国政府多次对广东政区进行调整。辛亥革命后，广东省的名称和范围与清代相同，但将府直辖地及州、厅皆改为县，成为省、县二级制，并于省、县之间分区设置绥靖区。1925年7月，中华民国国民政府在广州成立，国民政府的地方行政，分为省、行政区、县和市，实行委员制。广东省政府下设广州、北江、东江、西江、南路、海南6个行政区，每区设一行政委员，代表省政府处理本区事务。1938年10月，日本侵略者侵占广州，广东省府撤退到粤北（今连州市）；为适应战时需要，全省设4个行署。1940年全省改设为9个区（包括沦陷区），到1941年，复改设9个行政督察区。1945年抗战胜利后，民国政府把行政督察区分为省府直接督察区和专署行政督察区两种。省府直接督察的有南海、番禺等12个市县，专署行政督察区则分为11个区，共辖88个县。</p>
+
+				<h3>中华人民共和国时期</h3>
+
+				<p>1949年10月14日，广州解放；10月28日，广州市人民政府成立；11月6日，广东省人民政府正式成立。全省共设珠江、东江、西江、北江、粤中、南路、兴梅、潮汕、琼崖等9专区，共辖7市98县，广州市为中央直辖市。1952年，广东省和广州市由中南行政委员会领导，将北海市及钦州专区划归广西，广西的怀集县划入广东。1954年，广东省改由中央直接领导，原由中央直辖的广州市划归广东省管辖。此后，市、专区、县几乎年年都有调整。1979年，原属惠阳地区的宝安县改设深圳市，原属佛山地区的珠海县改设珠海市，均由省直辖。广东省直辖广州、海口、汕头、湛江、茂名、佛山、江门、深圳、珠海、韶关等10市，分设韶关、惠阳、梅县、汕头、佛山、湛江、肇庆等7地区和海南行政区及海南黎族、苗族自治州，共辖14市、92县、3自治县。1981年，设立西沙、南沙、中沙群岛办事处，由海南行政区直接领导。1983年以后，部分地市、县的行政管理体制有新的变动，实行以市带县。1988年，中央政府将海南行政区从广东省划出，另设海南省；同年，广东开始取消地区设置，另设18个地级市（后增加到21个地级以上市），实行地级市管县体制，以及乡镇管村体制，一直沿用至今。</p>
+			</div>
+		</div>
+		<div id="gotop" class="hide" title="返回顶部">↑</div>
+
+		<script src="js/China.js"></script>
+		<script src="js/Provinces.js"></script>
+		<script>
+			const hrefs = {
+				'北京': '#beijing',
+				'广东': '#guangdong',
+				'default': 'https://www.baidu.com/s?wd=$'
+			};
+			const svg = document.getElementsByTagName('svg')[0];
+			const w = 800;
+			const h = 800;
+
+			// 添加全国区域
+			extendPolygons(China.features[0], svg, 'a', {
+				'id': 'China'
+			});
+
+			// 添加各省份区域
+			Provinces.features.forEach(i => {
+				const a = extendPolygons(i, svg, 'a');
+				const name = i.properties.name;
+				if (name) {
+					const text = createSVG('text', {
+						'x': transX(i.properties.centroid[0]),
+						'y': transY(i.properties.centroid[1])
+					});
+					text.innerHTML = name;
+					a.appendChild(text);
+
+					// 添加链接
+					let href = hrefs[name];
+					if (!href) { // 没有指定也给一个默认链接
+						href = hrefs['default'].replace('$', encodeURIComponent(name));
+						a.setAttribute('target', '_blank');
+					}
+					a.setAttribute('href', href);
+
+					// 鼠标移入移出切换样式
+					a.onmouseenter = () => {
+						// 移到上层
+						svg.appendChild(a);
+						// 因为移动了元素，需要移动后才能切换样式，这里给它排个队
+						setTimeout(() => a.setAttribute('class', 'hover'), 0);
+					};
+					a.onmouseleave = () => {
+						// bug fixed. 因为 onmouseenter 中用了 setTimeout，所以这里也要跟着用
+						setTimeout(() => a.removeAttribute('class'), 0);
+					}
+				}
+			});
+
+			/**
+			 * 在指定父元素下新建容器添加多边形，并返回容器
+			 * @param {Feature} feature
+			 * @param {SVGElement} parent
+			 * @param {String} containerTag
+			 * @param {Attributes} containerAttrs
+			 * @return {SVGElement}
+			 */
+			function extendPolygons(feature, parent, containerTag, containerAttrs) {
+				const container = createSVG(containerTag, containerAttrs);
+				feature.geometry.coordinates.forEach(i => i.forEach(i => container.appendChild(createSVG('polygon', {
+					'points': i.map(i => `${transX(i[0])} ${transY(i[1])}`).join()
+				}))));
+				parent.appendChild(container);
+				return container;
+			}
+
+			function transX(x) {
+				return x * 12 - w * 1.05;
+			}
+
+			function transY(y) {
+				return h * 1.05 - y * 12 * 1.3;
+			}
+
+			/**
+			 * 创建svg元素
+			 * @param {String} tag
+			 * @param {Attributes} attrs
+			 * @return {SVGElement}
+			 */
+			function createSVG(tag, attrs) {
+				const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+				for (const k in attrs) {
+					e.setAttribute(k, attrs[k]);
+				}
+				return e;
+			}
+		</script>
+		<script>
+			const DURATION = 200; // 返回顶部的滚动时间（毫秒）
+
+			let showGotop = false;
+
+			(onscroll = () => {
+				if (scrollTop() > 400 != showGotop) {
+					if (showGotop = !showGotop) {
+						gotop.removeAttribute('class');
+					} else {
+						gotop.className = 'hide';
+					}
+				}
+			})();
+
+			let endTime;
+			let speed;
+
+			gotop.onclick = () => {
+				endTime = now() + DURATION;
+				speed = scrollTop() / DURATION;
+				goTop();
+			};
+
+			function goTop() {
+				if (scrollTop() > 0) {
+					scrollTo(0, speed * (endTime - now()));
+					requestAnimationFrame(goTop);
+				}
+			}
+
+			function now() {
+				return new Date().getTime();
+			}
+
+			function scrollTop() {
+				return document.documentElement.scrollTop || document.body.scrollTop;
+			}
+		</script>
+	</body>
+
+</html>

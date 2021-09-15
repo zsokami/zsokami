@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>代码测试</title>
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				display: flex;
+				box-sizing: border-box;
+				margin: 0;
+				padding: 5px;
+			}
+
+			body>* {
+				flex: 1;
+				margin: 5px;
+				border: 1px solid #A9A9A9;
+				border-radius: 3px;
+			}
+
+			textarea {
+				resize: none;
+				overflow: auto;
+				tab-size: 4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<textarea wrap="off"><html>
+
+	<head>
+		<meta charset="UTF-8">
+		<style>
+			div {
+				--h: 0;
+				width: 100px;
+				height: 75px;
+				background-color: hsl(var(--h), 100%, 90%);
+				color: hsl(var(--h), 100%, 50%);
+				border: 1px solid hsl(var(--h), 100%, 50%);
+			}
+			
+			#div2 {
+				--h: 270;
+				transform-origin: left bottom;
+				transform: rotate(30deg);
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>你好。这是一个 DIV 元素。</div>
+		<div id="div2" onclick="alert(innerText)">你好。这是一个 DIV 元素。</div>
+	&lt;/body>
+
+</html></textarea>
+
+		<iframe></iframe>
+
+		<script>
+			const SINGLE_LABEL = new Set('br|hr|img|input|param|meta|link|base|source|embed'.split('|'));
+			const PAIR = {
+				'{': '}',
+				'[': ']',
+				'(': ')',
+				'"': '"',
+				'\'': '\''
+			};
+			const TAB_SIZE = 4;
+			const TAB_REGEXP = new RegExp(`^[^\n\\S]+$|^ {0,${TAB_SIZE-1}}\t|^ {${TAB_SIZE}}`);
+			const END_REGEXP = /\S|$/mg;
+			const ta = document.querySelector('textarea');
+
+			ta.expandSelectionRange = function() { // 添加方法，扩展选区到整段
+				// 定位到选中的第一行开头
+				let minStart = this.value.lastIndexOf('\n', this.selectionStart - 1) + 1;
+				// 定位到选中的最后一行结尾
+				let maxEnd = this.value.indexOf('\n', this.selectionEnd - (minStart < this.selectionEnd));
+				if (maxEnd < 0) {
+					maxEnd = this.value.length;
+				}
+				this.setSelectionRange(minStart, maxEnd);
+			};
+
+			ta.onkeydown = function(e) {
+				switch (e.key) {
+					case 'Tab': // 实现一下 tab 键缩进功能
+						let oStart = this.selectionStart;
+						let oEnd = this.selectionEnd;
+
+						if (e.shiftKey) { // shift + tab 减少缩进
+							this.expandSelectionRange();
+
+							let nStart = oStart;
+							let d = this.selectionEnd - oEnd;
+
+							// 删除空白行字符，非空白行删除行首缩进字符(空格+\t)
+							document.execCommand('insertText', false,
+								getSelection().toString()
+								.replace(TAB_REGEXP, s => {
+									nStart = Math.max(this.selectionStart, nStart - s.length);
+									return s;
+								}).replace(new RegExp(TAB_REGEXP, 'mg'), ''));
+
+							// 恢复选区
+
+							let nEnd = this.selectionEnd;
+							if (d < 0 || nEnd > 0 && this.value[nEnd - 1] != '\n') {
+								nEnd = Math.max(this.value.lastIndexOf('\n', nEnd - 1) + 1, nEnd - d);
+							}
+
+							this.setSelectionRange(nStart, nEnd);
+						} else if (oStart == oEnd) { // 未选中文本直接输入 \t
+							document.execCommand('insertText', false, '\t');
+						} else { // 将选中的行全部缩进
+							this.expandSelectionRange();
+
+							let nStart = this.selectionStart;
+							let d = this.selectionEnd - oEnd;
+
+							// 删除空白行字符，非空白行开头添加 \t
+							document.execCommand('insertText', false,
+								getSelection().toString()
+								.replace(/^[^\n\S]+$/mg, '').replace(/^(?!$)/mg, '\t'));
+
+							// 恢复选区
+
+							if (nStart < oStart &&
+								nStart < this.value.length && this.value[nStart] != '\n') {
+								nStart = oStart + 1;
+							}
+
+							let nEnd = this.selectionEnd;
+							if (d < 0 || nEnd > 0 && this.value[nEnd - 1] != '\n') {
+								nEnd -= d;
+							}
+
+							this.setSelectionRange(nStart, nEnd);
+						}
+						break;
+					case 'Enter': // 实现一下回车自动缩进功能
+						// 将光标后空白字符一起选中
+						END_REGEXP.lastIndex = this.selectionEnd;
+						this.selectionEnd = END_REGEXP.exec(this.value).index;
+						// 截取行首到光标前的字符
+						let s = this.value.slice(
+							this.value.lastIndexOf('\n', this.selectionStart - 1) + 1,
+							this.selectionStart);
+						// 截取开头所有空白字符
+						s = '\n' + s.slice(0, s.search(END_REGEXP));
+						document.execCommand('insertText', false, s);
+						break;
+					case '>':
+						
+						
+					default:
+						return;
+				}
+				e.preventDefault();
+			};
+
+			ta.oninput = function(e) {
+				// 输入时自动刷新页面
+				frames[0].document.documentElement.innerHTML = this.value;
+			};
+
+			onload = function() {
+				ta.oninput();
+			};
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<style>
+			body {
+				display: grid;
+				width: max-content;
+				grid-auto-columns: 1fr;
+				justify-items: start;
+				counter-reset: no;
+			}
+
+			body>div {
+				background: radial-gradient(at 5px 5px, skyblue, blue 3px, transparent 4px) 0 0 / 20px 20px;
+				padding: 10px;
+				padding-right: 0;
+				grid-column-end: 5;
+			}
+
+			div>div {
+				background: white;
+				width: 50px;
+				margin-right: 10px;
+				float: left;
+				text-align: center;
+				font: bold 25px / 50px comic sans ms;
+				color: blue;
+				text-shadow: 0 0 3px skyblue;
+			}
+
+			div>div::before {
+				counter-increment: no;
+				content: counter(no);
+			}
+		</style>
+
+		<script>
+			const COL = 4;
+			for (let i = 1; i <= COL; document.styleSheets[0].addRule(`body>:nth-child(${COL}n+${i})`,
+					`grid-column-start: ${i++}`));
+		</script>
+	</head>
+	<body>
+		<div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</body>
+</html>

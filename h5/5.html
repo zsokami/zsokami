@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="w3school.com.cn/jquery/jquery.js" target="_blank">http://www.w3school.com.cn/jquery/jquery.js>
+</script>
+<script type="text/javascript"> 
+$(document).ready(function(){
+  $("button").click(function(){
+    $("div").animate({
+      left:'150px',
+      opacity:'0.5',
+      height:'1px',
+      width:'1px'
+    });
+$("div").animate({
+      left:'250px',
+      opacity:'0.5',
+      height:'100px',
+      width:'100px'
+    });
+$("div").animate({
+      left:'0px',
+      opacity:'0.5',
+      height:'100px',
+      width:'100px'
+    });
+  });
+});
+</script> 
+</head>
+ 
+<body>
+
+<button>开始动画</button>
+<p>默认情况下，所有 HTML 元素的位置都是静态的，并且无法移动。如需对位置进行操作，记得首先把元素的 CSS position 属性设置为 relative、fixed 或 absolute。</p>
+<div style="background:#98bf21;height:100px;width:100px;position:absolute;">
+</div>
+
+</body>
+</html>

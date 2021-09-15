@@ -1,0 +1,34 @@
+.svg-defs {
+  position: absolute;
+}
+
+.texts {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 520px;
+  height: 300px;
+}
+
+.rect-1,
+.rect-2 {
+  font: bold 5em/1 Georgia;
+  fill: url(#p-stripes);
+  fill: url(#v-gradient);
+}
+
+text {
+  font: bold 2.6em/1 Georgia;
+}
+
+.text-1 {
+  fill: url(#p-stripes);
+  font-size: 5.3em;
+}
+
+.text-2 {
+  fill: url(#v-gradient);
+}

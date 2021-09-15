@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<style>
+			#grid {
+				display: grid;
+				grid-template-columns: repeat(3, auto);
+				margin: auto;
+				width: max-content;
+				gap: 1px;
+				padding: 1px;
+				background: black;
+			}
+
+			#grid>* {
+				padding: 10px;
+				background: white;
+				text-align: center;
+			}
+
+			#grid>:nth-child(-n+3) {
+				font-weight: bold;
+			}
+
+			#grid input[type=text], #grid [contenteditable], #grid input[type=submit] {
+				border: none;
+				outline: none;
+			}
+
+			#grid input[type=submit] {
+				color: #00f;
+				font-size: 1em;
+				background: none;
+				cursor: pointer;
+			}
+
+			#grid input[type=submit]:hover {
+				text-decoration: underline;
+			}
+
+			#grid>:nth-child(6n+4), #grid>:nth-child(6n+5), #grid>:nth-child(6n+6) {
+				background: #f8f8f8;
+			}
+
+			#grid>.cur-row {
+				background: #e8e8e8;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="grid">
+			<div>用户名</div>
+			<div>密码</div>
+			<div>操作</div>
+			<div contenteditable></div>
+			<div contenteditable></div>
+			<div>
+				<input type="submit" id="add" value="添加">
+			</div>
+		</div>
+
+		<script>
+			let oldUsernameValue, oldPasswordValue;
+			let curSubmit;
+			let blurTimeout;
+
+			function setCurRow(submit, method) {
+				if (!submit) return;
+				username(submit).classList[method]('cur-row');
+				password(submit).classList[method]('cur-row');
+				submit.parentNode.classList[method]('cur-row');
+			}
+
+			function setEditable(submit, method) {
+				if (!submit) return;
+				method += 'Attribute';
+				username(submit)[method]('contenteditable', '');
+				password(submit)[method]('contenteditable', '');
+			}
+
+			function toggleSubmit(submit, confirm = false) {
+				if (submit == curSubmit) return;
+				if (curSubmit) {
+					setCurRow(curSubmit, 'remove');
+					if (curSubmit != add) {
+						if (!confirm) {
+							username(curSubmit).innerText = oldUsernameValue;
+							password(curSubmit).innerText = oldPasswordValue;
+						}
+						setEditable(curSubmit, 'remove');
+						curSubmit.value = '修改';
+					}
+				}
+				curSubmit = submit;
+				if (!submit) return;
+				setCurRow(submit, 'add');
+				if (submit != add) {
+					oldUsernameValue = username(submit).innerText;
+					oldPasswordValue = password(submit).innerText;
+					setEditable(submit, 'set');
+					username(submit).focus();
+					submit.value = '确定';
+				}
+			}
+
+			function cellFocus(e) {
+				clearTimeout(blurTimeout);
+				if (e.target.tagName == 'DIV') {
+					const selection = getSelection();
+					selection.removeAllRanges();
+					const range = document.createRange();
+					selection.addRange(range);
+					range.selectNodeContents(e.target);
+				}
+			}
+
+			function cellBlur(e) {
+				blurTimeout = setTimeout(() => toggleSubmit(null), 0);
+			}
+
+			function username(submit) {
+				return submit && submit.parentNode.previousElementSibling.previousElementSibling;
+			}
+
+			function password(submit) {
+				return submit && submit.parentNode.previousElementSibling;
+			}
+			
+			function addUser(_username, _password) {
+				username(add).insertAdjacentHTML('beforeBegin',
+					`<div>${_username}</div>
+					<div>${_password}</div>
+					<div>
+						<input type="submit" id="set" value="修改">
+						<input type="submit" id="remove" value="删除">
+					</div>`
+				);
+			}
+
+			function postAdd() {
+				addUser(username(this).innerText, password(this).innerText);
+				username(this).innerText = '';
+				password(this).innerText = '';
+			}
+
+			function postSet() {
+				if (this == curSubmit)
+					toggleSubmit(null, true);
+				else
+					toggleSubmit(this);
+			}
+
+			function postRemove() {
+				const isCurRow = username(this) == username(curSubmit);
+				const name = isCurRow ? oldUsernameValue : username(this).innerText;
+				if (confirm(`确定删除用户“${name}”吗？`)) {
+					isCurRow && toggleSubmit(null);
+					username(this).remove();
+					password(this).remove();
+					this.parentNode.remove();
+					!isCurRow && curSubmit && username(curSubmit).focus();
+				}
+			}
+
+
+			grid.addEventListener('focusin', cellFocus);
+			grid.addEventListener('focusout', cellBlur);
+			
+			username(add).onfocus = password(add).onfocus = () => toggleSubmit(add);
+			
+			grid.onclick = function(e) {
+				const btn = e.target;
+				switch (btn.id) {
+					case 'add':
+						postAdd.call(btn);
+						break;
+					case 'set':
+						postSet.call(btn);
+						break;
+					case 'remove':
+						postRemove.call(btn);
+				}
+			};
+			
+			grid.onkeypress = function(e) {
+				if (e.key == 'Enter') {
+					e.preventDefault();
+					curSubmit.click();
+				}
+			};
+			
+			grid.child = function(i) {
+				return this.children[i < 0 ? this.childElementCount + i : i];
+			};
+			
+			addUser('小明', '123456');
+		</script>
+	</body>
+</html>

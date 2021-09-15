@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>The multi-level menu</title>
+		<style>
+			body {
+				background:
+					radial-gradient(circle at 6px 6px, var(--bg-color) 5px, transparent 5.5px) 0 / 24px 24px,
+					radial-gradient(circle at 18px 18px, var(--bg-color) 5px, transparent 5.5px) 0 / 24px 24px;
+			}
+
+			nav ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				width: max-content;
+				counter-reset: i;
+				/* preserve-3d 子元素延续 3D 场景，有时可修复当父子元素同时过渡时的图像残留 bug */
+				transform-style: preserve-3d;
+			}
+
+			nav li>ul {
+				position: absolute;
+				left: 100%;
+				top: 0;
+				transform: translateZ(-50px);
+			}
+
+			nav li {
+				--ih: 40px;
+				--iw: calc(var(--ih) * 3);
+				--hp: var(--ih);
+				--vp: calc(var(--hp) / 8);
+				--tw: calc(var(--iw) + var(--hp) * 2);
+
+				--h: calc(221 * var(--k) + 155 * var(--L));
+				--l: calc(44 + 6 * var(--L));
+				--color1: hsl(var(--h), 100%, calc(0.7% * var(--l)));
+				--color2: hsl(var(--h), 100%, calc(1% * var(--l)));
+				--color3: hsl(var(--h), 100%, calc(1.4% * var(--l)));
+				--text-color: hsl(calc(var(--h) + 180), 100%, calc(1% * var(--l)));
+
+				position: relative;
+				min-width: var(--iw);
+				padding: var(--vp) var(--hp);
+				font: bold calc(var(--ih) / 2) / var(--ih) sans-serif;
+				letter-spacing: 0.1em;
+				white-space: nowrap;
+				color: var(--text-color);
+				cursor: pointer;
+				/* transform-origin: var(--hp) center; */
+				transform-style: preserve-3d;
+			}
+
+			nav li:not(:hover)>ul>li {
+				display: none;
+				/* min-width: 0;
+				width: 0;
+				padding: 0;
+				visibility: hidden; */
+			}
+
+			nav li:hover>ul>li {
+				animation: in 0.8s calc(0.05s * (var(--k) - 1)) both;
+			}
+
+			@keyframes in {
+				0% {
+					transform: perspective(400px) translateX(calc(0px - var(--tw))) rotateX(180deg);
+				}
+
+				30% {
+					transform: perspective(400px) rotateX(180deg);
+				}
+			}
+
+			/* 序号 */
+			nav li::before {
+				counter-increment: i;
+				content: counters(i, ".")" ";
+			}
+
+			/* 背景 */
+			nav li>.li-bg {
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				z-index: -1;
+				transform: translateZ(-1px);
+				filter: drop-shadow(0 0 3px var(--color2));
+				transition: 0.3s;
+			}
+
+			nav li:hover>.li-bg {
+				opacity: 0.7;
+				filter: drop-shadow(0 0 3px var(--color2)) drop-shadow(6px 0 3px var(--color1));
+			}
+
+			nav li.active>.li-bg {
+				opacity: 0.5;
+				transform: scale(0.95);
+				transition: 0.1s;
+			}
+
+			nav li>.li-bg::before {
+				content: "";
+				position: absolute;
+				left: var(--vp);
+				top: var(--vp);
+				right: var(--vp);
+				bottom: var(--vp);
+				--hh: calc(var(--ih) / 2);
+				--d: calc(var(--ih) / 3);
+				--r: calc(var(--d) / 2);
+				--p: calc(var(--hp) - var(--vp));
+				background:
+					linear-gradient(to right, var(--color1), var(--color2) calc(var(--p) - var(--r)), var(--color3) calc(100% - var(--p)), var(--color2)) var(--r) / calc(100% - var(--r)) no-repeat,
+					radial-gradient(at var(--r) var(--r), var(--color1) var(--r), transparent calc(var(--r) + 0.5px)) 0 0 / var(--d) var(--d) repeat-y;
+				--k: var(--hh);
+				border-radius: 0 var(--k) var(--k) 0 / 0 var(--hh) var(--hh) 0;
+				transition: 0.3s;
+			}
+
+			nav li:hover>.li-bg::before {
+				--k: var(--hp);
+			}
+
+			nav li.has-sub>.li-bg::before {
+				background: linear-gradient(to right, var(--color1), var(--color2) var(--p), var(--color3) calc(100% - var(--p)), var(--color2)) no-repeat;
+				--hhh: calc(var(--hh) / 3);
+				clip-path: polygon(0 var(--hhh), var(--hhh) 0, calc(100% - var(--k)) 0, 100% 50%, calc(100% - var(--k)) 100%, var(--hhh) 100%, 0 calc(100% - var(--hhh)), var(--hhh) calc(var(--hhh) * 4), 0 50%, var(--hhh) calc(var(--hhh) * 2));
+			}
+
+			nav li.has-sub:hover>.li-bg::before {
+				clip-path: polygon(0 0, var(--hhh) 0, calc(100% - var(--k)) 0, 100% 50%, calc(100% - var(--k)) 100%, var(--hhh) 100%, 0 100%, calc(var(--hh) / 2) calc(100% - var(--hh) / 2), var(--hh) 50%, calc(var(--hh) / 2) calc(var(--hh) / 2));
+			}
+		</style>
+
+		<script>
+			for (let s = document.styleSheets[0], slr = 'nav', i = 1; i <= 12; i++) {
+				s.addRule(`nav li:nth-child(${i})`, `--k: ${i}`);
+				s.addRule(slr += ' li', `--L: ${i<10?i:10-i}`);
+			}
+		</script>
+	</head>
+	<body>
+		<nav>
+			<ul>
+				<li>一个</li>
+				<li>****的
+					<ul>
+						<li></li>
+						<li></li>
+						<li>
+							<ul>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li>
+									<ul>
+										<li></li>
+										<li></li>
+										<li></li>
+									</ul>
+								</li>
+								<li>
+									<ul>
+										<li></li>
+										<li></li>
+										<li></li>
+									</ul>
+								</li>
+								<li>
+									<ul>
+										<li></li>
+										<li></li>
+										<li></li>
+									</ul>
+								</li>
+								<li>
+									<ul>
+										<li></li>
+										<li></li>
+										<li></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>多级菜单</li>
+				<li>二叉树?!
+					<ul>
+						<li>我有十八代曾孙哦!
+							<ul></ul>
+						</li>
+						<li>我是楼上的十八倍!!
+							<ul></ul>
+						</li>
+					</ul>
+				</li>
+				<li>。。。</li>
+			</ul>
+
+			<script>
+				let active_li;
+				function active(e) {
+					e.stopPropagation();
+					active_li && active_li.classList.remove('active');
+					active_li = this;
+					this.classList.add('active');
+					document.body.style.setProperty('--bg-color', getComputedStyle(this).getPropertyValue('--color2').replace(/(?<=hsl)/, 'a').replace(/(?=\)$)/, ',0.05'));
+				}
+				function inactive() {
+					if (!active_li) return;
+					active_li.classList.remove('active');
+					active_li = null;
+				}
+				function li_init(li) {
+					// 给 li 添加背景子元素
+					li.insertAdjacentHTML('beforeend', '<div class="li-bg"></div>');
+					// 绑定鼠标事件
+					li.onmousedown = active;
+					li.onmouseleave = inactive;
+				}
+				onpointercancel = onmouseup = inactive;
+				document.querySelectorAll('nav li').forEach(li => li_init(li));
+				// 给带子菜单的 li 添加 css 类
+				document.querySelectorAll('nav li>ul').forEach(ul => ul.parentNode.classList.add('has-sub'));
+
+				// 无限二叉树
+				const li4 = document.querySelector('nav>ul>li:nth-child(4)');
+				li4.onmouseenter = function() {
+					const ul = this.getElementsByTagName('ul')[0];
+					extend(ul.children[0]);
+					extend(ul.children[1]);
+				}
+
+				function extend(li) {
+					if (li.onmouseenter) return;
+					li.onmouseenter = li4.onmouseenter;
+					const ul = li.getElementsByTagName('ul')[0];
+					ul.innerHTML = '<li class="has-sub">智商 -1<ul></ul></li>'.repeat(2);
+					li_init(ul.children[0]);
+					li_init(ul.children[1]);
+				}
+			</script>
+		</nav>
+	</body>
+</html>

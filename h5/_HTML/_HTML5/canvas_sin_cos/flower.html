@@ -1,0 +1,51 @@
+<html>
+
+<body style="margin:0px">
+  <canvas id="canvas" width="400" height="400" onclick="startDraw()">浏览器不支持 canvas 标签</canvas>
+</body>
+
+<script>
+var c = canvas.getContext("2d");
+
+var w = canvas.width;
+var h = canvas.height;
+var r = w / 2;
+
+var interval = 20; //两帧间隔时间
+
+var angle = 0; //旋转度数
+
+var started = 0;
+
+function startDraw() {
+  if(!started) {
+    drawFrame();
+    started = 1;
+  }
+}
+
+function drawFrame() {
+  c.beginPath();
+  for(var j = 0; j < 360; j++) {
+    var lo = Math.sin(Math.PI / 180 * 2 * (j + angle)) * r;
+    var x = r + Math.cos(Math.PI / 180 * j) * lo;
+    var y = r + Math.sin(Math.PI / 180 * j) * lo;
+    c.lineTo(x, y);
+  }
+  c.closePath();
+  
+  c.clearRect(0, 0, w, h);
+  c.fillStyle = color(angle * 6);
+  c.fill();
+  
+  angle++;
+  setTimeout(drawFrame, interval);
+}
+
+function color(h) {
+  var a=h%255,b=(h-a)/255,c=b%2,d=(b+1)%3,e=((255<<(d+c+1)%3*8)|((c?255-a:a)<<d*8)).toString(16);
+  return "#000000".slice(0,-e.length)+e;
+}
+</script>
+</html>
+<script>

@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>应用jQuery的one和each等方法设计复杂导航菜单</title>
+
+<link rel="stylesheet" type="text/css" href="css/index.min.css" />
+<style>
+.nav_menu li.curron {
+	border-top-color: #724e3e;
+	border-bottom-color: #724e3e;
+	border-left-color: #724e3e;	
+	border-right-color: #724e3e;	
+	background: #724e3e;
+	color: #fff;
+	font-weight: normal;
+}
+.nav_menu li.hover {
+	border-top: #724e3e 2px solid;
+	border-bottom: medium none;
+	border-left: #724e3e 2px solid;
+	border-right: #724e3e 2px solid
+	width: 82px;
+	background: #fff;	
+	font-weight: bold;	
+}
+</style>
+</head>
+<body>
+<div class="hdnav_top">
+  <ul id="nav_menu" class="cen nav_menu f_white">
+    <li id="indexhall"><a class="nav_link" href="">首页</a> </li>
+    <li id="womenhall"><a class="nav_link" href="">女鞋馆</a> 
+      <div id="womenhall_menu" class="pop_menu f_gray">
+      <dl class="bot_line">
+        <dt class="Red">热门:</dt>
+        <dd><a href="http://www.yougou.com/s-1LACAIAD1.html#ref=all&amp;po=menu_tc201"><font color="#ff0000">秋冬新品</font></a> | <a href="http://www.yougou.com/k-%E5%A5%B3%E9%9E%8B%E9%9B%AA%E5%9C%B0%E9%9D%B4.html#ref=all&amp;po=menu_tc202">雪地靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC3LEI1.html#ref=all&amp;po=menu_tc203">满帮</a> 
+        | <a href="http://www.yougou.com/k-%E5%8F%8A%E8%B8%9D%E9%9D%B4.html#ref=all&amp;po=menu_tc204">及踝靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC3LFE1.html#ref=all&amp;po=menu_tc205">短靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC3LAE1.html#ref=all&amp;po=menu_tc206">中靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC3LGK1.html#ref=all&amp;po=menu_tc207">长靴</a> 
+        | <a href="http://www.yougou.com/topics/1345792915673.html#ref=all&amp;po=menu_tc208"><font color="#ff0000">断码特价</font></a> | <a href="http://www.yougou.com/k-%E6%9D%BE%E7%B3%95%E9%9E%8B.html#ref=all&amp;po=menu_tc209">松糕鞋</a> 
+        | <a href="http://www.yougou.com/k-%E5%A5%B3%E9%9E%8B%E6%AF%9B%E9%9D%B4.html?orderBy=num&amp;pageNo=1#ref=all&amp;po=menu_tc210">毛靴</a> 
+        | <a href="http://www.yougou.com/k-%E9%95%BF%E9%9D%B4.html?orderBy=num&amp;pageNo=1#ref=all&amp;po=menu_tc211">高筒靴</a> 
+        | <a href="http://www.yougou.com/s-2LAHxb127.html#ref=all&amp;po=menu_tc212">时尚单鞋</a> 
+        </dd></dl>
+      <dl>
+        <dt>靴子:</dt>
+        <dd><a href="http://www.yougou.com/k-%E5%A5%B3%E9%9E%8B%E9%9B%AA%E5%9C%B0%E9%9D%B4.html#ref=all&amp;po=menu_tc213"><font color="#ff0000">雪地靴</font></a> | <a href="http://www.yougou.com/s-1LAC3LFE1.html#ref=all&amp;po=menu_tc214">短靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC3LAE1.html#ref=all&amp;po=menu_tc215">中筒靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC3LHG1.html#ref=all&amp;po=menu_tc216">长筒靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC3LGK1.html#ref=all&amp;po=menu_tc217">超长靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAYAGAE1.html#ref=all&amp;po=menu_tc218">平跟靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAYAGAD1.html#ref=all&amp;po=menu_tc219">低跟靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAYAGAC1.html#ref=all&amp;po=menu_tc220">中跟靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAYAGAB1.html#ref=all&amp;po=menu_tc221">高跟靴</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAYAGAA1.html#ref=all&amp;po=menu_tc222">超高跟靴</a> 
+        </dd></dl>
+      <dl>
+        <dt>单鞋:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAC2LAH3LEI1.html#ref=all&amp;po=menu_tc223">满帮鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAH3LEE1.html#ref=all&amp;po=menu_tc224">浅口鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAH3LHU1.html#ref=all&amp;po=menu_tc225">鱼嘴鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAHAGAE1.html#ref=all&amp;po=menu_tc226">平跟鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAHAGAD1.html#ref=all&amp;po=menu_tc227">低跟鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAHAGAC1.html#ref=all&amp;po=menu_tc228">中跟鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAHAGAB1.html#ref=all&amp;po=menu_tc229">高跟鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAC2LAHAGAA1.html#ref=all&amp;po=menu_tc230">超高跟</a> 
+        </dd></dl>
+      <dl>
+        <dt>凉鞋:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAC3LFK1.html#ref=all&amp;po=menu_tc231">纯凉鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAC3LCX1.html#ref=all&amp;po=menu_tc232">拖鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAC3LBI1.html#ref=all&amp;po=menu_tc233">后空凉鞋</a> 
+        </dd></dl>
+      <dl>
+        <dt>跟高:</dt>
+        <dd><a href="http://www.yougou.com/s-1LACAGAE1.html#ref=all&amp;po=menu_tc234">平跟鞋</a> 
+        | <a href="http://www.yougou.com/s-1LACAGAD1.html#ref=all&amp;po=menu_tc235">低跟鞋</a> 
+        | <a href="http://www.yougou.com/s-1LACAGAC1.html#ref=all&amp;po=menu_tc236">中跟鞋</a> 
+        | <a href="http://www.yougou.com/s-1LACAGAB1.html#ref=all&amp;po=menu_tc237">高跟鞋</a> 
+        | <a href="http://www.yougou.com/s-1LACAGAA1.html#ref=all&amp;po=menu_tc238">超高跟</a> 
+        </dd></dl>
+      <dl>
+        <dt>材质:</dt>
+        <dd><a href="http://www.yougou.com/s-1LACALAA1.html#ref=all&amp;po=menu_tc239">牛皮</a> 
+        | <a href="http://www.yougou.com/s-1LACALAB1.html#ref=all&amp;po=menu_tc240">羊皮</a> 
+        | <a href="http://www.yougou.com/s-1LACALAU1.html#ref=all&amp;po=menu_tc241">PU</a> 
+        | <a href="http://www.yougou.com/s-1LACALAC1.html#ref=all&amp;po=menu_tc242">猪皮</a> 
+        | <a href="http://www.yougou.com/s-1LACALAV1.html#ref=all&amp;po=menu_tc243">人造革</a> 
+        | <a href="http://www.yougou.com/s-1LACALAD1.html#ref=all&amp;po=menu_tc244">纺织物</a> 
+        | <a href="http://www.yougou.com/s-1LACALAX1.html#ref=all&amp;po=menu_tc245">马毛</a> 
+        </dd></dl>
+      <dl class="bot_line_last"></dl>
+      <ul class="brandlogo"><a href="http://www.yougou.com/s-belle-1LAC1.html#ref=all&amp;po=menu_tc246"><img alt="百丽" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/belle4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/belle4.jpg" /></a> <a href="http://www.yougou.com/s-tata-1LAC1.html#ref=all&amp;po=menu_tc247"><img alt="他她" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/tata4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/tata4.jpg" /></a> <a href="http://www.yougou.com/s-teenmix-1LAC1.html#ref=all&amp;po=menu_tc248"><img alt="天美意" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/teemix4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/teemix4.jpg" /></a> <a href="http://www.yougou.com/s-joypeace-1LAC1.html#ref=all&amp;po=menu_tc249"><img alt="真美诗" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/zms4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/zms4.jpg" /></a> <a href="http://www.yougou.com/s-bata-1LAC1.html#ref=all&amp;po=menu_tc250"><img alt="拔佳" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/bata4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/bata4.jpg" /></a> <a href="http://www.yougou.com/s-staccato-1LAC1.html#ref=all&amp;po=menu_tc251"><img alt="思加图" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/staccato4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/staccato4.jpg" /></a> <a href="http://www.yougou.com/s-lesaunda-1LAC1.html#ref=all&amp;po=menu_tc252"><img alt="莱尔斯丹" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/lesd4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/lesd4.jpg" /></a> <a href="http://www.yougou.com/s-walkershop-1LAC1.html#ref=all&amp;po=menu_tc253"><img alt="奥卡索" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/oks4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/oks4.jpg" /></a> <a class="morebrand" href="http://www.yougou.com/brand_daqo.html">更多品牌&gt;&gt;</a> </ul>
+      </div>
+    </li>
+    <li id="menhall"><a class="nav_link" href="">男鞋馆</a> 
+      <div id="menhall_menu" class="pop_menu f_gray">
+      <dl class="bot_line">
+        <dt class="Red"><font color="#ff0000">热门:</font></dt>
+        <dd><a href=""><font color="#ff0000">新品上市</font></a> | 
+            <a href=""><font color="#ff0000">冬季男鞋</font></a> | 
+            <a href="">满帮鞋</a> | <a href="">男低靴</a> |  
+            <a href="">男中靴</a> | <a href="">超软</a> | 
+            <a href=""><font color="#ff0000">断码清仓</font></a> 
+         </dd>
+      </dl>
+      <dl>
+        <dt>款式:</dt>
+        <dd><a href="" target="_blank">套脚</a> | <a href="" target="_blank">前系带</a> | 
+            <a href="" target="_blank">松紧带</a> | <a href="" target="_blank">魔术贴</a> | 
+            <a href="">侧拉链</a> | <a href="">搭扣</a> 
+        </dd>
+      </dl>
+      <dl>
+        <dt>风格:</dt>
+        <dd><a href="">商务正装</a> | <a href="">商务休闲</a> |  
+            <a href="">时尚休闲</a> | <a href="">城市休闲</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>材质:</dt>
+        <dd><a href="">牛皮</a> | <a href="">羊皮</a> |  
+           <a href="">磨砂皮</a> | <a href="">橡胶底</a> |  
+           <a href="">牛筋底</a> | <a href="">复合底</a> 
+        </dd>
+      </dl>
+      <dl class="bot_line_last"></dl>
+      <ul class="brandlogo">
+      <a href=""><img alt="百丽" src="images/belle4.jpg" width="74" height="64" src2="images/belle4.jpg" /></a> 
+      <a href=""><img alt="天美意" src="images/teemix4.jpg" width="74" height="64" src2="images/teemix4.jpg" /></a> 
+      <a href=""><img alt="森达" src="images/senda4.jpg" width="74" height="64" src2="images/senda4.jpg" /></a> 
+      <a href=""><img alt="莱尔斯丹" src="images/lesd4.jpg" width="74" height="64" src2="images/lesd4.jpg" /></a> 
+      <a href=""><img alt="沙驰" src="images/sc4.jpg" width="74" height="64" src2="images/sc4.jpg" /></a> 
+      <a href=""><img alt="策恩" src="images/ce4.jpg" width="74" height="64" src2="images/ce4.jpg" /></a> 
+      <a href=""><img alt="CAMEL骆驼" src="images/lt4.jpg" width="74" height="64" src2="images/lt4.jpg" /></a> 
+      <a href=""><img alt="拔佳" src="images/bata4.jpg" width="74" height="64" src2="images/bata4.jpg" /></a> 
+      <a class="morebrand" href="">更多品牌&gt;&gt;</a> 
+      </ul>
+      </div>
+    </li>
+    <li id="womenclothing"><a class="nav_link" href="">女装馆</a> 
+      <div id="womenclothing_menu" class="pop_menu f_gray">
+      <dl class="bot_line">
+        <dt class="Red">热门:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAB6.html#ref=all&amp;po=menu_tc401" target="_blank"><font color="#ff0000">2012冬季新品</font></a> | <a href="http://www.yougou.com/k-女装外套.html#ref=all&amp;po=menu_tc402" target="_blank">外套</a> | <a href="http://www.yougou.com/s-1LAB3LDT6.html#ref=all&amp;po=menu_tc403" target="_blank">棉服</a> | <a href="http://www.yougou.com/s-1LAB3LFO6.html#ref=all&amp;po=menu_tc404" target="_blank"><font color="#ff0000">羽绒服</font></a> | <a href="http://www.yougou.com/s-1LAB3LGY6.html#ref=all&amp;po=menu_tc405" target="_blank">针织衫</a> | <a href="http://www.yougou.com/s-1LAB3LGS6.html#ref=all&amp;po=menu_tc406" target="_blank"><font color="#ff0000">冬款连衣裙</font></a> | <a href="http://www.yougou.com/s-1LAB3LHD6.html#ref=all&amp;po=menu_tc407" target="_blank">T恤</a> | <a href="http://www.yougou.com/s-1LAB3LDX6.html#ref=all&amp;po=menu_tc408" target="_blank">毛衣</a> | <a href="http://www.yougou.com/k-女士西装.html?orderBy=new#ref=all&amp;po=menu_tc409" target="_blank">西装</a> | <a href="http://www.yougou.com/k-女士打底裤.html#ref=all&amp;po=menu_tc410" target="_blank">打底裤</a> </dd>
+        <dt class="Red">促销:</dt>
+        <dd><a href="http://www.yougou.com/topics/1354695580481.html#ref=all&amp;po=menu_tc411"><font color="#ff0000">百丽女装 冬款99元起</font></a> | <a href="http://www.yougou.com/topics/1354695554250.html#ref=all&amp;po=menu_tc412">艺之卉冬装3折封顶</a> 
+        | <a href="http://www.yougou.com/topics/1354882494183.html#ref=all&amp;po=menu_tc413">亦谷年末回馈 
+        低至2折</a> </dd></dl>
+      <dl>
+        <dt>秋冬上装:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAB3LDX6.html#ref=all&amp;po=menu_tc414" target="_blank">毛衣</a> | <a href="http://www.yougou.com/s-1LAB3LGY6.html#ref=all&amp;po=menu_tc415" target="_blank">针织衫</a> | <a href="http://www.yougou.com/s-1LAB3LHD6.html#ref=all&amp;po=menu_tc416" target="_blank">长袖T恤</a> | <a href="http://www.yougou.com/s-1LAB3LHE6.html#ref=all&amp;po=menu_tc417" target="_blank">长袖衬衫</a> | <a href="http://www.yougou.com/s-1LAB3LHO6.html#ref=all&amp;po=menu_tc418" target="_blank">马夹</a> </dd></dl>
+      <dl>
+        <dt>秋冬裙装:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAB3LGS6.html#ref=all&amp;po=menu_tc419" target="_blank">连衣裙</a> | <a href="http://www.yougou.com/s-1LAB3LAZ6.html#ref=all&amp;po=menu_tc420" target="_blank">半身裙</a> </dd></dl>
+      <dl>
+        <dt>秋冬裤装:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAB3LAH6.html#ref=all&amp;po=menu_tc421" target="_blank">休闲裤</a> | <a href="http://www.yougou.com/s-1LAB3LEL6.html#ref=all&amp;po=menu_tc422" target="_blank">牛仔裤</a> | <a href="http://www.yougou.com/s-1LAB3LEL6.html#ref=all&amp;po=menu_tc423" target="_blank">哈伦裤</a> | <a href="http://www.yougou.com/k-女士阔腿裤.html#ref=all&amp;po=menu_tc424" target="_blank">阔腿裤</a> | <a href="http://www.yougou.com/k-女士打底裤.html#ref=all&amp;po=menu_tc425" target="_blank">打底裤</a> | <a href="http://www.yougou.com/s-1LAB3LFD6.html#ref=all&amp;po=menu_tc426" target="_blank">短裤</a> </dd></dl>
+      <dl>
+        <dt>秋冬外套:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAB3LEZ6.html#ref=all&amp;po=menu_tc427" target="_blank">短外套</a> | <a href="http://www.yougou.com/s-1LAB3LHC6.html#ref=all&amp;po=menu_tc428" target="_blank">风衣</a> | <a href="http://www.yougou.com/k-女士西装.html#ref=all&amp;po=menu_tc429" target="_blank">小西装</a> | <a href="http://www.yougou.com/s-1LAB3LDT6.html#ref=all&amp;po=menu_tc430" target="_blank">棉服</a> | <a href="http://www.yougou.com/s-1LAB3LFO6.html#ref=all&amp;po=menu_tc431" target="_blank">羽绒服</a> | <a href="http://www.yougou.com/k-毛领外套.html#ref=all&amp;po=menu_tc432" target="_blank">毛领外套</a> | <a href="http://www.yougou.com/k-羊毛外套.html#ref=all&amp;po=menu_tc433" target="_blank">羊毛外套</a> </dd></dl>
+      <dl>
+        <dt>女士配件:</dt>
+        <dd><a href="http://www.yougou.com/k-%E5%9B%B4%E5%B7%BE.html?orderBy=num&amp;pageNo=1&amp;queryStr=third_category:%E5%9B%B4%E5%B7%BE;#ref=all&amp;po=menu_tc434" target="_blank">围巾</a> | <a href="http://www.yougou.com/s-1LAB3LGA6.html#ref=all&amp;po=menu_tc435" target="_blank">袜子</a> </dd></dl>
+      <dl class="bot_line_last"></dl>
+      <ul class="brandlogo"><a href="http://www.yougou.com/s-mywell-6.html#ref=all&amp;po=menu_tc436"><img alt="迈薇" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/MYWELL4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/MYWELL4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-lavu-6.html#ref=all&amp;po=menu_tc437"><img alt="朗玟" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/lw4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/lw4.jpg" target="_blank" /></a> 
+        <a href="http://www.yougou.com/s-zimmur-6.html#ref=all&amp;po=menu_tc438"><img alt="ZIMMUR" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/zimmur4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/zimmur4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-levis-1LAB6.html#ref=all&amp;po=menu_tc439"><img alt="李维斯" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/levis4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/levis4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-yigue-6.html#ref=all&amp;po=menu_tc440"><img alt="亦谷" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/yg4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/yg4.jpg" target="_blank" /></a> 
+        <a href="http://www.yougou.com/s-seasonwind-6.html#ref=all&amp;po=menu_tc441"><img alt="季候风" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/jhf4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/jhf4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-qiushuiyiren-6.html#ref=all&amp;po=menu_tc442"><img alt="秋水伊人" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/qsyr4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/qsyr4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-eifini-6.html#ref=all&amp;po=menu_tc443"><img alt="伊芙丽" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/yfl4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/yfl4.jpg" target="_blank" /></a> <a class="morebrand" href="http://www.yougou.com/brand_daqo.html">更多品牌&gt;&gt;</a> </ul></div>
+    </li>
+    <li id="menclothing"><a class="nav_link" href="">男装馆</a> 
+      <div id="menclothing_menu" class="pop_menu f_gray">
+      <dl class="bot_line">
+        <dt class="Red">热门:</dt>
+        <dd><a href="http://www.yougou.com/k-男装秋冬.html?orderBy=new#ref=all&amp;po=menu_tc501" target="_blank"><font color="#ff0000">冬季新品</font></a> | <a href="http://www.yougou.com/s-1LAE3LFO6.html#ref=all&amp;po=menu_tc502" target="_blank">羽绒服</a> | <a href="http://www.yougou.com/s-1LAE3LDT6.html#ref=all&amp;po=menu_tc503" target="_blank">棉服</a> | <a href="http://www.yougou.com/s-1LAE3LDZ6.html#ref=all&amp;po=menu_tc504" target="_blank">毛衫</a> | <a href="http://www.yougou.com/s-1LAE3LFW6.html#ref=all&amp;po=menu_tc505" target="_blank">茄克</a> | <a href="http://www.yougou.com/s-1LAE3LGF6.html#ref=all&amp;po=menu_tc506" target="_blank">西装</a> | <a href="http://www.yougou.com/s-1LAE3LEL6.html#ref=all&amp;po=menu_tc507" target="_blank">牛仔裤</a> | <a href="http://www.yougou.com/s-1LAEABAN1.html#ref=all&amp;po=menu_tc508" target="_blank">时尚休闲男装</a> | <a href="http://www.yougou.com/k-男装商务休闲.html#ref=all&amp;po=menu_tc509" target="_blank">商务休闲男装</a> </dd>
+        <dt class="Red">促销:</dt>
+        <dd><a href="http://www.yougou.com/s-l2-6.html#ref=all&amp;po=menu_tc510" target="_blank">利朗旗下男装L2-年末惠 2.3折起</a> | <a href="http://www.yougou.com/s-levis-1LAE4.html#ref=all&amp;po=menu_tc511" target="_blank"><font color="#ff0000">李维斯-经典牛仔裤 4折起 </font></a>| <a href="http://www.yougou.com/s-tedelon-1LAE5.html#ref=all&amp;po=menu_tc512" target="_blank"><font color="#ff0000">品质男装-超值回馈 4.5折封顶</font></a> | <a href="http://www.yougou.com/topics/1344400393613.html#ref=all&amp;po=menu_tc513" target="_blank"><font color="#ff0000">男装馆 超值断码清仓区</font></a> </dd></dl>
+      <dl>
+        <dt>上装:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAE3LFO6.html#ref=all&amp;po=menu_tc514" target="_blank"><font color="#ff0000">羽绒服</font></a> | <a href="http://www.yougou.com/s-1LAE3LDT6.html#ref=all&amp;po=menu_tc515" target="_blank">棉服</a> | <a href="http://www.yougou.com/s-1LAE3LDZ6.html#ref=all&amp;po=menu_tc516" target="_blank">毛衫</a> | <a href="http://www.yougou.com/s-1LAE3LFW6.html#ref=all&amp;po=menu_tc517" target="_blank">茄克</a> | <a href="http://www.yougou.com/s-1LAE3LHM6.html#ref=all&amp;po=menu_tc518" target="_blank">风衣</a> | <a href="http://www.yougou.com/k-男装长袖T恤.html?orderBy=new#ref=all&amp;po=menu_tc519" target="_blank">长袖T恤</a> | <a href="http://www.yougou.com/s-1LAE3LGF6.html#ref=all&amp;po=menu_tc520" target="_blank">西装</a> | <a href="http://www.yougou.com/k-长袖衬衣.html?orderBy=num1&amp;queryStr=gender:man#ref=all&amp;po=menu_tc521" target="_blank">长袖衬衫</a> </dd></dl>
+      <dl>
+        <dt>下装:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAE3LAH6.html#ref=all&amp;po=menu_tc522" target="_blank">休闲裤</a> | <a href="http://www.yougou.com/s-1LAE3LEL6.html#ref=all&amp;po=menu_tc523" target="_blank">牛仔裤</a> </dd></dl>
+      <dl>
+        <dt>袜子:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAE3LGA1.html#ref=all&amp;po=menu_tc524" target="_blank">男士袜子</a> </dd></dl>
+      <dl class="bot_line_last"></dl>
+      <ul class="brandlogo"><a href="http://www.yougou.com/s-levis-1LAE6.html#ref=all&amp;po=menu_tc525"><img alt="李维斯" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/levis4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/levis4.jpg" /></a> <a href="http://www.yougou.com/s-farino-1LAE6.html#ref=all&amp;po=menu_tc526"><img alt="法雷诺" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/flno4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/flno4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-l2-6.html#ref=all&amp;po=menu_tc527"><img alt="L2" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/xll4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/xll4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-swjeans-6.html#ref=all&amp;po=menu_tc528"><img alt="SWJEANS" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/qpl4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/qpl4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-markfairwhale-6.html#ref=all&amp;po=menu_tc529"><img alt="马克华菲" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/mkhf4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/mkhf4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-benbo-6.html#ref=all&amp;po=menu_tc530"><img alt="宾宝" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/bb4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/bb4.jpg" target="_blank" /></a> 
+        <a href="http://www.yougou.com/s-goldpool-6.html#ref=all&amp;po=menu_tc531"><img alt="高尔普" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/gep4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/gep4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-ricksha-6.html#ref=all&amp;po=menu_tc532"><img alt="黄包车" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/hbc4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/hbc4.jpg" target="_blank" /></a> <a class="morebrand" href="http://www.yougou.com/brand_daqo.html">更多品牌&gt;&gt;</a> </ul></div>
+    </li>
+    <li id="luggagehall"><a class="nav_link" href="">箱包馆</a>
+      <div id="luggagehall_menu" class="pop_menu f_gray">
+      <dl class="bot_line">
+        <dt class="Red">热门:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAA7.html#ref=all&amp;po=menu_tc601" target="_blank"><font color="#ff0000">2012人气包袋</font></a> | <a href="http://www.yougou.com/s-1LAA3LAP1.html#ref=all&amp;po=menu_tc602" target="_blank">商务包</a> | <a href="http://www.yougou.com/s-1LAA3LDG1.html#ref=all&amp;po=menu_tc603" target="_blank">旅行包</a> | <a href="http://www.yougou.com/s-1LAA3LBE1.html#ref=all&amp;po=menu_tc604" target="_blank">双肩包</a> | <a href="http://www.yougou.com/s-1LAA3LHB1.html#ref=all&amp;po=menu_tc605" target="_blank">钱包/钥匙包</a> | <a href="http://www.yougou.com/s-1LAA3LFV1.html#ref=all&amp;po=menu_tc606" target="_blank">腰带</a> | <a href="http://www.yougou.com/s-1LAA6.html#ref=all&amp;po=menu_tc607" target="_blank"><font color="#ff0000">新品首发</font></a> </dd>
+        <dt class="Red">女士:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAA3LBBxb121.html#ref=all&amp;po=menu_tc608" target="_blank">单肩包</a> | <a href="http://www.yougou.com/s-1LAA3LDExb121.html#ref=all&amp;po=menu_tc609" target="_blank">斜挎包</a> | <a href="http://www.yougou.com/s-1LAA3LCQxb121.html#ref=all&amp;po=menu_tc610" target="_blank"><font color="#ff0000">手提包</font></a> | <a href="http://www.yougou.com/s-1LAA3LCMxb121.html#ref=all&amp;po=menu_tc611" target="_blank">手包</a> | <a href="http://www.yougou.com/s-1LAA3LCPxb121.html#ref=all&amp;po=menu_tc612" target="_blank">手提&amp;斜挎两用</a> | <a href="http://www.yougou.com/s-1LAA3LBAxb121.html#ref=all&amp;po=menu_tc613" target="_blank">单肩&amp;斜挎两用</a> | <a href="http://www.yougou.com/s-1LAA3LHBxb121.html#ref=all&amp;po=menu_tc614" target="_blank">钱包&amp;钥匙包</a> </dd>
+        <dt class="Red">男士:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAA3LDExb111.html#ref=all&amp;po=menu_tc615" target="_blank">斜挎包</a> | <a href="http://www.yougou.com/s-1LAA3LAPxb111.html#ref=all&amp;po=menu_tc616" target="_blank">公文包</a> | <a href="http://www.yougou.com/s-1LAA3LBExb111.html#ref=all&amp;po=menu_tc617" target="_blank">双肩包</a> | <a href="http://www.yougou.com/s-1LAA3LBBxb111.html#ref=all&amp;po=menu_tc618" target="_blank">单肩包</a> | <a href="http://www.yougou.com/s-1LAA3LCOxb111.html#ref=all&amp;po=menu_tc619" target="_blank">手提&amp;斜肩两用</a> | <a href="http://www.yougou.com/s-1LAA3LBAxb111.html#ref=all&amp;po=menu_tc620" target="_blank">单肩&amp;斜挎两用</a> | <a href="http://www.yougou.com/s-1LAA3LHA1.html#ref=all&amp;po=menu_tc621" target="_blank">钱包</a> </dd></dl>
+      <dl>
+        <dt><font color="#ff0000">流行元素:</font></dt>
+        <dd><a href="http://www.yougou.com/s-1LAAACBE1.html#ref=all&amp;po=menu_tc622">logo布</a> 
+        | <a href="http://www.yougou.com/s-1LAAACAZ1.html#ref=all&amp;po=menu_tc623">拼色</a> 
+        | <a href="http://www.yougou.com/s-1LAAACAD1.html#ref=all&amp;po=menu_tc624">流苏</a> 
+        | <a href="http://www.yougou.com/s-1LAAACAF1.html#ref=all&amp;po=menu_tc625">印花</a> 
+        | <a href="http://www.yougou.com/s-1LAAACBL1.html#ref=all&amp;po=menu_tc626" target="_blank">金属装饰</a> | <a href="http://www.yougou.com/s-1LAAACAG1.html#ref=all&amp;po=menu_tc627">蟒纹</a> 
+        | <a href="http://www.yougou.com/s-1LAAACAA1.html#ref=all&amp;po=menu_tc628">蝴蝶结装饰</a> 
+        | <a href="http://www.yougou.com/s-1LAAACBA1.html#ref=all&amp;po=menu_tc629">纯色</a> 
+        | <a href="http://www.yougou.com/s-1LAAACAW1.html#ref=all&amp;po=menu_tc630">糖果色</a> 
+        | <a href="http://www.yougou.com/s-1LAAACAV1.html#ref=all&amp;po=menu_tc631">条纹</a> 
+        </dd></dl>
+      <dl class="bot_line_last"></dl>
+      <ul class="brandlogo"><a href="http://www.yougou.com/s-belle-1LAA1.html#ref=all&amp;po=menu_tc632"><img alt="百丽" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/belle4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/belle4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-tata-1LAA1.html#ref=all&amp;po=menu_tc633"><img alt="他她" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/tata4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/tata4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-dissona-1LAA1.html#ref=all&amp;po=menu_tc634"><img alt="迪桑娜" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/dsn4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/dsn4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-innet-1LAA1.html#ref=all&amp;po=menu_tc635"><img alt="茵奈儿" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/xinnet4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/xinnet4.jpg" /></a> <a href="http://www.yougou.com/s-harryscndinald-1LAA1.html#ref=all&amp;po=menu_tc636"><img alt="哈迪森" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/hds4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/hds4.jpg" /></a> <a href="http://www.yougou.com/s-swisswin-1LAA1.html#ref=all&amp;po=menu_tc637"><img alt="SWISSWIN" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/SWISSWIN4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/SWISSWIN4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-crocodile-1LAA1.html#ref=all&amp;po=menu_tc638"><img alt="鳄鱼恤" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/crocodile4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/crocodile4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-camel-1LAA1.html#ref=all&amp;po=menu_tc639"><img alt="CAMEL骆驼" src="http://img.yougou.com/pics/shop/cms/newlogo/lt4.jpg" width="74" height="64" src2="http://img.yougou.com/pics/shop/cms/newlogo/lt4.jpg" target="_blank" /></a> <a class="morebrand" href="http://www.yougou.com/brand_daqo.html">更多品牌&gt;&gt;</a> </ul></div>
+    </li>
+    <li id="childrenhall"><a class="nav_link" href="">儿童馆</a> 
+      <div id="childrenhall_menu" class="pop_menu f_gray">
+      <dl class="bot_line">
+        <dt class="Red">热门:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAH2LAX1.html#ref=all&amp;po=menu_tc701">运动鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LGP1.html#ref=all&amp;po=menu_tc702">跑步鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LDN1.html#ref=all&amp;po=menu_tc703">板鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LCL1.html#ref=all&amp;po=menu_tc704">户外鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LBU1.html#ref=all&amp;po=menu_tc705">学步鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LBY1.html#ref=all&amp;po=menu_tc706" target="_blank">帆布鞋</a> | <a href="http://www.yougou.com/k-%E5%B8%83%E6%A3%89%E9%9E%8B.html#ref=all&amp;po=menu_tc707">棉靴</a> 
+        | <a href="http://www.yougou.com/topics/1343285458076.html#ref=all&amp;po=menu_tc708"><font color="#ff0000">秋款清仓中</font></a> | <a href="http://www.yougou.com/k-%E9%9B%AA%E5%9C%B0%E9%9D%B4.html?orderBy=num&amp;pageNo=1&amp;queryStr=gender:girl;#ref=all&amp;po=menu_tc709">雪地靴</a> 
+        </dd>
+        <dt class="Red">性别:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAHxb141.html#ref=all&amp;po=menu_tc710">男童鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAHxb151.html#ref=all&amp;po=menu_tc711">女童鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAHxb131.html#ref=all&amp;po=menu_tc712">中性童鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAGxb141.html#ref=all&amp;po=menu_tc713">男童装</a> 
+        | <a href="http://www.yougou.com/s-1LAGxb151.html#ref=all&amp;po=menu_tc714">女童装</a> 
+        | <a href="http://www.yougou.com/s-1LAGxb131.html#ref=all&amp;po=menu_tc715">中性童装</a> 
+        </dd></dl>
+      <dl>
+        <dt>年龄:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAHsa111.html#ref=all&amp;po=menu_tc716" target="_blank">婴幼童（0-3岁）</a> | <a href="http://www.yougou.com/s-1LAHsa121.html#ref=all&amp;po=menu_tc717">小童（3-6岁）</a> 
+        | <a href="http://www.yougou.com/s-1LAHsa131.html#ref=all&amp;po=menu_tc718">中童（6-12岁）</a> 
+        | <a href="http://www.yougou.com/s-1LAHsa141.html#ref=all&amp;po=menu_tc719">大童（12岁以上）</a> 
+        </dd></dl>
+      <dl>
+        <dt>款式:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAHAFAA1.html#ref=all&amp;po=menu_tc720">系带鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAHAFAF1.html#ref=all&amp;po=menu_tc721">拉链</a> 
+        | <a href="http://www.yougou.com/s-1LAHAFAD1.html#ref=all&amp;po=menu_tc722">松紧带</a> 
+        | <a href="http://www.yougou.com/s-1LAHAFAB1.html#ref=all&amp;po=menu_tc723">魔术贴</a> 
+        </dd></dl>
+      <dl>
+        <dt>童鞋:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAH3LGP1.html#ref=all&amp;po=menu_tc724">跑步鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LDN1.html#ref=all&amp;po=menu_tc725">板鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LBU1.html#ref=all&amp;po=menu_tc726">学步鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LBY1.html#ref=all&amp;po=menu_tc727">帆布鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LCL1.html#ref=all&amp;po=menu_tc728">户外鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LEE1.html#ref=all&amp;po=menu_tc729">浅口鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LEI1.html#ref=all&amp;po=menu_tc730">满帮鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LAL1.html#ref=all&amp;po=menu_tc731">低靴</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LAE1.html#ref=all&amp;po=menu_tc732">中靴</a> 
+        | <a href="http://www.yougou.com/s-1LAH3LHT1.html#ref=all&amp;po=menu_tc733">高靴</a> 
+        </dd></dl>
+      <dl>
+        <dt>童装:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAG3LBN1.html#ref=all&amp;po=menu_tc734">外衣</a> 
+        | <a href="http://www.yougou.com/s-1LAG3LBC1.html#ref=all&amp;po=menu_tc735">卫衣</a> 
+        | <a href="http://www.yougou.com/s-1LAG3LDY1.html#ref=all&amp;po=menu_tc736">毛衣/针织衫</a> 
+        | <a href="http://www.yougou.com/s-1LAG3LBM1.html#ref=all&amp;po=menu_tc737">外套/风衣</a> 
+        | <a href="http://www.yougou.com/s-1LAG3LDU1.html#ref=all&amp;po=menu_tc738">棉服/羽绒服</a> 
+        | <a href="http://www.yougou.com/s-1LAG3LGE1.html#ref=all&amp;po=menu_tc739">裤装</a> 
+        | <a href="http://www.yougou.com/s-1LAG3LGD1.html#ref=all&amp;po=menu_tc740">裙装</a> 
+        | <a href="http://www.yougou.com/s-1LAG3LGU1.html#ref=all&amp;po=menu_tc741">连身衣/爬服</a> 
+        | <a href="http://www.yougou.com/s-1LAG3LBS1.html#ref=all&amp;po=menu_tc742">套装</a> 
+        | <a href="http://www.yougou.com/s-1LAG3LAO1.html#ref=all&amp;po=menu_tc743">儿童套服</a> 
+        </dd></dl>
+      <dl class="bot_line_last"></dl>
+      <ul class="brandlogo"><a href="http://www.yougou.com/s-disney-1LAH1.html#ref=all&amp;po=menu_tc744"><img alt="迪士尼" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/disney4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/disney4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-miffy-1LAH1.html#ref=all&amp;po=menu_tc745"><img alt="米菲" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/miffy4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/miffy4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-barbiedoll-1LAH1.html#ref=all&amp;po=menu_tc746"><img alt="芭比" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/babi4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/babi4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-snoopy-1LAH1.html#ref=all&amp;po=menu_tc747"><img alt="史努比" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/snoopy4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/snoopy4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-tomandjerry-1LAG1.html#ref=all&amp;po=menu_tc748"><img alt="猫和老鼠" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/mhls4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/mhls4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-jmbear-1LAG1.html#ref=all&amp;po=menu_tc749"><img alt="杰米熊" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/jmx4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/jmx4.jpg" /></a> <a href="http://www.yougou.com/s-minijm-1LAG1.html#ref=all&amp;po=menu_tc750"><img alt="杰米小熊" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/jmxx4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/jmxx4.jpg" /></a> <a href="http://www.yougou.com/s-ddcat-1LAG1.html#ref=all&amp;po=menu_tc751"><img alt="叮当猫" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/ddm4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/ddm4.jpg" /></a> <a class="morebrand" href="http://www.yougou.com/brand_daqo.html">更多品牌&gt;&gt;</a> </ul></div>
+    </li>
+    <li id="outdoorhall"><a class="nav_link" href="">户外馆</a> 
+      <div id="outdoorhall_menu" class="pop_menu f_gray">
+      <dl class="bot_line">
+        <dt class="Red"><font color="#ff0000">热门:</font></dt>
+        <dd><a href="http://www.yougou.com/k-秋冬户外鞋.html?orderBy=new#ref=all&amp;po=menu_tc801" target="_blank">秋冬新鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAO3LCG6.html#ref=all&amp;po=menu_tc802" target="_blank">徒步鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAO3LES6.html#ref=all&amp;po=menu_tc803" target="_blank">登山鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAC6.html#ref=all&amp;po=menu_tc804" target="_blank">休闲鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAC3LAI6.html#ref=all&amp;po=menu_tc805" target="_blank">休闲靴</a> | <a href="http://www.yougou.com/k-秋冬户外服装.html?orderBy=new#ref=all&amp;po=menu_tc806" target="_blank">秋冬服装</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LAS6.html#ref=all&amp;po=menu_tc807" target="_blank">冲锋衣</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LFO6.html#ref=all&amp;po=menu_tc808" target="_blank">羽绒服</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LCU6.html#ref=all&amp;po=menu_tc809" target="_blank">抓绒衣</a> | <a href="http://www.yougou.com/k-GORE-TEX.html?orderBy=new#ref=all&amp;po=menu_tc810" target="_blank">Gore-Tex</a> </dd></dl>
+      <dl>
+        <dt>鞋靴:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAD2LAC6.html#ref=all&amp;po=menu_tc811" target="_blank">休闲鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAO3LCG6.html#ref=all&amp;po=menu_tc812" target="_blank">徒步鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAO3LES6.html#ref=all&amp;po=menu_tc813" target="_blank">登山鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAO3LGN6.html#ref=all&amp;po=menu_tc814" target="_blank">越野鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAO3LEH6.html#ref=all&amp;po=menu_tc815" target="_blank">溯溪鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAO3LAC6.html#ref=all&amp;po=menu_tc816" target="_blank">两栖鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAO3LFX6.html#ref=all&amp;po=menu_tc817" target="_blank">营地鞋</a> | <a href="http://www.yougou.com/s-1LAD2LAO3LAU6.html#ref=all&amp;po=menu_tc818" target="_blank">凉拖鞋</a> | <a href="http://www.yougou.com/k-户外低帮鞋.html?orderBy=new#ref=all&amp;po=menu_tc819" target="_blank">低帮鞋</a> | <a href="http://www.yougou.com/k-户外中帮鞋.html?orderBy=new#ref=all&amp;po=menu_tc820" target="_blank">中帮鞋</a> | <a href="http://www.yougou.com/k-户外高帮鞋.html?orderBy=new#ref=all&amp;po=menu_tc821" target="_blank">高帮鞋</a> </dd></dl>
+      <dl>
+        <dt>服装:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAD2LAM3LAS6.html#ref=all&amp;po=menu_tc822" target="_blank">冲锋衣</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LAT6.html#ref=all&amp;po=menu_tc823" target="_blank">冲锋裤</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LGV6.html#ref=all&amp;po=menu_tc824" target="_blank">速干衣</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LGW6.html#ref=all&amp;po=menu_tc825" target="_blank">速干裤</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LAG6.html#ref=all&amp;po=menu_tc826" target="_blank">休闲衣</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LAH6.html#ref=all&amp;po=menu_tc827" target="_blank">休闲裤</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LFO6.html#ref=all&amp;po=menu_tc828" target="_blank">羽绒服</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LEU6.html#ref=all&amp;po=menu_tc829" target="_blank">皮肤衣</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LCU6.html#ref=all&amp;po=menu_tc830" target="_blank">抓绒衣</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LBC6.html#ref=all&amp;po=menu_tc831" target="_blank">卫衣</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LFZ6.html#ref=all&amp;po=menu_tc832" target="_blank">衬衫</a> | <a href="http://www.yougou.com/s-1LAD2LAM3LAB6.html#ref=all&amp;po=menu_tc833" target="_blank">T恤</a> </dd></dl>
+      <dl>
+        <dt>包配:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAD2LAL3LCF6.html#ref=all&amp;po=menu_tc834" target="_blank">徒步包</a> | <a href="http://www.yougou.com/s-1LAD2LAL3LEQ6.html#ref=all&amp;po=menu_tc835" target="_blank">登山包</a> | <a href="http://www.yougou.com/s-1LAD2LAL3LHQ6.html#ref=all&amp;po=menu_tc836" target="_blank">骑行包</a> | <a href="http://www.yougou.com/s-1LAD2LAL3LDJ6.html#ref=all&amp;po=menu_tc837" target="_blank">日常背包</a> | <a href="http://www.yougou.com/s-1LAD2LAL3LDB6.html#ref=all&amp;po=menu_tc838" target="_blank">摄影背包</a> | <a href="http://www.yougou.com/s-1LAD2LAL3LFU6.html#ref=all&amp;po=menu_tc839" target="_blank">腰包</a> | <a href="http://www.yougou.com/s-1LAD2LAN3LCB6.html#ref=all&amp;po=menu_tc840" target="_blank">帽子</a> | <a href="http://www.yougou.com/s-1LAD2LAN3LEW6.html#ref=all&amp;po=menu_tc841" target="_blank">眼镜</a> | <a href="http://www.yougou.com/s-1LAD2LAN3LER6.html#ref=all&amp;po=menu_tc842" target="_blank">手杖</a> | <a href="http://www.yougou.com/s-1LAD2LAN3LEA6.html#ref=all&amp;po=menu_tc843" target="_blank">水具</a> | <a href="http://www.yougou.com/s-1LAD2LAN3LCA6.html#ref=all&amp;po=menu_tc844" target="_blank">帐篷</a> | <a href="http://www.yougou.com/s-1LAD2LAN6.html#ref=all&amp;po=menu_tc845" target="_blank">各种装备</a> </dd></dl>
+      <dl>
+        <dt>功能:</dt>
+        <dd><a href="http://www.yougou.com/k-户外磨砂.html?orderBy=new#ref=all&amp;po=menu_tc846" target="_blank">磨砂反绒</a> | <a href="http://www.yougou.com/k-防水户外鞋.html?orderBy=new#ref=all&amp;po=menu_tc847" target="_blank">防水鞋</a> | <a href="http://www.yougou.com/k-防水衣.html?orderBy=new#ref=all&amp;po=menu_tc848" target="_blank">防水衣</a> | <a href="http://www.yougou.com/k-户外情侣.html?orderBy=new#ref=all&amp;po=menu_tc849" target="_blank">情侣款</a> | <a href="http://www.yougou.com/k-户外迷彩.html?orderBy=new#ref=all&amp;po=menu_tc850" target="_blank">迷彩款</a> | <a href="http://www.yougou.com/k-防紫外线.html?orderBy=new#ref=all&amp;po=menu_tc851" target="_blank">防紫外线</a> | <a href="http://www.yougou.com/k-三合一.html?orderBy=new#ref=all&amp;po=menu_tc852" target="_blank">三合一</a> | <a href="http://www.yougou.com/k-抗静电.html?orderBy=new#ref=all&amp;po=menu_tc853" target="_blank">抗静电</a> | <a href="http://www.yougou.com/k-户外保暖.html?orderBy=new#ref=all&amp;po=menu_tc854" target="_blank">保暖</a> | <a href="http://www.yougou.com/k-户外透气.html?orderBy=new#ref=all&amp;po=menu_tc855" target="_blank">透气</a> | <a href="http://www.yougou.com/k-户外防风.html?orderBy=new#ref=all&amp;po=menu_tc856" target="_blank">防风</a> | <a href="http://www.yougou.com/k-户外超轻.html?orderBy=new#ref=all&amp;po=menu_tc857" target="_blank">超轻</a> </dd></dl>
+      <dl class="bot_line_last"></dl>
+      <ul class="brandlogo"><a href="http://www.yougou.com/s-cat-6.html#ref=all&amp;po=menu_tc858"><img alt="卡特" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/cat4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/cat4.jpg" /></a> <a href="http://www.yougou.com/s-merrell-6.html#ref=all&amp;po=menu_tc859"><img alt="迈乐" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/ml4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/ml4.jpg" target="_blank" /></a> 
+        <a href="http://www.yougou.com/s-jackwolfskin-6.html#ref=all&amp;po=menu_tc860"><img alt="Jack Wolfskin" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/xlz4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/xlz4.jpg" /></a> <a href="http://www.yougou.com/s-columbia-6.html#ref=all&amp;po=menu_tc861"><img alt="哥伦比亚" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/glby4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/glby4.jpg" /></a> <a href="http://www.yougou.com/s-kolumb-6.html#ref=all&amp;po=menu_tc862"><img alt="哥仑步" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/glb4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/glb4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-camel-1LAD6.html#ref=all&amp;po=menu_tc863"><img alt="CAMEL骆驼" src="http://img.yougou.com/pics/shop/cms/newlogo/lt4.jpg" width="74" height="64" src2="http://img.yougou.com/pics/shop/cms/newlogo/lt4.jpg" /></a> <a href="http://www.yougou.com/s-toread-6.html#ref=all&amp;po=menu_tc864"><img alt="探路者" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/tlz4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/tlz4.jpg" /></a> <a href="http://www.yougou.com/s-kingcamp-6.html#ref=all&amp;po=menu_tc865"><img alt="康尔健野" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/kingcamp4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/kingcamp4.jpg" /></a> <a class="morebrand" href="http://www.yougou.com/brand_daqo.html">更多品牌&gt;&gt;</a> </ul></div>
+    </li>
+    <li id="sportshall"><a class="nav_link" href="">运动馆</a><em class="menuHotIcon"></em>
+      <div id="sportshall_menu" class="pop_menu f_gray">
+      <dl class="bot_line">
+        <dt class="Red">筛选:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAI6.html#ref=all&amp;po=menu_tc901">秋冬新款</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX1.html#ref=all&amp;po=menu_tc902">运动鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV1.html#ref=all&amp;po=menu_tc903">运动服</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAXxb111.html#ref=all&amp;po=menu_tc904">男鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAXxb121.html#ref=all&amp;po=menu_tc905">女鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAXxb131.html#ref=all&amp;po=menu_tc906">中性鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAVxb111.html#ref=all&amp;po=menu_tc907">男服</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAVxb121.html#ref=all&amp;po=menu_tc908">女服</a> 
+        | <a href="http://www.yougou.com/topics/1354866105243.html#ref=all&amp;po=menu_tc909"><font color="#ff0000">运动特卖，低至2折！</font></a> | </dd></dl>
+      <dl>
+        <dt>运动鞋:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAI2LAX3LGP1.html#ref=all&amp;po=menu_tc910">跑步鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX3LDO1.html#ref=all&amp;po=menu_tc911"><font color="#ff0000">板鞋</font></a> | <a href="http://www.yougou.com/s-1LAI2LAX3LFI1.html#ref=all&amp;po=menu_tc912">篮球鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX3LGI1.html#ref=all&amp;po=menu_tc913">训练鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX3LAJ1.html#ref=all&amp;po=menu_tc914">休闲鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX3LBZ1.html#ref=all&amp;po=menu_tc915">帆布鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX3LCL1.html#ref=all&amp;po=menu_tc916">户外鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX3LFL1.html#ref=all&amp;po=menu_tc917">网球鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX3LGO1.html#ref=all&amp;po=menu_tc918">足球鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX3LGJ1.html#ref=all&amp;po=menu_tc919">赛车鞋</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAX3LBL1.html#ref=all&amp;po=menu_tc920">复古鞋</a> 
+        </dd></dl>
+      <dl>
+        <dt>运动服:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAI2LAV3LFO1.html#ref=all&amp;po=menu_tc921">羽绒服</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV3LDT1.html#ref=all&amp;po=menu_tc922">棉服</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV3LDV1.html#ref=all&amp;po=menu_tc923">马夹</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV3LBQ1.html#ref=all&amp;po=menu_tc924">夹克外套</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV3LBD1.html#ref=all&amp;po=menu_tc925">卫衣/套头衫</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV3LHF1.html#ref=all&amp;po=menu_tc926"><font color="#ff0000">运动长裤</font></a> | <a href="http://www.yougou.com/s-1LAI2LAV3LGY1.html#ref=all&amp;po=menu_tc927">针织衫</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV3LFZ1.html#ref=all&amp;po=menu_tc928">衬衫</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV3LFD1.html#ref=all&amp;po=menu_tc929">短裤</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV3LAB1.html#ref=all&amp;po=menu_tc930">T恤</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAV3LAA1.html#ref=all&amp;po=menu_tc931">POLO衫</a> 
+        </dd></dl>
+      <dl>
+        <dt>运动配件:</dt>
+        <dd><a href="http://www.yougou.com/s-1LAI2LAU3LBE1.html#ref=all&amp;po=menu_tc932">双肩包</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAU3LBB1.html#ref=all&amp;po=menu_tc933">单肩包</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAU3LCQ1.html#ref=all&amp;po=menu_tc934">手提包</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAU3LDE1.html#ref=all&amp;po=menu_tc935">斜跨包</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAU3LDR1.html#ref=all&amp;po=menu_tc936">桶包</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAW3LGA1.html#ref=all&amp;po=menu_tc937">袜子</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAW3LCB1.html#ref=all&amp;po=menu_tc938">帽子</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAW3LEM1.html#ref=all&amp;po=menu_tc939">球类</a> 
+        | <a href="http://www.yougou.com/s-1LAI2LAW3LGB1.html#ref=all&amp;po=menu_tc940">装备</a> 
+        </dd></dl>
+      <dl>
+        <dt>运动项目:</dt>
+        <dd><a href="http://www.yougou.com/k-跑步.html#ref=all&amp;po=menu_tc941">跑步</a> | <a href="http://www.yougou.com/k-篮球.html#ref=all&amp;po=menu_tc942">篮球</a> | <a href="http://www.yougou.com/k-足球.html#ref=all&amp;po=menu_tc943">足球</a> | <a href="http://www.yougou.com/k-网球.html#ref=all&amp;po=menu_tc944">网球</a> | <a href="http://www.yougou.com/k-训练.html#ref=all&amp;po=menu_tc945">综合训练</a> | 
+        <a href="http://www.yougou.com/k-滑板.html#ref=all&amp;po=menu_tc946">滑板</a> | 
+        <a href="http://www.yougou.com/k-户外.html#ref=all&amp;po=menu_tc947">户外</a> | 
+        <a href="http://www.yougou.com/k-羽毛球.html#ref=all&amp;po=menu_tc948">羽毛球</a> 
+        | <a href="http://www.yougou.com/k-赛车.html#ref=all&amp;po=menu_tc949">赛车</a> 
+        | <a href="http://www.yougou.com/k-高尔夫.html#ref=all&amp;po=menu_tc950">高尔夫</a> 
+        </dd></dl>
+      <dl>
+        <dt>本季潮流:</dt>
+        <dd><a href="http://www.yougou.com/k-贝壳头.html#ref=all&amp;po=menu_tc951">贝壳头</a> | 
+        <a href="http://www.yougou.com/k-air%20force.html#ref=all&amp;po=menu_tc952">air 
+        force</a> | <a href="http://www.yougou.com/k-詹姆斯.html#ref=all&amp;po=menu_tc953">詹姆斯</a> | 
+        <a href="http://www.yougou.com/k-罗斯.html#ref=all&amp;po=menu_tc954">罗斯</a> | 
+        <a href="http://www.yougou.com/k-JORDAN.html#ref=all&amp;po=menu_tc955">乔丹</a> 
+        | <a href="http://www.yougou.com/k-KOBE.html#ref=all&amp;po=menu_tc956">KOBE</a> 
+        | <a href="http://www.yougou.com/k-清风.html#ref=all&amp;po=menu_tc957">清风</a> 
+        | <a href="http://www.yougou.com/k-暖风.html#ref=all&amp;po=menu_tc958">暖风系列</a> | 
+        <a href="http://www.yougou.com/k-阿甘.html#ref=all&amp;po=menu_tc959">阿甘</a> | 
+        <a href="http://www.yougou.com/k-常青.html#ref=all&amp;po=menu_tc960">常青款</a> 
+        | <a href="http://www.yougou.com/k-三条纹.html#ref=all&amp;po=menu_tc961">三条纹</a> | 
+        <a href="http://www.yougou.com/k-猎鹰.html#ref=all&amp;po=menu_tc962">猎鹰</a> | 
+        <a href="http://www.yougou.com/topics/SportsShoes.html#ref=all&amp;po=menu_tc963"><font color="#ff0000">运动鞋知识</font></a> </dd></dl>
+      <dl class="bot_line_last"></dl>
+      <ul class="brandlogo"><a href="http://www.yougou.com/s-nike-1LAI1.html#ref=all&amp;po=menu_tc964"><img alt="耐克" src="http://i1.ygimg.cn/pics/shop/cms/logo_test/nike_1.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/logo_test/nike_1.jpg" /></a> <a href="http://www.yougou.com/s-adidas-1LAI1.html#ref=all&amp;po=menu_tc965"><img alt="阿迪达斯" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/adidas4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/adidas4.jpg" /></a> <a href="http://www.yougou.com/s-puma-1LAI1.html#ref=all&amp;po=menu_tc966"><img alt="彪马" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/puma4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/puma4.jpg" /></a> <a href="http://www.yougou.com/s-converse-1LAI1.html#ref=all&amp;po=menu_tc967"><img alt="匡威" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/converse4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/converse4.jpg" /></a> <a href="http://www.yougou.com/s-kappa-1LAI1.html#ref=all&amp;po=menu_tc968"><img alt="卡帕" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/kappa4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/kappa4.jpg" /></a> <a href="http://www.yougou.com/lining-brand.html#ref=all&amp;po=menu_tc969"><img alt="李宁" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/ln4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/ln4.jpg" target="_blank" /></a> 
+        <a href="http://www.yougou.com/s-newbalance-1LAI1.html#ref=all&amp;po=menu_tc970"><img alt="新百伦" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/xbl4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/xbl4.jpg" target="_blank" /></a> <a href="http://www.yougou.com/s-adidasclassic-1LAI1.html#ref=all&amp;po=menu_tc971"><img alt="阿迪三叶草" src="http://i1.ygimg.cn/pics/shop/cms/newlogo/syc4.jpg" width="74" height="64" src2="http://i1.ygimg.cn/pics/shop/cms/newlogo/syc4.jpg" /></a> <a class="morebrand" href="http://www.yougou.com/brand_daqo.html">更多品牌&gt;&gt;</a> </ul></div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

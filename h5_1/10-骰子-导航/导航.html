@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>导航</title>
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				margin: 0;
+				padding: 10px;
+				box-sizing: border-box;
+				display: flex;
+				flex-direction: column;
+			}
+
+			ul {
+				list-style: none;
+				border-bottom: 3px solid #f27b05;
+			}
+
+			li {
+				float: left;
+				padding: 5px 10px;
+				font: bold 16px monospace;
+				color: #f27b05;
+				cursor: pointer;
+				user-select: none;
+				position: relative;
+			}
+
+			li::before {
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				z-index: -1;
+				border: 5px solid;
+				border-image: url(img/current.gif) 5 fill stretch;
+				opacity: 0;
+			}
+
+			li:hover, li.checked {
+				color: white;
+			}
+
+			li:hover::before {
+				opacity: 0.4;
+			}
+
+			li:active::before {
+				opacity: 0.6;
+			}
+
+			li.checked::before {
+				opacity: 1;
+			}
+
+			li:nth-child(2)>img {
+				position: absolute;
+				left: 50%;
+				bottom: 100%;
+				transform: translateX(calc(0.5px - 50%));
+				animation: jump 1s linear infinite;
+			}
+
+			@keyframes jump {
+				50% {
+					margin-bottom: 2px;
+				}
+			}
+
+			#grid {
+				margin: auto;
+				display: grid;
+				gap: 10px;
+				grid-auto-columns: 50px;
+				grid-auto-rows: 50px;
+			}
+			
+			#grid>* {
+				background: hsl(var(--h), 100%, 50%);
+				animation: in 0.3s var(--delay) both;
+			}
+
+			@keyframes in {
+				from {
+					transform: scale(0);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>首页</li>
+			<li><img src="img/shop.gif">天猫</li>
+			<li>聚划算</li>
+			<li>电器</li>
+			<li>良无限</li>
+			<li>吃喝玩乐</li>
+		</ul>
+
+		<div id="grid"></div>
+
+		<script>
+			const li = document.querySelectorAll('li');
+			let cur_checked = li[1];
+
+			function click() {
+				if (this == cur_checked) return;
+				cur_checked.classList.remove('checked');
+				this.classList.add('checked');
+				cur_checked = this;
+				genItems();
+			}
+			li.forEach(li => li.onclick = click);
+			li[0].click();
+
+			/**
+			 * 生成随机网格
+			 */
+			function genItems() {
+				let delay = 0;
+
+				grid.innerHTML = '';
+				gen(1, 1, 10, 10);
+
+				function gen(x, y, w, h) {
+					if (!w || !h) return;
+					const row = r(h);
+					const col = r(row == 1 ? w : w / (row - 1));
+					console.log(col + ' ' + row);
+					if (r(4) > 1) {
+						add(x, y, col, row);
+					} else {
+						for (let i = 0; i < row; add(x, y + i, col, 1), i++);
+					}
+					gen(x + col, y, w - col, row);
+					gen(x, y + row, w, h - row);
+				}
+
+				function add(x, y, col, row) {
+					const div = document.createElement('div');
+					div.style =
+						`grid-area: ${y} / ${x} / ${y + row} / ${x + col};
+						--h: ${r(360)};
+						--delay: ${delay += 0.01}s;`;
+					grid.appendChild(div);
+				}
+
+				function r(n) {
+					return 1 + Math.random() * n | 0;
+				}
+			}
+		</script>
+	</body>
+</html>

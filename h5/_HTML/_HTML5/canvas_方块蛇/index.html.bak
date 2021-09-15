@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <meta charset="utf-8">
+  <!--width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,-->
+  <meta name="viewport" content="width=320,  user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-title" content="test">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta content="telephone=no" name="format-detection">
+  <meta name="screen-orientation" content="portrait">
+  <meta name="full-screen" content="yes">
+  <meta name="browsermode" content="application">
+  <meta name="x5-orientation" content="portrait">
+  <meta name="x5-fullscreen" content="true">
+  <meta name="x5-page-mode" content="app">
+  <title>方块蛇</title>
+</head>
+
+<body style="margin:0px">
+  <canvas id="canvas">浏览器不支持 canvas 标签</canvas>
+</body>
+
+<script src="colors.js"></script>
+<script src="index.js"></script>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				margin: 16px;
+			}
+			th,td:not([colspan]) {
+				text-align: center;
+				background: #ccc;
+				margin: 1px;
+			}
+			
+			tr:nth-child(n+2):nth-child(-n+4)>td:nth-child(2), 
+			tr:nth-child(n+6):nth-child(-n+8)>:only-child,
+			tr:nth-child(n+10):nth-child(-n+12)>:nth-of-type(2),
+			tr:nth-child(n+14):nth-child(-n+16)>:only-of-type,
+			tr:nth-child(18)>:nth-child(2n+1),
+			tr:nth-child(20)>:nth-child(2n),
+			tr:nth-child(22)>:nth-child(n+3),
+			tr:nth-child(24)>:nth-child(-n+3),
+			tr:nth-child(26)>:nth-child(n+3):nth-last-child(n+3),
+			tr:nth-child(n+28):nth-child(-n+32)>:nth-child(2):nth-last-child(2),
+			tr:nth-child(n+34):nth-child(-n+40)>:nth-child(-n+3):nth-last-child(n+4) {
+				background: red;
+			}
+			
+			xmp {
+				margin: 0;
+				font-size: 16px;
+				line-height: 1.5em;
+				font-weight: bold;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<table>
+			<tr>
+				<td colspan="10">
+					<xmp>结构性伪类选择器
+:root 根元素，html文档中就是 html 标签
+:empty 内容为空的元素，如可选择 <div></div>，但不可选择 <div>内容</div>
+剩下的可分为两种
+
+第一种，按在同级元素中的位置选择，先确定位置，再判断其他选择器
+:nth-child(n) 如选择第 2 个并且是 td 的元素 td:nth-child(2)</xmp>
+				</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<th>th</th>
+				<td>td</td>
+				<td>td</td>
+				<th>th</th>
+				<th>th</th>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>:nth-last-child(n) 倒着数
+:first-child 等于 :nth-child(1)
+:last-child 等于 :nth-last-child(1)
+:only-child 没有兄弟姐妹的独生子元素</xmp>
+				</td>
+			</tr>
+			<tr>
+				<th>th</th>
+			</tr>
+			<tr>
+				<td>td</td>
+			<tr>
+				<th>th</th>
+				<td>td</td>
+				<th>th</th>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>
+第二种，无视不同标签的元素，按在同级同标签元素中的位置选择，
+或者说，先按标签分组，在同标签元素中确定位置，再判断其他选择器
+:nth-of-type(n) 如选择在同标签中是第 2 个的元素 :nth-of-type(2)</xmp>
+				</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<th>th</th>
+				<td>td</td>
+				<td>td</td>
+				<th>th</th>
+				<th>th</th>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>:nth-last-of-type(n) 倒着数
+:first-of-type 等于 :nth-of-type(1)
+:last-of-type 等于 :nth-last-of-type(1)
+:only-of-type 标签与众不同的元素</xmp>
+				</td>
+			</tr>
+			<tr>
+				<th>th</th>
+				<th>th</th>
+				<td>td</td>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<th>th</th>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<th>th</th>
+				<th>th</th>
+				<th>th</th>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<th>th</th>
+				<th>th</th>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>
+上述选择器的参数 n 有三种形式：
+1、一个整数，表示位置
+2、一个公式 an+b，a 和 b 是整数可省略，n 从 0 开始递增代入公式计算得出位置
+3、一个关键字，odd(奇数，等于 2n+1) 或 even(偶数，等于 2n)
+
+公式妙用举例
+:nth-child(2n+1) 或 :nth-child(odd) 选择奇数元素</xmp>
+				</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>:nth-child(2n) 或 :nth-child(even) 选择偶数元素</xmp>
+				</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>:nth-child(n+3) 选择第 3 个以及之后元素</xmp>
+				</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>:nth-child(-n+3) 选择前 3 个元素</xmp>
+				</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>
+组合妙用举例
+:nth-child(n+3):nth-last-child(n+3) 选择第 3 个至倒数第 3 个元素</xmp>
+				</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>:nth-child(2):nth-last-child(2) 选择 3 个中的第 2 个元素</xmp>
+				</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<xmp>:nth-child(-n+3):nth-last-child(n+4) 选择前 3 个但不能是后 3 个元素</xmp>
+				</td>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+			<tr>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+				<td>td</td>
+			</tr>
+		</table>
+	</body>
+
+</html>

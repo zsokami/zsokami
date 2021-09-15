@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>嗯</title>
+		<style>
+			html, body {
+				height: 100%;
+			}
+			
+			body {
+				display: flex;
+				margin: 0;
+				background: #FCFEFC;
+			}
+			
+			#wrapper {
+				width: 403px;
+				margin: auto;
+				position: relative;
+				animation: in .5s;
+			}
+			
+			#baidu, #sina {
+				border-radius: 50%;
+				position: absolute;
+				transition: .5s cubic-bezier(.3, 2, .4, .7);
+				pointer-events: none;
+			}
+			
+			.hide {
+				opacity: 0;
+				transform: scale(.8);
+				transition: .1s !important;
+			}
+			
+			#baidu {
+				background: url(img/baidu.jpg);
+				background-position: center;
+				background-size: cover;
+			}
+			
+			#sina {
+				background: url(img/sina.jpg);
+				background-position: center;
+				background-size: cover;
+			}
+			
+			area {
+				outline: none;
+			}
+			
+			@keyframes in {
+				from {
+					opacity: 0;
+					transform: scale(.9);
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<img id="sun" src="img/12.GIF" usemap="#map" />
+			<map name="map">
+				<area shape="circle" coords="85 225 30" href="https://www.baidu.com" title="百度"/>
+				<area shape="circle" coords="325 225 30" href="https://www.sina.com.cn" title="新浪"/>
+			</map>
+			<div id="baidu" class="hide"></div>
+			<div id="sina" class="hide"></div>
+		</div>
+		<script>
+			const circles = document.getElementsByTagName('area');
+
+			bind(circles[0], baidu);
+			bind(circles[1], sina);
+
+			function bind(circle, element) {
+				circle.onmouseenter = () => element.removeAttribute('class');
+				circle.onmouseleave = () => element.className = 'hide';
+				const coords = circle.coords.split(' ');
+				element.style = `left: ${coords[0]-coords[2]}px; top: ${coords[1]-coords[2]}px; width: ${coords[2]*2}px; height: ${coords[2]*2}px`;
+			}
+		</script>
+	</body>
+
+</html>

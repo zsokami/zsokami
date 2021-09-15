@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>钟圣</title> 
+</head>
+<body>
+<input type="text" value="1" id="nums"/>
+<input type="button" value="+1" onclick="gogo(1)" />
+<input type="button" value="-1" onclick="gogo(-1)" />
+<button type="button" onclick="a()">^2</button>
+<script>
+function gogo(i){
+document.getElementById("nums").value =parseInt(document.getElementById("nums").value)+i ;
+}
+function a(){
+document.getElementById("nums").value =parseInt(document.getElementById("nums").value)*parseInt(document.getElementById("nums").value)
+}
+</script>
+</body>
+</html>

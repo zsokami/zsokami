@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			body {
+				display: flex;
+				align-items: start;
+				gap: 1rem;
+			}
+
+			.item {
+				display: flex;
+				flex-flow: column;
+				background: rgba(103, 132, 187, 0.05);
+				color: rgb(116, 136, 153);
+				border-radius: 1rem;
+				overflow: hidden;
+				box-shadow: 0 14px 30px rgba(103, 132, 187, 0.15), 0 4px 4px rgba(103, 132, 187, 0.05);
+			}
+
+			.item>span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				margin: 0.2rem 0.5rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="item">
+			<img src="img/bg.jpg" width="100px">
+			<span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+		</div>
+		<div class="item">
+			<img src="img/bg.jpg" width="200px">
+			<span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+		</div>
+		<div class="item">
+			<img src="img/bg.jpg" width="300px">
+			<span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+		</div>
+		<div class="item">
+			<img src="img/bg.jpg" width="400px">
+			<span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+		</div>
+		<div class="item">
+			<img src="img/bg.jpg" width="500px">
+			<span>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+		</div>
+		<script>
+			document.querySelectorAll('.item').forEach(item => item.style.width = getComputedStyle(item.firstElementChild).width);
+		</script>
+	</body>
+</html>

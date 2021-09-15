@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>应用jQuery的hover事件和addClass等方法实现横向导航菜单</title>
+
+<!-- 网站样式表-->
+<link rel="stylesheet" href="css/global.css" type="text/css" media="screen" />
+<!-- 网站样式表 END-->
+</head>
+
+<body>
+<div id="header">
+  <div class="nav">
+    <ul id="droplist_ul">
+      <li id="n0"><em><a href="default.htm" >首页</a></em></li>
+      <li id="n1"><em><a href='#'>笔记本</a></em>
+        <ul>
+          <li><a href="#">笔记本电脑</a></li>
+          <li><a href="#">笔记本配件</a></li>
+          <li><a href="#">电脑包</a></li>
+        </ul>
+      </li>
+      <li id="n2"><em><a href='#'>数码影音</a></em>
+        <ul>
+          <li><a href="#">数码影像</a></li>
+          <li><a href="#">MP3/MP4</a></li>
+          <li><a href="#">GPS</a></li>
+          <li><a href="#">相机/摄象机配件</a></li>
+          <li><a href="#">录音笔</a></li>
+        </ul>
+      </li>
+      <li id="n3"><em><a href='#'>手机通讯</a></em>
+        <ul>
+          <li><a href="#">手机通讯</a></li>
+          <li><a href="#">手机配件</a></li>
+        </ul>
+      </li>
+      <li id="n4"><em><a href='#'>硬件外设</a></em>
+        <ul>
+          <li><a href="#">核心硬件</a></li>
+          <li><a href="#">外设产品</a></li>
+          <li><a href="#">网络产品</a></li>
+        </ul>
+      </li>
+      <li id="n5"><em><a href='#'>办公设备</a></em>
+        <ul>
+          <li><a href="#">办公设备</a></li>
+          <li><a href="#">办公耗材</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<script src="../jquery-1.12.4.js"></script>
+<script>
+	$(() => {
+		$('#droplist_ul>li').hover(function() {
+			$(this).children('ul').toggle();
+		});
+	});
+</script>
+</body>
+</html>

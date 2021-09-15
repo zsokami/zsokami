@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>大厨师</title>
+		<style>
+			@import url("css/keyframes-lie.css");
+			
+			body {
+				background: url(img/t02.jpg);
+			}
+			
+			#wrapper {
+				width: 767px;
+				margin: auto;
+				border: 3px ridge white;
+				border-radius: 10px;
+				overflow: hidden;
+				animation: lie-1 1s;
+				transition: 2s;
+				position: relative;
+			}
+			
+			.preload #wrapper {
+				background: white;
+				cursor: pointer;
+			}
+			
+			.preload #wrapper:hover {
+				background: #edf;
+			}
+			
+			.preload marquee {
+				display: block;
+			}
+			
+			marquee {
+				display: none;
+				position: absolute;
+				height: 100%;
+				text-align: center;
+				color: #80f;
+				font: italic bold 2em/1.2em 楷体,sans-serif;
+				letter-spacing: .2em;
+			}
+			
+			.preload embed {
+				visibility: hidden;
+				opacity: 0;
+			}
+			
+			embed {
+				display: block;
+				width: 767px;
+				transition: 2s;
+			}
+			
+			embed:first-of-type {
+				height: 190px;
+				background: url(img/t01.jpg);
+			}
+			
+			embed:last-of-type {
+				height: 410px;
+				background: url(img/t03.jpg);
+			}
+			
+			.preload #btn {
+				display: none; animation-play-state: paused;
+			}
+			
+			#btn {
+				position: fixed;
+				right: 10px;
+				top: 10px;
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				text-align: center;
+				line-height: 30px;
+				background: rgba(255, 255, 255, .5);
+				animation: rotate 5s linear infinite;
+				user-select: none;
+				-webkit-user-select: none;
+				cursor: pointer;
+			}
+			
+			@keyframes rotate {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+
+	<body class="preload">
+		<div id="wrapper">
+			<marquee direction="up" scrollamount="15" onmouseenter="stop()" onmouseleave="start()">开始播放点这里<br />注：需启用Adobe Flash Player插件！</marquee>
+			<embed src="flash/gezi.swf" wmode="transparent"></embed>
+			<embed src="flash/ying.swf" wmode="transparent"></embed>
+		</div>
+		<audio id="music" src="music/最美的光.mp3"></audio>
+		<div id="btn">♪</div>
+		<script type="text/javascript">
+			wrapper.onclick = () => {
+				music.play();
+				document.body.removeAttribute('class');
+				wrapper.onclick = null;
+			};
+			btn.onclick = () => {
+				if (music.paused) {
+					music.play();
+					btn.innerHTML = '♪';
+					btn.removeAttribute('style');
+				} else {
+					music.pause();
+					btn.innerHTML = '×';
+					btn.style.animation = 'none';
+				}
+			};
+		</script>
+		<script src="js/rings.js"></script>
+	</body>
+
+</html>

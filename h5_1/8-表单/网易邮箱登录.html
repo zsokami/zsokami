@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>网易邮箱登录</title>
+		<link rel="stylesheet" href="css/my_control.css">
+		<style>
+			* {
+				text-align: initial;
+			}
+
+			body {
+				text-align: center;
+				min-width: 810px;
+			}
+
+			#top, #bottom, fieldset>div {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+
+			#bottom {
+				background: ghostwhite;
+			}
+
+			#left, #right {
+				display: inline-block;
+				width: 400px;
+			}
+
+			fieldset>div {
+				flex-direction: column;
+				margin-top: 1em;
+			}
+
+			fieldset p {
+				margin-top: 0;
+				margin-bottom: 1em;
+			}
+
+			.nav {
+				font-size: 0;
+			}
+
+			.nav>* {
+				font-size: initial;
+				margin-right: 1em;
+			}
+
+			.nav>a {
+				cursor: pointer;
+			}
+
+			.nav>span {
+				border-left: 1px solid dimgrey;
+				padding-left: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<img src="img/163logo.gif">
+			<div class="nav">
+				<a>免费邮</a>
+				<a>企业邮</a>
+				<a>VIP邮箱</a>
+				<a>帮助</a>
+			</div>
+		</div>
+		<div id="left">
+			<img src="img/imap.jpg">
+			<ul>
+				<li>163/126/yeah三大免费邮箱均默认开放</li>
+				<li>全面支持iPhone/iPad及Android等系统</li>
+				<li>客户端、手机与网页，实现发送、阅读邮件立即同步普通登录手机号登录</li>
+			</ul>
+		</div>
+		<div id="right">
+			<form>
+				<fieldset>
+					<legend>
+						<img src="img/loginIcon.gif">
+						<label>普通登录</label>
+					</legend>
+					<div>
+						<div>
+							<p>
+								<label>用户名</label>
+								<input class="control" type="text" name="name" placeholder="不超过25个字符" maxlength="25" required>
+								<label>@163.com</label>
+							</p>
+							<p>
+								<label>密　码</label>
+								<input class="control" type="password" id="pwd" name="pwd" placeholder="8-16个字符 不能纯数字" pattern="(?=.*?\D).{8,}" maxlength="16" required>
+							</p>
+							<p>
+								<label>版　本</label>
+								<select class="control" name="ver">
+									<option>默认</option>
+									<option>极速</option>
+								</select>
+							</p>
+						</div>
+						<div>
+							<p>
+								<input class="control" type="checkbox" id="cb1" name="alogin">
+								<label for="cb1">自动登录</label>
+								<input class="control" type="checkbox" id="cb2" name="ssl" checked>
+								<label for="cb2">SSL</label>
+							</p>
+							<p>
+								<input class="control" type="submit" value="登录">
+								<input class="control" type="button" value="注册" disabled>
+							</p>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div id="bottom">
+			<img src="img/netease_logo.gif">
+			<div class="nav">
+				<a>关于网易</a>
+				<a>免费邮</a>
+				<a>官方博客</a>
+				<a>客户服务</a>
+				<a>隐私政策</a>
+				<span>网易公司版权所有 © 1997-2011</span>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+	</body>
+</html>

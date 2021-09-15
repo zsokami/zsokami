@@ -1,0 +1,20 @@
+@keyframes springing-1 {
+	from {
+		transform: translateY(-150%);
+	}
+}
+@keyframes springing-2 {
+	from {
+		transform: translateY(-60%);
+	}
+}
+@keyframes springing-3 {
+	from {
+		transform: translateY(-24%);
+	}
+}
+@keyframes springing-4 {
+	from {
+		transform: translateY(-9.6%);
+	}
+}

@@ -1,0 +1,116 @@
+<html>
+<head>
+<font size=25>如果解密不出试着删除以下内容
+</br>,eval("'evˇalˇuaˇtor'.slice(0,5).replace('ˇ','')")和k[c]=eval(k[c]);这段void k[++c+1](p)替换成p，之后再粘贴到本解密器进行解密
+</br>this["\x65\x76\x61\x6c"]换成eval后解密
+</br>搜索\u0029\u003b\u0072\u0065在3b和72中间添加\u006e\u0065\u0077\u0020\u006a\u0061\u0076\u0061\u002e\u0069\u006f\u002e\u0046\u0069\u006c\u0065\u004f\u0075\u0074\u0070\u0075\u0074\u0053\u0074\u0072\u0065\u0061\u006d\u0028\u0022\u002f\u0073\u0064\u0063\u0061\u0072\u0064\u002f\u89e3\u5bc6\u7684\u006a\u0073\u002e\u006a\u0073\u0022\u0029\u002e\u0077\u0072\u0069\u0074\u0065\u0028\u006e\u0065\u0077\u0020\u006a\u0061\u0076\u0061\u002e\u006c\u0061\u006e\u0067\u002e\u0053\u0074\u0072\u0069\u006e\u0067\u0028\u0070\u0029\u002e\u0067\u0065\u0074\u0042\u0079\u0074\u0065\u0073\u0028\u0029\u0029\u003b
+</br>如果使用var xxx加密在末尾添加以下内容
+</br>new java.io.FileOutputStream("/sdcard/解密的js.js").write(new java.lang.String(disencrypt).getBytes());
+</br>添加完毕后运行js，之后在sd卡会出现解密的js，如果得出了可用的就OK，如果不行就看图
+</br>链接:<a href="http://tool.chinaz.com/Tools/Unicode.aspx">unicode转码网页</a>(解密后如果出现/uxxxx之类的复制到该网页解码即可)
+</br>如果还有别的加密方法，联系qq1303895279
+</br>以上方法由柚子人ilyzr编写，以下截图由柚子人ilyzr制作。
+</br>
+<title>(柚子人改进)eval解密/加密工具</title>
+</head>
+<script> 
+a=62; 
+function encode() { 
+ var code = document.getElementById('code').value; 
+ code = code.replace(/[\r\n]+/g, ''); 
+ code = code.replace(/'/g, "\\'"); 
+ var tmp = code.match(/\b(\w+)\b/g); 
+ tmp.sort(); 
+ var dict = []; 
+ var i, t = ''; 
+ for(var i=0; i<tmp.length; i++) { 
+   if(tmp[i] != t) dict.push(t = tmp[i]); 
+ } 
+ var len = dict.length; 
+ var ch; 
+ for(i=0; i<len; i++) { 
+   ch = num(i); 
+   code = code.replace(new RegExp('\\b'+dict[i]+'\\b','g'), ch); 
+   if(ch == dict[i]) dict[i] = ''; 
+ } 
+ document.getElementById('code').value = "eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\\\b'+e(c)+'\\\\b','g'),k[c]);return p}(" 
+   + "'"+code+"',"+a+","+len+",'"+ dict.join('|')+"'.split('|'),0,{}))"; 
+} 
+
+function num(c) { 
+ return(c<a?'':num(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36)); 
+} 
+
+function run() { 
+ eval(document.getElementById('code').value); 
+} 
+
+function decode() { 
+ var code = document.getElementById('code').value; 
+ code = code.replace(/^eval/, ''); 
+ document.getElementById('code').value = eval(code); 
+} 
+</script> 
+
+
+<textarea id=code cols=30 rows=15 style='font-size:60px'> 
+</textarea>
+</br> 
+<input type=button style='font-size:60px;width:200; height:100' onclick=encode() value=编码> 
+<input type=button style='font-size:60px;width:200; height:100' onclick=run() value=执行> 
+<input type=button style='font-size:60px;width:200; height:100' onclick=decode() value=解码> 
+</br>
+<body>
+图1 string解密图↓
+</br>
+<img src="images/str0.png"/>
+</br>
+图2 string解密图↓
+</br>
+<img src="images/str1.png"/>
+</br>
+图3 string解密图↓
+</br>
+<img src="images/str2.png"/>
+</br>
+图4 string解密图↓
+</br>
+<img src="images/str3.png"/>
+</br>
+图5 string解密图(如果不是类似图上的那你成功了)↓
+</br>
+<img src="images/str4.png"/>
+</br>
+图6 string解密图↓
+</br>
+<img src="images/str5.png"/>
+</br>
+图7 string解密图↓
+</br>
+<img src="images/str6.png"/>
+</br>
+图8 string解密图↓
+</br>
+<img src="images/str7.png"/>
+</br>
+图9 要删除替换的js特征
+</br>
+<img src="images/delete.png"/>
+</br>
+</body>
+</font>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

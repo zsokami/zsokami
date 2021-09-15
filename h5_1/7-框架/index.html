@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>搜索</title>
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+			}
+
+			div {
+				--odd-c: #DEE1E6;
+				--even-c: #E4E7EB;
+				/* 具体单项宽度在 js 中计算 */
+				--item-w: 100%;
+				display: flex;
+				background: repeating-linear-gradient(to right, var(--odd-c), var(--odd-c) var(--item-w), var(--even-c) var(--item-w), var(--even-c) calc(var(--item-w) * 2));
+				background-origin: content-box;
+				padding: 5px;
+				padding-bottom: 0;
+				border-bottom: 3px solid white;
+			}
+
+			a {
+				flex: 1;
+				text-decoration: none;
+				text-align: center;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				text-transform: capitalize;
+				padding: 5px;
+				border-top-left-radius: 8px;
+				border-top-right-radius: 8px;
+				color: #555;
+				transition: 0.3s;
+			}
+
+			a:hover {
+				background: rgba(255, 255, 255, 0.4);
+			}
+
+			a:active {
+				background: rgba(255, 255, 255, 0.6);
+			}
+
+			a.checked {
+				background: white;
+				cursor: default;
+			}
+			
+			a.poor:not(.checked):hover {
+				position: relative;
+				color: red;
+			}
+			
+			a.poor:not(.checked):hover::before {
+				content: "!";
+				color: white;
+				background: red;
+				font-weight: bold;
+				font-size: 14px;
+				line-height: 16px;
+				width: 16px;
+				height: 16px;
+				border-bottom-right-radius: 8px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			sup {
+				line-height: 0;
+			}
+
+			iframe {
+				flex: 1;
+				border: none;
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<a href="https://baidu.com">百度</a>
+			<a href="https://sogou.com">搜狗</a>
+			<a href="https://mengso.com">萌搜</a>
+			<a href="https://mijisou.com">秘迹</a>
+			<a href="https://cn.bing.com/?ensearch=1">bing</a>
+			<a href="https://dogedoge.com">doge&nbsp;doge</a>
+			<a href="https://goobe.io">goobe</a>
+			<a class="poor" href="https://search.carrot2.org">carrot<sup>2</sup></a>
+			<a class="poor" href="https://searx.lambda.li" >searx</a>
+		</div>
+
+		<script>
+			const a = document.querySelectorAll('a');
+			const iframe = {};
+			let old_checked = a[0];
+
+			function show(a) {
+				a.classList.add('checked');
+				const i = iframe[a];
+				i.style.display = 'block';
+				i.src || (i.src = a.href);
+			}
+
+			function hide(a) {
+				a.classList.remove('checked');
+				iframe[a].removeAttribute('style');
+			}
+
+			function toggle(e) {
+				e.preventDefault();
+				if (this == old_checked) {
+					return;
+				}
+				hide(old_checked);
+				show(this);
+				old_checked = this;
+			}
+
+			a.forEach(a => {
+				let i = document.createElement('iframe');
+				document.body.appendChild(i);
+				iframe[a] = i;
+				a.onclick = toggle;
+			});
+
+			show(old_checked);
+
+			document.querySelector('div').style.setProperty('--item-w', 100 / a.length + '%');
+		</script>
+	</body>
+
+</html>

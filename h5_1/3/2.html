@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>读书人是幸福的人</title>
+	</head>
+	<style>
+		* {
+			overflow: auto;
+			white-space: initial;
+			letter-spacing: 0.5em;
+			color: white;
+		}
+		html, body {
+			margin: 0;
+			height: 100%;
+			white-space: nowrap;
+			overflow-x: hidden;
+		}
+		body:after {
+			content: "";
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+		}
+		.wrapper {
+			display: inline-block;
+			width: 100%;
+			vertical-align: middle;
+			transition: .3s 1s ease-in-out;
+		}
+		.preload .wrapper {
+			transform: scale(0.9);
+			opacity: 0;
+		}
+		a {
+			display: block;
+			text-align: center;
+			text-decoration: none;
+			transition: .3s;
+		}
+		a:hover {
+			background: rgba(255, 255, 255, 0.2);
+			text-shadow: 0 0 10px black;
+		}
+		a:active {
+			background: rgba(255, 255, 255, 0.4);
+			text-shadow: 0 0 30px black;
+		}
+		.content {
+			margin: auto;
+			max-width: 800px;
+		}
+		p {
+			text-indent: 3em;
+		}
+		h4 {
+			text-align: right;
+		}
+		.bg, .bg:after {
+			position: fixed;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			z-index: -1;
+		}
+		.bg {
+			background: url(img/bg.jpg);
+			background-size: cover;
+			background-position: center;
+		}
+		.bg:after {
+			content: "";
+			background: rgba(10, 15, 20, 0.6);
+			transition: 2.5s ease-in-out;
+		}
+		.preload .bg:after {
+			background: #000;
+		}
+	</style>
+
+	<body class="preload">
+		<div class="wrapper">
+			<a href="#">
+				<h1>读书人是幸福的人</h1>
+			</a>
+			<div class="content">
+				<p>我常想读书人是世间幸福人，因为他除了拥有现实的世界之外，还拥有另一个更为浩瀚也更为丰富的世界。现实的世界是人人都有的，而后一个世界却为读书人所独有。由此我想，那些失去或不能阅读的人是多么的不幸，他们的丧失是不可补偿的。世间有诸多的不平等，财富的不平等，权力的不平等，而阅读能力的拥有或丧失却体现为精神的不平等。</p>
+				<p>一个人的一生，只能经历自己拥有的那一份欣悦，那一份苦难，也许再加上他亲自闻知的那一些关于自身以外的经历的经验。然而，人们通过阅读，却能进入不同时空的诸多他人的世界。这样，具有阅读能力的人，无形间获得了超越有限生命的无限可能性。阅读不仅使他多识了草木虫鱼之名，而且可以上溯远古下及未来，饱览存在的与非存在的奇风异俗。</p>
+				<p>更为重要的是，读书加惠于人们的不仅是知识的增广，而且还在于精神的感化与陶冶。人们从读书学做人，从那些往哲先贤以及当代才俊的著述中学得他们的人格。人们从《论语》中学得智慧的思考，从《史记》中学得严肃的历史精神，从《正气歌》中学得人格的刚烈，从马克思学得人世//的激情，从鲁迅学得批判精神，从托尔斯泰学得道德的执着。歌德的诗句刻写着睿智的人生，拜伦的诗句呼唤着奋斗的热情。一个读书人，一个有机会拥有超乎个人生命体验的幸运人。</p>
+				<h4>——节选自谢冕《读书人是幸福的人》</h4>
+			</div>
+		</div>
+
+		<div class="bg"></div>
+
+		<script>
+			setTimeout(() => document.body.className = '', 100);
+		</script>
+	</body>
+
+</html>

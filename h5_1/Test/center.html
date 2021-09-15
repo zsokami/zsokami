@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				outline: 1px solid red;
+			}
+			html, body {
+				height: 100%;
+			}
+			body {
+				margin: 0;
+				display: flex;
+				background: linear-gradient(grey, white) no-repeat;
+			}
+			.center {
+				margin: auto;
+				flex: 0 0 200px;
+				height: 200px;
+				background: rgba(0, 0, 0, 0);
+				border: 200px solid black;
+				box-shadow: -60px 60px 60px black, 60px -60px 60px red, 60px 60px 60px red, -60px -60px 60px black;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="center"></div>
+
+		<script>
+			let center = document.getElementsByClassName('center')[0];
+			let count = 1;
+			center.onmouseover = (v) => {
+				if(count == 5) {
+					center.style.background = 'red';
+				} else {
+					center.style.background = 'blue';
+					count++;
+				}
+			};
+			center.onmouseout = (v) => center.removeAttribute('style');
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>复选框选中效果</title>
+<style type="text/css">
+body{
+	width:400px;
+	margin:0px auto;
+}
+table {
+	width: 400px;
+	margin-top: 5px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	border-top:1px solid #666666;
+	border-left:1px solid #666666;
+}
+td{
+	font-size:12px;
+	line-height:25px;
+	text-align:center;
+	border-right:1px solid #666666;
+	border-bottom:1px solid #666666;
+}
+</style>
+</head>
+
+<body>
+<h2>请选择前端设计参考书</h2>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr style=" font-weight:bold; ">
+    <td><input id="all" type="checkbox" value="全选" />全选</td>
+    <td>书称</td>
+    <td>价格（元）</td>
+    <td>数量</td>
+  </tr>
+  <tr>
+    <td><input name="ic" type="checkbox" value="诺基亚"  /></td>
+    <td>JavaScript入门与提高</td>
+    <td>39</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td><input name="ic" type="checkbox" value="佳能"  /></td>
+    <td>JavaScript DOM编程艺术</td>
+    <td>29</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td><input name="ic" type="checkbox" value="戴尔"/></td>
+    <td>精通JavaScript与JQuery</td>
+    <td>49</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <td><input name="ic" type="checkbox" value="联想" /></td>
+    <td>锋利的JQuery</td>
+    <td>36</td>
+    <td>10</td>
+  </tr>
+   <tr>
+    <td><input name="ic" type="checkbox" value="康佳" /></td>
+    <td>JQuery实战</td>
+    <td>33</td>
+    <td>3</td>
+  </tr>
+   <tr>
+    <td><input name="ic" type="checkbox" value="九阳"  /></td>
+    <td>JavaScript权威</td>
+    <td>59</td>
+    <td>8</td>
+  </tr>
+   <tr>
+    <td colspan="4" style="text-align:left; font-weight:bold; padding-left:15px;">删除选中的书</td>
+  </tr>
+</table>
+<script>
+	const ic = Array.from(document.querySelectorAll('input[name=ic]'));
+	all.onclick = () => {
+		ic.forEach(i => i.checked = all.checked);
+	};
+	ic.forEach(i => i.onclick = () => {
+		all.checked = ic.every(i => i.checked);
+	});
+</script>
+</body>
+</html>

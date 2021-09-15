@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			html, body {
+				margin: 0 80px;
+				height: 100%;
+				text-align: center;
+				background: grey;
+				white-space: nowrap;
+			}
+			body:before {
+				content: "";
+				height: 100%;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			span {
+				font-size: 5em;
+				font-weight: bold;
+				vertical-align: middle;
+				display: inline-block;
+				margin-right: 1em;
+			}
+			#t1 {
+				color: #f0f;
+			}
+			#t2 {
+				color: white;
+				transform: rotateX(45deg) rotateY(-27.5deg);
+			}
+			#canvas {
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+
+	<body><span id="t1">淡然</span><span id="t2">淡然</span><canvas id="canvas">淡然</canvas>
+		<script src="js/index.js"></script>
+	</body>
+
+</html>

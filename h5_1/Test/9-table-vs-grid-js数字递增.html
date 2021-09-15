@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			p {
+				padding: 0 2em;
+				text-indent: 2em;
+				text-align: justify;
+			}
+			
+			table, .grid {
+				border: 10px solid hotpink;
+				float: left;
+			}
+			
+			td, .grid>* {
+				background: red;
+				color: white;
+			}
+			
+			table {
+				border-spacing: 30px/* 列间距 */ 10px/* 行间距 */;
+			}
+			
+			td {
+				width: 50px;
+				height: 50px;
+				padding: 0;
+			}
+			
+			.grid {
+				display: grid;
+				grid-auto-rows: 50px;
+				grid-auto-columns: 50px;
+				gap: 10px/* 行间距 */ 30px/* 列间距 */;
+			}
+			
+			.grid>:nth-child(6) {
+				grid-area: span 5 / 6;
+			}
+			
+			.grid>:nth-child(17) {
+				grid-column: span 5;
+			}
+			
+			
+			.row {
+				display: flex;
+				clear: both;
+			}
+			
+			.row>* {
+				flex: 1;
+				text-align: center;
+				font-size: 3em;
+				color: grey;
+				text-shadow: 6px 6px 10px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<p>
+			的解放军不考虑咖啡的解放军不考虑咖啡的解放军不考虑咖啡机濒临绝境欧罗巴。        看来看看看家具就壁挂一个弔我怕是
+			开过票未付款苹果陪伴着的解放军不考虑咖啡机濒临绝。 境欧罗巴看来看看看家具就壁挂一个弔我怕是开过票未付款苹
+			果陪伴着的解放军不考虑咖啡机濒临绝境欧罗巴看来看看看家具就壁挂一个弔我怕是开过票未付款苹果陪伴着的解放军不
+			考虑咖啡机濒临绝境欧罗巴看来看看看家具就壁挂一个弔我怕是开过票未付款苹果陪伴着GV这笔偶甘肃政法封建割据恢复
+			可贷款宏达控股及更好的快感拉动经济红绿灯金箍棒考虑
+		</p>
+		<table>
+			<tr>
+				<td>t</td>
+				<td>a</td>
+				<td>b</td>
+				<td>l</td>
+				<td>e</td>
+				<td rowspan="5"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="5"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<div class="grid">
+			<div>g</div>
+			<div>r</div>
+			<div>i</div>
+			<div>d</div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div class="row">
+			<div class="gradual">a=24</div>
+			<div class="gradual">1000￥</div>
+			<div class="gradual">89.98</div>
+			<div class="gradual">-433</div>
+		</div>
+		<script>
+			startGradualAnim(document.querySelectorAll('.gradual'), 1000);
+			function startGradualAnim(eles, duration) {
+				let items = [];
+				let startTime;
+				eles.forEach(ele => {
+					let m = ele.innerHTML.match(/[+-]?\d+(?:\.(\d+))?/);
+					if (m) {
+						items.push({
+							ele: ele,
+							original: m.input,
+							prefix: m.input.slice(0, m.index),
+							suffix: m.input.slice(m.index + m[0].length),
+							fixed: m[1] ? m[1].length : 0,
+							number: parseFloat(m[0])
+						});
+					}
+				});
+				if (items.length > 0) {
+					startTime = new Date().getTime();
+					run();
+				}
+				function run() {
+					let d = (new Date().getTime() - startTime) / duration;
+					if (d < 1) {
+						items.forEach(i => i.ele.innerHTML = i.prefix + (i.number * d).toFixed(i.fixed) + i.suffix);
+						requestAnimationFrame(run);
+					} else {
+						items.forEach(i => i.ele.innerHTML = i.original);
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

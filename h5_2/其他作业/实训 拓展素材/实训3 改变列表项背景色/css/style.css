@@ -1,0 +1,35 @@
+*{padding:0px;margin:0px;font-size:12px;}
+a{
+	color:#000;
+	text-decoration:none;
+}
+ul{list-style:none;}
+dl,dt,dd{
+	display:block; 
+}
+dl{
+	clear:both;
+	height:30px;
+	width:670px;
+	line-height:30px;
+}
+dl dt{
+	width:100px;
+	padding-left:10px;
+	float:left;
+}
+dl dd{
+	float:left;
+}
+dl dd a{margin:3px;}
+dl dd.more{
+	float:right;
+	margin-right:10px;
+}
+
+.evevclass{
+	background:#ECF8FD;
+}
+.over{
+	background:#ff9;
+}

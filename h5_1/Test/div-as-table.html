@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<style>
+			html {
+				text-align: center;
+			}
+
+			body {
+				--b: 1px solid red;
+				--w: 51px;
+				--h: 51px;
+				display: inline-block;
+				text-align: initial;
+				border-left: var(--b);
+				border-top: var(--b);
+				counter-reset: no;
+			}
+
+			div {
+				background: pink;
+				box-sizing: border-box;
+				width: var(--w);
+				height: var(--h);
+				float: left;
+				border-right: var(--b);
+				border-bottom: var(--b);
+				text-align: center;
+			}
+
+			div:nth-child(5n+2) {
+				clear: both;
+			}
+
+			div::before {
+				counter-increment: no;
+				content: counter(no);
+			}
+
+			div:nth-child(6n+2)::before {
+				content: counter(no)"\A xxx";
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			
+			div::after {
+				content: "";
+				display: inline-block;
+				height: 100%;
+				vertical-align: middle;
+			}
+			
+			div:first-child, div:last-of-type {
+				width: calc(var(--w) * 5);
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</body>
+</html>

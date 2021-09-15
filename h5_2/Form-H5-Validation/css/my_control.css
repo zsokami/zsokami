@@ -1,0 +1,142 @@
+/* 通用样式 */
+
+*, *::before {
+	--normal-c: #D2D4D7;
+	--active-c: skyblue;
+	vertical-align: middle;
+}
+
+span * {
+	vertical-align: initial;
+}
+
+/* note: + user-select: none; */
+label, input, select, label::before {
+	display: inline-block;
+	font-family: sans-serif;
+	font-size: 1em;
+	background: none;
+	user-select: none;
+}
+
+/* 自定义控件样式类 control */
+
+.control {
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.control:disabled {
+	color: var(--normal-c);
+	opacity: 0.5;
+}
+
+.control,
+input.control+label::before {
+	border: 1px solid var(--normal-c);
+	box-sizing: border-box;
+	transition: 0.2s;
+}
+
+.control:focus, .control:enabled:active,
+input.control:checked+label::before {
+	border-color: var(--active-c);
+	outline: none;
+	transition: 0.3s cubic-bezier(0.3, 3, 0.4, 0.7);
+}
+
+.control::placeholder {
+	font-size: 0.9em;
+	color: var(--normal-c);
+}
+
+.control:not(:placeholder-shown):invalid {
+	border-color: #FF8080;
+}
+
+input.control {
+	width: 12em;
+}
+
+/* 单选，复选 */
+
+input[type=radio].control,
+input[type=checkbox].control {
+	display: none;
+}
+
+/* note: margin 5px -> 10px */
+input.control+label::before {
+	width: 1rem;
+	height: 1rem;
+	margin: 10px;
+}
+
+input[type=radio].control+label::before {
+	content: "";
+	padding: calc(0.5rem - 1px);
+	border-radius: 50%;
+	background-clip: content-box;
+}
+
+input[type=checkbox].control+label::before {
+	content: "✔";
+	border-radius: 3px;
+	line-height: 0.9rem;
+	text-align: center;
+	font-size: 12px;
+	color: transparent;
+}
+
+input[type=radio].control:checked+label::before {
+	padding: 0.2rem;
+	background-color: var(--active-c);
+}
+
+input[type=checkbox].control:checked+label::before {
+	font-size: 1.5rem;
+	color: var(--active-c);
+}
+
+/* 按钮 */
+
+input[type=button].control,
+input[type=submit].control {
+	width: auto;
+	margin: 0 5px;
+	padding-left: 1em;
+	padding-right: 1em;
+	border-radius: 1em;
+}
+
+input[type=button].control:enabled:hover,
+input[type=submit].control:enabled:hover {
+	border-color: var(--active-c);
+}
+
+input[type=button].control:enabled:active,
+input[type=submit].control:enabled:active {
+	background: var(--active-c);
+}
+
+/* 密码框内右边空出个位放小眼睛 */
+
+#pwd {
+	padding-right: 1.3rem;
+}
+
+#reveal {
+	line-height: 0;
+	width: 1rem;
+	margin-left: -1.2rem;
+	cursor: pointer;
+	fill: var(--normal-c);
+}
+
+#reveal.checked {
+	fill: var(--active-c);
+}
+
+:disabled+#reveal {
+	display: none;
+}

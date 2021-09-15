@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>进入中</title>
+<style type="text/css">
+<!--
+canvas {
+	display:block;
+}
+-->
+</style>
+</head>
+
+<body>
+<canvas id="c"/>
+<script type="text/javascript">
+var ctx=document.getElementById("c").getContext("2d");
+var w=c.width=window.screen.width;
+var h=c.height=window.screen.height;
+ctx.fillStyle="rgba(0,0,0,255)";
+ctx.fillRect(0,0,w,h);
+var chrs="qwertyuiopasdfghjklzxcvbnm!#$%^*~<>".split("");
+var chr;
+var arr=Array(Math.floor(w/10+1)).join("0").split("");
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,w,h);
+arr.map(function(y,n){
+  if(y>h+Math.random()*450){
+    y=0;
+  }
+  else{
+    y+=10;
+  }
+  arr[n]=y;
+  ctx.fillStyle=rndColor();
+  chr=chrs[Math.floor(Math.random()*chrs.length)];
+  ctx.fillText(chr,n*10,y);
+});
+}
+setInterval(draw,30);
+
+function rndColor(){
+  return "rgb("+rnd()+","+rnd()+","+rnd()+")";
+}
+
+function rnd(){
+  return Math.floor(Math.random()*256);
+}
+</script>
+</body>
+</html>

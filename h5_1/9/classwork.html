@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<style>
+			div {
+				background: purple;
+				width: 20px;
+				height: 20px;
+				/* margin: 30px; */
+				padding: 30px;
+				border-radius: 5px 15px 30px;
+				box-shadow: 5px 5px 5px plum;
+				/* transform: rotate(225deg); */
+			}
+			
+			div::after {
+				content: "";
+				display: block;
+				background: white;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
+			
+			span {
+				display: inline-block;
+				margin: 30px;
+				/* background: url(img/border.png) center/300% content-box; */
+				/* background-position: center;
+				background-clip: content-box;
+				background-origin: content-box;
+				background-size: 300%; */
+				border: 30px solid transparent;
+				border-image: url(img/border.png) calc(100% / 3) fill / 1 / 0 round;
+				/* border-image: url(img/border.png) 100 100 100 10; */
+				/* border-image-source: url(img/border.png);
+				border-image-slice: calc(100% / 3);
+				border-image-width: 1;
+				border-image-outset: 0;
+				border-image-repeat: round; */
+				/* padding: 0 15px; */
+				width: 60px;
+				height: 30px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<span></span>
+	</body>
+</html>

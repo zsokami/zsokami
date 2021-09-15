@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>骰子</title>
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				background: black;
+				margin: 0;
+				--size: 300px;
+				perspective: calc(var(--size) * 3);
+			}
+
+			body * {
+				--w: var(--size);
+				width: var(--w);
+				height: var(--w);
+				position: absolute;
+				/* 3D 原点 */
+				transform-origin: 50% 50% calc(var(--size) / -2);
+			}
+
+			.dice, span {
+				/* 0 0 为中心位置（居中） */
+				--x: 0;
+				--y: 0;
+				left: calc(50% + var(--w) * (var(--x) * 1.25 - 0.5));
+				top: calc(50% + var(--w) * (var(--y) * 1.25 - 0.5));
+			}
+
+			.dice>*, span {
+				border-radius: 50%;
+				box-shadow: 0 0 var(--blur) var(--color), 0 0 var(--blur) var(--color) inset;
+			}
+
+			.dice>* {
+				--blur: var(--w);
+				background: var(--bg);
+			}
+
+			/* 3D 旋转 */
+
+			.dice {
+				transform: rotateX(-30deg);
+				transform-style: preserve-3d;
+			}
+
+			.dice:hover {}
+
+			.dice>*:nth-child(1) {
+				--color: rgb(255, 131, 69);
+				--bg: rgba(255, 131, 69, 0.7);
+			}
+
+			.dice>*:nth-child(2) {
+				--color: rgb(248, 189, 11);
+				--bg: rgba(248, 189, 11, 0.7);
+				transform: rotateY(-90deg);
+			}
+
+			.dice>*:nth-child(3) {
+				--color: rgb(255, 18, 68);
+				--bg: rgba(255, 18, 68, 0.7);
+				transform: rotateX(90deg);
+			}
+
+			.dice>*:nth-child(4) {
+				--color: rgb(255, 86, 117);
+				--bg: rgba(255, 86, 117, 0.7);
+				transform: rotateX(-90deg);
+			}
+
+			.dice>*:nth-child(5) {
+				--color: rgb(205, 123, 221);
+				--bg: rgba(205, 123, 221, 0.7);
+				transform: rotateY(90deg);
+			}
+
+			.dice>*:nth-child(6) {
+				--color: rgb(180, 234, 162);
+				--bg: rgba(180, 234, 162, 0.7);
+				transform: rotateY(180deg);
+			}
+
+			/* 小圆圈定位 */
+
+			span {
+				--blur: calc(var(--w) / 4);
+				--w: calc(var(--size) * 0.18856);
+				filter: brightness(1.2);
+			}
+
+			:nth-child(n+2)>span:nth-child(1) {
+				--x: -1;
+				--y: -1;
+			}
+
+			:nth-child(n+2)>span:nth-child(2) {
+				--x: 1;
+				--y: 1;
+			}
+
+			:nth-child(n+4)>span:nth-child(3) {
+				--x: 1;
+				--y: -1;
+			}
+
+			:nth-child(n+4)>span:nth-child(4) {
+				--x: -1;
+				--y: 1;
+			}
+
+			:nth-child(6)>span:nth-child(2n+1) {
+				--x: -0.7;
+			}
+
+			:nth-child(6)>span:nth-child(2n) {
+				--x: 0.7;
+			}
+
+			:nth-child(6)>span:nth-child(3) {
+				--y: 1
+			}
+
+			:nth-child(6)>span:nth-child(4) {
+				--y: -1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="dice">
+			<div>
+				<span></span>
+			</div>
+			<div>
+				<span></span>
+				<span></span>
+			</div>
+			<div>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+
+		<script>
+			const dice = document.querySelector('.dice');
+			const step = 90 / 300;
+			let down = false;
+			let ot, ox, oy;
+			
+			let autoRotInterval = setInterval(autoRot, 16);
+
+			onmousedown = function(e) {
+				clearInterval(autoRotInterval);
+				down = true;
+				ox = e.x;
+				oy = e.y;
+				ot = getComputedStyle(dice).transform;
+			}
+
+			onmousemove = function(e) {
+				if (!down) return;
+				let dx = e.x - ox;
+				let dy = e.y - oy;
+				dice.style.transform = `rotate3d(${-dy}, ${dx}, 0, ${step * Math.hypot(dx, dy)}deg)` + ot;
+			}
+
+			onmouseup = function(e) {
+				autoRotInterval = setInterval(autoRot, 16);
+				down = false;
+			}
+			
+			function autoRot() {
+				dice.style.transform = `rotate3d(0, 0.866, -0.5, 0.5deg)` + getComputedStyle(dice).transform;
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,960 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>棋子小白在线Flash键盘钢琴</title>
+</head>
+<script type="text/javascript" src="jQuery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="jQuery/Concurrent.Thread.js"></script>
+<script type="text/javascript" src="js/audios.js"></script>
+<script type="text/javascript" src="js/add_music.js"></script>
+<style>
+body{
+	background:#000;
+	color:#FFF;
+}
+a:link,a:visited{ 
+ text-decoration:none;
+} 
+a:hover{ 
+ text-decoration:underline;
+}
+#list li {
+	float: left;
+	width: 45px;
+	height: 45px;
+	border: solid 1px #cef8af;
+	box-sizing: border-box;
+	text-align: center;
+	line-height: 41px;
+	background: #333;
+	color: white;
+	position: relative;
+	list-style-type: none;
+}
+#list li.active {
+	background: #495894;
+}
+#list li.active:after {
+	height:200px;
+}
+#list li:after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 0;
+	background: #59feae;
+	bottom: 43px;
+	left: 0;
+	opacity:0.6;
+	transition: all 0.1s ease-in-out;
+}
+::-webkit-scrollbar {
+ width: 8px;
+ background-color: #000;
+}
+    /*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track {
+ border-radius: 10px;
+ -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+ background-color: #111;
+}
+    /*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb {
+ border-radius: 10px;
+ -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+ background-color: #444;
+}
+.scroll{
+	overflow:auto;
+}
+.calss_name{
+	margin:7px;
+}
+.calss_set{
+	margin:7px;
+}
+</style>
+<body onload="ready()">
+<nav>
+	<table width="100%">
+		<tr width="100%" align="center">
+			<td width="20%"></td>
+			<td  align="center" width="60%" style="font-size:36px">
+				<b id="name">在线键盘钢琴</b>
+			</td>
+			<td width="20%" style="color:#FF0"></td>
+		</tr>
+	</table>
+</nav>
+<script type="text/javascript">
+function set_fanhui(){				// 返回上一个界面
+	window.history.go(-1);
+}
+</script>
+<table width="100%">
+	<tr>
+		<td width="15%" style="background:#555">
+			<p style="margin-top:50px; margin-left:30px"><b>歌曲名:</b></p>
+			<div class="scroll" style="margin:5p;" id="add_musicname">
+			</div>
+		</td>
+		<td width="70%">
+			<div id="aii" class="scroll" style=" background:#999">
+				<div style="display:block" class="name_div">
+					<p align="center" style="font-size:60px; color:#000; margin-top:100px">努力-_-拼命加载中。。。</p>
+					<p align="center" style="font-size:60px; color:#000; margin-top:100px">请耐心等待几秒钟-_-。。。</p>
+				</div>
+				<div id="tianjia_div" style="display:none" class="name_div">
+					<p align="center">添加歌曲</p>
+					<div style=" margin-top:15px; width:100%">
+						<p style="font-size:26px">请输入歌曲名：<input style="font-size:26px" type="text"  size="20" id="add_name"/>&nbsp;&nbsp;<input type="button" value="重新开始"  onclick="dle_music()"/></p>
+						<div align="center"><textarea rows="10"  style="width:99%; font-size:24px" id="add_text"></textarea></div>
+					</div>
+					<p align="center"><input type="button" value="下一步：纠正断句"  onclick="ubd_music()"/></p>
+					<div style="background:#666; height:400px; width:100%; overflow:auto" id="add_div">
+					
+					</div>
+					<p align="center"><input type="button" value="上一步：更改字符"  style="display:none"/>&nbsp;&nbsp;<input type="button" value="下一步：添加歌曲" onclick="add_music()" /></p>
+				</div>
+				<div id="jiuzheng_div" style="display:none" class="name_div">
+					<p align="center">纠正歌曲</p>
+				</div>
+				<div id="shanchu_div" style="display:none" class="name_div">
+					<p align="center">删除歌曲</p>
+				</div>
+			</div>
+		</td>
+		<td width="15%" style="background:#555">
+			<div class="scroll" style="width:100%; height:100%; margin:5px">
+				<p align="center">功能区</p>
+				<div style=" margin:10px" class="scroll">
+					<input onclick="set_event_kaishi()" type="button" id="kaishi" value="新的开始" style="margin:7px; background:#000; color:#FFF; border:solid 0px #000" /><br />
+					
+					<input type="button" class="calss_set" id="tianjia" value="添加歌曲" /><br />
+
+					<input type="button" class="calss_set" id="jiuzheng" value="纠正歌曲" /><br />
+
+					<input type="button" class="calss_set" id="shanchu" value="删除歌曲" /><br />
+
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>
+<div align="center">
+	<ul id="list" class=""  style="font-size:36px; margin-top:-34px">
+		<li>A</li>
+		<li>B</li>
+		<li>C</li>
+		<li>D</li>
+		<li>E</li>
+		<li>F</li>
+		<li>G</li>
+		<li>H</li>
+		<li>I</li>
+		<li>J</li>
+		<li>K</li>
+		<li>L</li>
+		<li>M</li>
+		<li>N</li>
+		<li>O</li>
+		<li>P</li>
+		<li>Q</li>
+		<li>R</li>
+		<li>S</li>
+		<li>T</li>
+		<li>U</li>
+		<li>V</li>
+		<li>W</li>
+		<li>X</li>
+		<li>Y</li>
+		<li>Z</li>
+	</ul>
+</div>
+<audio id="music" src=""></audio>
+<div style="display:none">
+	<p class="dif_name" id="dif_name38">哆啦A梦</p>
+	<p class="dif_name" id="dif_name36">回到过去</p>
+	<p class="dif_name" id="dif_name35">红河谷</p>
+	<p class="dif_name" id="dif_name34">下一站天后</p>
+	<p class="dif_name" id="dif_name27">离家出走</p>
+	<p class="dif_name" id="dif_name26">往事难忘</p>
+	<p class="dif_name" id="dif_name25">梁祝</p>
+	<p class="dif_name" id="dif_name24">天空之城</p>
+	<p class="dif_name" id="dif_name22">虫儿飞</p>
+	<p class="dif_name" id="dif_name21">世上只有妈妈好</p>
+	<p class="dif_name" id="dif_name20">最熟悉的陌生人</p>
+	<p class="dif_name" id="dif_name19">給我一首歌的时间</p>
+	<p class="dif_name" id="dif_name18">雪绒花</p>
+	<p class="dif_name" id="dif_name15">想唱就唱</p>
+	<p class="dif_name" id="dif_name14">痴心绝对</p>
+	<p class="dif_name" id="dif_name13">好好恋爱</p>
+	<p class="dif_name" id="dif_name12">安静</p>
+	<p class="dif_name" id="dif_name29">不能说的秘密</p>
+	<p class="dif_name" id="dif_name32">无赖</p>
+	<p class="dif_name" id="dif_name30">蜗牛</p>
+	<p class="dif_name" id="dif_name17">画心</p>
+	<p class="dif_name" id="dif_name28">心乱如麻</p>
+	<p class="dif_name" id="dif_name43">约定</p>
+	<p class="dif_name" id="dif_name11">月亮代表我的心</p>
+	<p class="dif_name" id="dif_name10">有没有人告诉你</p>
+	<p class="dif_name" id="dif_name7">暗香</p>
+	<p class="dif_name" id="dif_name6">婚礼进行曲</p>
+	<p class="dif_name" id="dif_name16">梦里</p>
+	<p class="dif_name" id="dif_name5">星语心愿</p>
+	<p class="dif_name" id="dif_name33">海阔天空</p>
+	<p class="dif_name" id="dif_name4">童话</p>
+	<p class="dif_name" id="dif_name2">菊花台</p>
+	<p class="dif_name" id="dif_name1">青花瓷</p>
+	<p class="dif_name" id="dif_name23">大海</p>
+	<p class="dif_name" id="dif_name39">同桌的你</p>
+	<p class="dif_name" id="dif_name31">神秘园</p>
+	<p class="dif_name" id="dif_name9">美丽的神话</p>
+	<p class="dif_name" id="dif_name40">致爱丽丝</p>
+	<p class="dif_name" id="dif_name41">女人花</p>
+	<p class="dif_name" id="dif_name44">爱很简单</p>
+	<p class="dif_name" id="dif_name42">梦中的婚礼</p>
+	<p class="dif_name" id="dif_name37">亲爱的那不是爱情</p>
+	<p class="dif_name" id="dif_name3">北京欢迎你</p>
+	<p class="dif_name" id="dif_name8">遇见</p>
+	<!-- 	
+			上面是歌曲名，下面是键盘谱，谱的顺序没有关系，歌曲名的顺序是倒的，它们的关联就是id
+			如果需要调整顺序只需要调整歌曲名的位置即可
+	
+			这个div的信息用户不会被看到，永远隐藏，是为了界面初始化准备的，歌曲越多，初始化时间越长
+			
+			使用这种方式将可以为用户减少许多数据消耗
+	
+	--->
+	<p id="dif_name44_text">
+		LLLLLML
+		LPPNLO
+		LNOLJM
+		LLLLLML
+		LPPNLO
+		ONOLJM
+		MMMMNOONMLM
+		NNQNMLMNOON
+		MMMMNOONMLM
+		NNQNMLMOQP
+		QSO QRSTSO
+		MOMQQMON
+		QSO QRSTSO
+		PPO LLLLLML
+		LPPNLO
+		LNOLJM
+		MLLLLML
+		LPPNLO
+		OOOLJM
+		MMMMNOONMLM
+		NNPNMLMNOON
+		MMMMNOONMLM
+		NNQNMLMOQP
+		QSO QRSTSO
+		OQPOPPO
+		OPOPOPQMMO
+		QPOP POPOPQT
+		TS PQMMMLQPOPOMOML
+		QSO QRSTSOMOMQQSP
+		QSO QRSTSO
+		LQPOPPO
+	</p>
+	<p id="dif_name43_text">
+		LOPQPOQPLL
+		JMNONMONJL
+		MLLKKOJJPO
+		PQRQQPOMP
+		LOPQPOQPNL
+		QMNONMONJL
+		MLLKKOPQO
+		MNOMOTSS
+		POSQ QPONOMJM
+		OPOTR RQRMNOP
+		QRSSSTO SNPO
+		PQMORQRSP POSQ
+		QPONOMJM OPOTR
+		RQRMNOP QRSSSTO
+		SNPO PQRMRQOPO
+	</p>
+	<p id="dif_name42_text">
+		MMNNOONNMMJJHHFFLLKKJKLK
+		KKLLMMNNLLIIKKJJIIKJ
+		JFHJIJ FHJIJ
+		FHKJK FHKJK
+		KJKKLLMLMJ
+		QMOQPQ MOQPQ
+		MORQR MORQR
+		RQRRSSTSTQ O
+		JJKK IINN IIJJ
+		HHMLM HHII
+		GJIJ O
+		OOPP ONML
+		LMLJ O
+		OOPP ONML LMLM
+	</p>
+	<p id="dif_name41_text">
+		JLLML ILLML
+		HIJOMJL MOOPO
+		MLMJIH FHILJIH
+		JLQ QQPPOL
+		JLO OOMMLJ
+		JLQ QQPPOM
+		MOP PPQNML
+		JLLML ILLML
+		HIJOMJL MOOPO
+		MLMJIHFHILJIH
+	</p>
+	<p id="dif_name40_text">
+		QPQPQNPOM
+		HJMNJLNO
+		JQPQPQNPOM
+		HJMNJONM
+		NOPQLRQPKQPOJ
+		PONNJQQQ
+		QPQPQNPOM
+		HJMNJLNO
+		JQPQPQNPOM
+		HJMN
+		JONMORQQPPRTSR
+		QPONMMLM
+		NOPPQR
+		MOPNO
+		PQSPNOPQSP
+		NQQQQQP
+	</p>
+	<p id="dif_name39_text">
+		lllljkln 
+		mmmmkml 
+		llllnmlk 
+		kkkkjih 
+		oooolmoq 
+		pppponm 
+		nnnnnopl 
+		nnopono 
+		oooolmoq 
+		pppponm 
+		nnnnnopl 
+		nnopono 
+	</p>
+	<p id="dif_name36_text">
+		hjjiihgh 
+		hggffecf 
+		feehhjji 
+		ihhhgfe 
+		hjjiihgih 
+		hggffecg 
+		feee 
+		edced 
+		hjji 
+		iiihijji 
+		eghhghml 
+		hihjhhgee 
+		ehihjhkkji 
+		ehijj 
+		jijkkjji 
+		ihjjjiihgh 
+		hihjjjj 
+		hhlljjj 
+		hhiihhhfhfhi 
+		ehigh 
+	</p>
+	<p id="dif_name37_text">
+		OOONMMLMLLKJL 
+		HMMMMLOJJIIHI 
+		JIHGHLL 
+		LHMLLL 
+		MNOOOLKJIHH 
+		OOONMMLMLLKJL 
+		HMMMMLOJJIIHI 
+		JIHGHLL 
+		LHMLLL 
+		MNOOOLKJIHH 
+		JJLPQLNNOM 
+		KKMSRMOOPN 
+		LLJPOPQPOJ 
+		ONLONNLQQRP 
+		JJLPQLNNOM 
+		KKMSRMOOPN 
+		LLJPOPQPOO 
+		MOSRQPOO 
+	</p>
+	<p id="dif_name38_text">
+		ehhjmjl 
+		lmljkji 
+		fiiknnmlkkjfghi 
+		ehhjmjl 
+		lmljkji 
+		fiiknnmlkkjfgih 
+		mmlklml 
+		ijkil 
+		mlkinmlmlk 
+		lmjih 
+	</p>
+	<p id="dif_name33_text">
+		QPO
+		PQSSSSTS
+		TUVVVVVVUTST
+		TSS
+		SQPO
+		QRQPPQPP
+		QPPPOOOO POO
+		TUVVVVVVUTSSSQPO
+		VVVVWWWVWX
+		XWV
+		VVVVWW
+		SSXWV
+		VVVVWWWWVUV
+		TTUTUV
+		VVWVWX
+		XWXV
+	</p>
+	<p id="dif_name34_text">
+		QQQSP
+		PSOOOQM
+		RQRTQ
+		RSPPMOP
+		QPQSSPQVUSST
+		RQRSMOQPO
+		QSUVUTSS
+		QRSTRRQP
+		POPQSS
+		QTQPOP
+		MOQPPQS
+		VUTUT
+		SSOQSS
+		TTTRQP
+		PPUS
+		QQSO
+		QQPPP
+		TQS
+		VUTUTSS
+		OQSS
+		TTTTVUTUVSSQSTSSRMNO
+	</p>
+	<p id="dif_name35_text">
+		EHJJJJIJIH
+		EHJHJLKJI
+		LKJJIHIJLK
+		FFEGHIJIH
+		LHJJJIJIH
+		EHJJJLKJI
+		LKJJIHIJLKK
+		FFEGIJIH
+	</p>
+	<p id="dif_name31_text">
+		JMNO NO
+		OPNMN
+		NOMLM LJ
+		JMNO NO
+		OPNMN
+		NOMLM LM
+		NOST TUSRS
+		NOQR RSQPQ
+		NOST TUSRS
+		STRQR RSQPQ
+		JMNO NO
+		OPNMN
+		NOMLM LJ
+		JMNO NO
+		OPNMN
+		NOMLM LM
+	</p>
+	<p id="dif_name32_text">
+		HIJJIJKJIGE
+		FGHHIJJMLJL
+		JLMMMLK
+		JKLLKJ
+		JKKLKHI
+		HIJJIJKJIGE
+		FGHHIJJMLJL
+		JLMMMLK
+		JKLLKJ
+		JKJHIH
+		HHEFGHHIJHE
+		EDDFEDE
+		EFFGJIIHGH
+		HHFEFG
+		EEEJIHHIJHL
+		JJLMMNOLJ
+		JJLMMMKMNMLKLJ
+		JKJKLMLL
+		EJIHHIJHL
+		JJLMMNONJ
+		JJLMMMKMNMLJIH
+		JKJKLMLLJIHH
+	</p>
+	<p id="dif_name30_text">
+		JJJKJIJIH
+		HHK KIHHIJ
+		HHL LMLKJK
+		GHEEJ JKJIJH
+		EEH HEHIJKL
+		HONN NONMMNLHKLM
+		MNOPQL EFLK
+		KLKJIHI
+		EEH HEHIJKL
+		HONN NONMMNL
+		HKLM MNOPQL
+		EFLK KJIHHGH
+	</p>
+	<p id="dif_name29_text">
+		EHHH EGGG
+		EHHH EIII
+		EHHH EGGG
+		EHHH EIII
+		EKKKK KJJ
+		KKKLJIHGGH
+		ELLLL LKK
+		LLLLLKKJJI
+		EKKKK KJJ
+		KKKLJIHGGIH
+		FHLMH
+		LLLLLKKJJI
+		HONOOLLLLKKJ
+		HONOOLLLLPPO
+		HONONMHNMNML
+		HMLMLKKJKLMML
+		HONOOLLLLKKJ
+		HONOOLLLLPPO
+		HONONM
+		HNMNML
+		HMLMLKKJKLMML
+		HLHKJ
+		HHLHKJH
+	</p>
+	<p id="dif_name27_text">
+		STSQP SQPPO
+		OOPQO OPPOQP
+		STSQS VUSQSTS
+		PQRQORQPO
+		SZRQRSTSRQP
+		QRSTS
+		VUTUVVVUTUS
+		QRSSTTQPPQRRSSPO
+		ORQRQRRSTS
+		QRTSVV SZZX
+		VQQQPQUUUVTOSTSQ
+		RRRPTS VUSSVV
+		SWWU VTVTV
+		ZYX TVWXVW
+		TVUUV TVWXYXYW
+		VUVWVXX
+		UVWUVQQQ
+		QQUUVUV
+		TOSTSV
+		TVVUVW
+		XWVSVV
+		SWWU VTVTVZYX
+		TVWXVW
+		TVUTS
+	</p>
+	<p id="dif_name28_text">
+		TSRQRSRQ
+		RRVUTSS QTS
+		TSRQRSRQ
+		RRTSVUV
+		WVXWV
+		VVUUVWS
+		SQTS RRSQVUV
+		WVXWV
+		SXXXYXWV
+		XXXYXWV
+		SWWVWVXXW
+		QSTTSS TVWWVV
+		SZYXVVTTVXYXW
+		SVWXYXVWX
+		WVWVZZ XXTVX
+		XTUVWV
+		QRSTSVWUTS
+		SYXSYXSXYZXVW
+		QSTTSS TVWWVV
+		SZYXVVTTVXYXW
+		SVWXYXVWX
+		WVWVZZ XXTVX
+		XTUVWV
+	</p>
+	<p id="dif_name25_text">
+		LJIH IGFE
+		NMNLMKJL
+		IJLIJKJIH
+		LGIFHE FHE
+		CEFHI FHE
+		LOMLJLI
+		IJGFEFHICHFEFHE
+		JLGIFHE
+		CECEFGIF
+		EFHILJIJIHFECH
+		FHFECEFHE
+		JLIJIHGFE
+	</p>
+	<p id="dif_name26_text">
+		HHIJ JKL
+		MLJ LKJI
+		KJIH HHIJ
+		JKL MLJ
+		LKJI JIH
+		LKJI EEKJIH
+		LKJI KJIH
+		HHIJ JKL
+		MLJ LKJI
+		JIH
+	</p>
+	<p id="dif_name23_text">
+		FEHHHH
+		EFHHIH
+		FHIIII
+		HFIIJI
+		JLMMLM
+		LJIJIHF
+		EFHHHHIH
+		JLMMMMOMLLML
+		JIHHHHIJ
+		JIHHHHOMLLML
+		JLMOOML
+		JLMMMMOMLLML
+		JIHHHHLJ
+		JIHHHHIJLLJL
+		JLM FJIHH
+	</p>
+	<p id="dif_name24_text">
+		MNONOQN
+		LJMLMOLL
+		KJKOJ
+		JHOON
+		OONNMN
+		ONOQN
+		JMLMHLJ
+		JKONOPQOO
+		ONMMNLM
+		OPQPQSP
+		LONOQQ
+		MNOONOPO
+		LLRQPOQ
+		QTSQPO POPSQ
+		QTSQPO POPNM
+		MNONOQN
+		JMLMHLJ
+	</p>
+	<p id="dif_name21_text">
+		MLJLOMM 
+		JLMLJIHFLJI 
+		IJLLMJIH 
+		LJIHFHE 
+	</p>
+	<p id="dif_name22_text">
+		JJJKLJII
+		HHHIJJGG
+		FJI FJI
+		FJIHH
+		JJJKLJII
+		HHHIJJGG
+		FJI FJI
+		FJIHH
+		JIL KJI
+		LKJKLJI
+		HFJI HFIH
+		KJKJH
+		HKJKJHIH
+	</p>
+	<p id="dif_name17_text">
+		LJJ IHIILJ
+		LJJIHILMJ
+		LJJIHIHGHIGEF
+		CEF FJIHGEF
+		EEFFHGFEBC
+		CCEFGHEHIJ
+		LJJ IHIHGHIGEF
+		CEFFJIHGEF
+		CEFHGFEFC
+		CEFFGHEHIJ
+		LJJ
+		IHIHGHIGEF
+		CEFFJIHGEF
+		LJJ
+		IHIHGHIGEF
+		CEFFJIHGEF
+		LJJIHIILJ
+		LJJIHILMJ
+		LJJIHIHGHIGEF
+		CEFFJIHGEF
+	</p>
+	<p id="dif_name18_text">
+		CEI HED
+		CCCDEFE
+		CEI HED
+		CEEFGHH
+		IEEGFECEH
+		FHIHGE
+		CEI HED
+		CEEFGHH
+	</p>
+	<p id="dif_name19_text">
+		LQQROPOOPQP
+		LQQPOOMOMPO
+		QQRQPOOMOMPL
+		LLMPOOMOMOPP
+	</p>
+	<p id="dif_name20_text">
+		PQPQ
+		OPQRSRRQQPOP
+		PQPQ
+		OTSRRQRQPQPO
+		OVUUTSQTSSRSRS
+		PQRQRV
+		TVWW
+		VWXXXXYXXX
+		WVVTX
+		SSTVVVTS
+		SXXXWV
+		VVVTW
+		VWXXXXYXXX
+		WVVWWV
+	SSTVVVTSSXXXWVTV
+	</p>
+	<p id="dif_name16_text">
+		QQQQQQPO
+		LMOOOOMQ
+		QQQQSTSQP
+		LPPPPPSQ
+		QQRS OOPQ
+		LLMOQPSQ
+		QQRS OOPQ
+		LLMOQPOO
+		OPQRSSSRQRSS
+		SSSSVTSQ
+		QQPO OPM
+		MOPPPPQP
+		OPQRSSSRQRSS
+		SSSSVTSQ
+		QQPO OPM
+		MOPQQQQPOM
+		QQQQQQPO
+		LMOOOOMQ
+		QQQQSTSQP
+		LPPPPPSQ
+		QQRS OOPQ
+		LLMOQPSQ
+		QQRS OOPQ
+		LLMOQPOO
+		OPQRSSSRQRSS
+		SSSSVTSQ
+		QQPO OPM
+		MOPPPPQP
+		OPQRSSSRQRSS
+		SSSSVTSQ
+		QQPO OPM
+		MOPQQQQMPQT
+	</p>
+	<p id="dif_name13_text">
+		JKLLLLLKJIIL
+		NNONOOOPQNNL
+		HMMMJMOLLLLJH
+		KKKJKLMMMOML
+		JKJJKLLLLJIHHO
+		NMLML
+		JHHMMLLLKJ
+		OOOONOPP
+		LRQLLRPLRQRQRQPO
+		ONMMQMQMLLQLQL
+		RQRQOP
+		LRQLLRSPLRQQQRQPQ
+		ONMMQMQMLLQLQPOM
+		OPNMNMNQPOO
+	</p>
+	<p id="dif_name14_text">
+		OPQQQRQPPOPPSP
+		ONOOOQQOOMNNQN
+		MLMMMRRQSO
+		MLMMMRROOMP
+		OOPQQQRQPPOPPSP
+		ONOOOQQOOMNNQN
+		MLMMRRQSO
+		MLMMMRROOONO
+	</p>
+	<p id="dif_name15_text">
+		ONOPOL JKKKLJ
+		ONOPOL LMMMON
+		ONOPQOLJ OPOLJ
+		ONOPQOLO RQPOQ
+		QRST OOPQP
+		PQRS SRQPQ
+		QRSTSS
+		UUVUSPQ RQRS
+		QRST OOPQP
+		PQS QUUQV
+		VUVTSOO
+		TSRQRS
+		TSQRST
+		OOPQP
+		PQRS
+		SRQPQ
+		QRSTSS
+		UUVUSPQ
+		RQRS
+		QRST OOPQP
+		PQS QUUQV
+		VUVTSOO
+		TSRQRS
+	</p>
+	<p id="dif_name11_text">
+		LOQSONQS
+		STUVTS QPOOO
+		QPOOO PQPOMPQP
+		LOQSONQS STUVTS
+		POOO QPOOO
+		PQPMNOPO
+		QSQPOSN
+		MNMNMLQ SQPOSN
+		MNOOOPQP
+		LOQSONQS
+		STUVTS
+		QPOOO QPOOO
+		PQPMNOPO
+	</p>
+	<p id="dif_name12_text">
+		QQQQPONPPPO
+		LQPOOOLQPOOP
+		QQQQPONPPPO
+		LQPOOOLQPOOPPQR
+		RRRRQPOOOPP
+		LSSSRQPPPQQ
+		MRQRQPOONOL
+		QRQRQPOPS
+		LQRSRQS
+		LQRSRQS
+		LQRSRQOPPPQO
+		SSOONOOSSOONOO
+		RRQQPPORRQQPPO
+		LQRSRQS
+		LQRSRQS
+		LQRSRQOPPPQO
+		SSOONO
+		OSSOONO
+		ORRQQPPOORQPOMOO
+	</p>
+	<p id="dif_name9_text">
+		MQN MOPOQ
+		MTSTSPRQ
+		MTSPQRQ OMQPNM
+		MQNMOPOQ
+		MTSTSPRQ
+		MTSPQRQPO MPONM
+		MNOPQONLMOPQQ
+		MNOPQONLMOPOO
+		MPONM MNOPQONL
+		MOPQQ
+		MNOPQONLMOPOO
+		OOPQONLONMNT
+	</p>
+	<p id="dif_name10_text">
+		JMMMMMMMMJKLK
+		JLLLLLLLMNNJ
+		JMMMMMMMMQQP
+		NNNNNJONON
+		JMMMMMMMMJKLK
+		ILLLLLLLMNNJ
+		JMMMMMMMMQQP
+		NNNNNNNMNM
+		QTQQQQOMJJQP
+		JSSSSSSSTUUQ
+		QTQQQQOMJJQP
+		PPPPPJNNM
+	</p>
+	<p id="dif_name7_text">
+		JKJGHJM ONLJ
+		JKJGHJM ONLQ
+		MMMOQLKMP PQRPQRQ
+		MPQRPQRM MQRSQRSM
+		PQRMR SKPQPQRQ
+		JKJGHJMONLJ
+		JKJGHJMONLM
+	</p>
+	<p id="dif_name8_text">
+		LJ LI JIH
+		HGFGHGHIJ
+		LJ LP ONO
+		HGFGHGHIH
+		LMNONONMLML
+		HIJKJKLHIJ
+		LMNONONPOPOQL
+		HIJKJKJIHGH
+		LMNONOPONML
+		HIJKJKLHHML
+		LMNONOPOPQL
+		HIJKJKLHHML
+		LMNONOPOPQL
+		HIJIJILHIJH
+		LMNONOMNLKL
+		JJJKLJEE
+		IIIJKIEE
+		HHHIJIGH GFGHG
+		FEFML IKJIH
+		HGFIIHFFGH
+	</p>
+	<p id="dif_name6_text">
+		HKKK HLJK
+		HKNNMLKJKL
+		HKKK HLJK
+		HKMOMKILMKNMLII
+		JKLL NMLII
+		JKLL HKKK HLJK
+		HKMOMKILMKILMKK
+	</p>
+	<p id="dif_name5_text">
+		TVUTSTQ
+		TSTVUVUTUV
+		VWXXXXW
+		VUTUS TVUTST
+		QSTXWVUV
+		VUTTTTSSTQ
+		SSTXWVUVV
+		VUTTSUT
+	</p>
+	<p id="dif_name4_text">
+		LONOL LONOL
+		LONO OOMML
+		LONOL LQPPO
+		LONOM MMOTS
+		PPRRQQ QQNPOONO
+		ONOR
+		LSRQPPPRRQQ
+		QQVUTUV VPOT
+		TTSSSLSRQQRQ
+		QRQRQPOOQST
+		TTSPPRQ OQST
+		TTSPPRQRQPO
+		PQMMOONO
+	</p>
+	<p id="dif_name3_text">
+	QSQPQPQ QPMOQP
+	POMOPQSPQTSSPO
+	POMOPQSPQTSSQ
+	PQPOSTQMQPPO
+	QSVST TSQQSS QSTVWVSQPSQ
+	QQSVSTVWV SQSVTQPQSXWVV
+	</p>
+	<p id="dif_name1_text">
+		LLJIJF IJLJI
+		LLJIJE IJLIH
+		HIJLMLJLJJ
+		IIHIHIHIIJLJJ
+		LLJIJF IJLJI
+		LLJIJE IJLIH
+		HIJLMLJLJJI
+		IEJIIH
+	</p>
+	<p id="dif_name2_text">
+		JJIJ JLJIJ
+		HHIJLJ IIHI
+		JLJML MLLJL
+		EJIILJIIIHI
+		JJIJ JLJIJ
+		HHIJLJ IIHI
+		JLJML MLLJL JIJLJIIH
+		HIJJLM MQQPOML MLJIH FHIIHI
+		HIJJLM MQPOOPO LLJNOHIJIH
+	</p>
+</div>
+</body>
+</html>

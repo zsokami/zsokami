@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>h5</title>
+<style type="text/css">
+<!--
+#div1 {
+	background-color: #666666;
+	height: 650px;
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+body {
+	margin: 0px;
+}
+-->
+</style>
+</head>
+
+<body>
+<div id="div1"><canvas id="canvas">您的浏览器不支持 canvas 标签</canvas></div>
+<script type="text/javascript">
+var ctx=document.getElementById("canvas").getContext("2d");
+var
+  w=canvas.width=1000,
+  h=canvas.height=650,
+  cx=w/2,
+  cy=h/2;
+var
+  color=1,
+  index=1;
+
+ctx.fillStyle="#00aaee";
+ctx.fillRect(0,0,w,50);
+ctx.fillRect(0,h-50,w,50);
+drawRect(h-100,1);
+
+function drawRect(rw,color){
+  ctx.fillStyle=color?"#ffffff":"#000000";
+  ctx.fillRect((w-rw)/2,(h-rw)/2,rw,rw);
+  if((rw*=0.9)>1)drawRect(rw,!color);
+}
+
+function draw(){
+  drawRect(h-100,color=!color);
+  index=index<=0?30:index-1;
+  var rw=(h-100)*Math.pow(0.9,index);
+  ctx.fillStyle="#ff0000";
+  ctx.fillRect((w-rw)/2,(h-rw)/2,rw,rw);
+  drawRect(rw*0.9,0);
+}
+
+setInterval(draw,300);
+</script>
+</body>
+</html>

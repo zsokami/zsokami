@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>商品列表</title>
+<style type="text/css">
+body{font-size:12px;
+      line-height:25px;
+	  }
+table{border-top:solid 1px #666666;
+      border-left:solid 1px #666666;
+	  }
+td{text-align:center;
+    border-right:solid 1px #666666;
+    border-bottom:solid 1px #666666;
+	}
+.left{text-align:left;
+      padding-left:10px;}
+#photo{
+       border:solid 1px #0066CC;
+	   width:200px;
+	   text-align:center;
+	   z-index:2;
+	   position:absolute;
+	   display:none;
+	   /*top:50px;*/
+	   /*left:50px;*/
+	   background-color:#ffffff;
+	   user-select: none;
+	   }
+#big{
+	
+	width:200px;
+	}
+	
+	.even       { background:#FFF38F;}  /* 偶数行样式*/  
+   .odd        { background:#FFFFEE;}  /* 奇数行样式*/  
+   .selected   { background:#FF6500;color:#fff;}  /*选中行样式*/
+</style>
+
+<script src="js/jquery-1.12.4.js"></script>
+<script src="js/myanswer.js"></script>
+</head>
+
+<body><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr style="font-weight:bold; font-size:13px;">
+  	<td></td>
+    <td style="width:100px;">商品图片</td>
+    <td>商品名称</td>
+    <td style="width:100px;">商品价格</td>
+  </tr>
+  <tr>
+  	<td><input name="Select" type="checkbox" value="Select"></td>
+    <td><img src="images/small_1.jpg" class="td_image" alt="big_1.jpg" /></td>
+    <td class="left">闪亮双色超漂漂蝴蝶耳</td>
+    <td>28.00元</td>
+  </tr>
+  <tr>
+  	<td><input name="Select" type="checkbox" value="Select"></td>
+    <td><img src="images/small_2.jpg" class="td_image" alt="big_2.jpg"/></td>
+    <td class="left">皇冠 09年完美芦荟胶10支装 40g/支 接受验货 去疤痕 祛痘痕 祛斑</td>
+    <td>96.00元</td>
+  </tr>
+  <tr>
+  	<td><input name="Select" type="checkbox" value="Select"></td>
+    <td><img src="images/small_3.jpg" class="td_image" alt="big_3.jpg"/></td>
+    <td class="left">1681/诺基亚1681c/nokia 1681c</td>
+    <td>225.00元</td>
+  </tr>
+  <tr>
+  	<td><input name="Select" type="checkbox" value="Select"></td>
+    <td><img src="images/small_4.jpg" class="td_image" alt="big_4.jpg"/></td>
+    <td class="left">欧美vivi 简洁甜美 超人气百搭公主款短袖连衣裙</td>
+    <td> 88.00元</td>
+  </tr>
+  <tr>
+  	<td><input name="Select" type="checkbox" value="Select"></td>
+    <td><img src="images/small_5.jpg" class="td_image" alt="big_5.jpg"/></td>
+    <td class="left">戴尔/DELL 1014 2.2G处理器/1G/160G/DVD刻/摄像头无线</td>
+    <td>3080.00元</td>
+  </tr>
+  <tr id="orderBtn">
+    <td colspan="4" style="height:30px;">
+    <input name="addOrder" type="button" value="增加"  />
+    <input name="delOrder" type="button" value="删除"  />
+    </td>
+  </tr>
+</table>
+<div id="photo"><img src="images/big_1.jpg" id="big" /></div>
+<div style="height: 800px;"></div>
+</body>
+</html>

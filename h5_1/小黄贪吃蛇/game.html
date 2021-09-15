@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>小黄贪吃蛇</title>
+		<link rel="stylesheet" href="css/main.css">
+		<style>
+			html, body {
+				margin: 0;
+				height: 100%;
+				text-align: center;
+			}
+
+			canvas {
+				width: 540px;
+				min-height: 652px;
+				height: 100%;
+				vertical-align: top;
+			}
+
+			@media (max-device-aspect-ratio: 540/652) {
+				canvas {
+					width: 100%;
+					min-height: 0;
+				}
+			}
+		</style>
+		<script src="js/core.js"></script>
+	</head>
+	<body>
+		<script src="js/bg.js"></script>
+		<canvas id="canvas">该浏览器不支持 canvas 标签</canvas>
+		<script src="js/game.js"></script>
+
+		<div title="返回主菜单" data-href="index.html?non-first=1" id="btn">
+			<svg viewbox="0 0 24 24">
+				<path d="M 6.5 18 l 8 0 a 1 1 0 0 0 0 -10 l -7 0 l 2 -2 a 1 1 0 0 0 -1.414 -1.414 l -4.414 4.414 l 4.414 4.414 a 1 1 0 0 0 1.414 -1.414 l -2 -2 l 7 0 a 1 1 0 0 1 0 6 l -8 0 a 1 1 0 0 0 0 2" fill="orange"/>
+			</svg>
+		</div>
+		<script>
+			{
+				setCss(
+					`--w: 3em;
+					background: white;
+					width: var(--w);
+					height: var(--w);
+					border-radius: 50%;
+					box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.3);
+					position: fixed;
+					left: calc(95% - var(--w));
+					top: 5%;
+					z-index: 2147483647;`
+				);
+
+				let down, ox, oy, moved, dx, dy;
+
+				if ('ontouchstart' in btn) {
+					btn.addEventListener('touchstart', f(() => true, e => onDown(e.targetTouches[0])));
+					btn.addEventListener('touchend', f(() => down, onUp));
+					btn.addEventListener('touchcancel', f(() => down, onCancel));
+					btn.addEventListener('touchmove', f(() => down, e => onMove(e.targetTouches[0])));
+				} else {
+					btn.addEventListener('mousedown', f(() => true, onDown));
+					addEventListener('mouseup', f(() => down, onUp));
+					addEventListener('mousemove', f(e => down && e.buttons, onMove));
+				}
+
+				function onDown(p) {
+					down = true;
+					moved = false;
+					ox = btn.offsetLeft - (dx = p.clientX);
+					oy = btn.offsetTop - (dy = p.clientY);
+				}
+
+				function onUp() {
+					onCancel();
+					if (!moved) {
+						location = btn.getAttribute('data-href');
+					}
+				}
+
+				function onCancel() {
+					down = false;
+				}
+
+				function onMove(p) {
+					if (Math.hypot(p.clientX - dx, p.clientY- dy) > 10) moved = true;
+					let x = Math.min(Math.max(p.clientX + ox, 0), document.documentElement.clientWidth - btn.offsetWidth);
+					let y = Math.min(Math.max(p.clientY + oy, 0), document.documentElement.clientHeight - btn.offsetHeight);
+					setCss(
+						`left: ${100*x/document.documentElement.clientWidth}%;
+						top: ${100*y/document.documentElement.clientHeight}%`
+					);
+				}
+
+				function f(f1, f2) {
+					return e => {
+						if (f1(e)) {
+							e.preventDefault();
+							f2(e);
+						}
+					};
+				}
+
+				function setCss(cssText) {
+					btn.style.cssText += cssText;
+				}
+			}
+		</script>
+	</body>
+</html>

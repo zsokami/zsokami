@@ -1,0 +1,114 @@
+<!doctype html><!--声明文档类型：html-->
+<html lang="en">
+	<head><!--头部-->
+		<meta charset="UTF-8"><!--字符编码:utf-8国际编码-->
+		<meta name="Keywords" content="关键词1,关键词2"><!--关键词-->
+		<meta name="Description" content="描述"><!--描述-->
+		<title>Document</title><!--网页标题-->
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			html,body{
+				height:100%;
+				overflow:hidden;
+			}
+			canvas{
+				display:block;
+				/*background:#000;*/
+			}
+		</style>
+	</head>
+	<body><!--身体-->
+		<canvas id="canvas">
+			您的浏览器不支持canvas绘图标签，请您更换浏览器!!!
+		</canvas>
+		<script type="text/javascript">
+			var can = document.getElementById("canvas");
+			var cxt = can.getContext("2d");//设置绘图环境
+			//设置画布宽高
+			var w = canvas.width = window.screen.width;
+			var h = canvas.height = window.screen.height;
+			//设置画笔的颜色
+			//cxt.fillStyle = "#fff";
+			//var y = 0;
+			//cxt.strokeStyle = "#fff";
+			//绘制一个矩形
+			//cxt.fillRect(100,100,50,50);//绘制一个实心的矩形 x,y绘制的起点坐标  w h 矩形的宽高
+			//cxt.strokeRect(200,200,50,50);//绘制一个空心的矩形
+			//canvas绘制动画
+			//setInterval(function(){
+			//	y++;
+			//	cxt.clearRect(0,0,w,h);
+			//	cxt.fillRect(100,y,50,50);
+			//},100)
+				
+			
+			//绘制文本
+			//cxt.fillText("玄武老师",50,50);
+
+			var words = Array(256).join("1").split("");//数组里面的元素用1这个字符串拼接在一块   [a,b] -> a1b
+			//console.log(words);
+			var text = '';
+			var x = 0;
+			function draw(){
+				//绘制一个透明层来覆盖前面的绘制的图片  就会越来越模糊
+					cxt.fillStyle = "rgba(0,0,0,0.05)";
+					cxt.fillRect(0,0,w,h);
+					cxt.fillStyle = color4();
+				words.map(function(y,n){// y是元素  n是索引
+					//console.log(arguments);
+					//随机选择一个字母
+					text = String.fromCharCode(65+Math.ceil(Math.random()*57));
+					//console.log(text);
+					x = n*10;
+					cxt.fillText(text,x,y);
+					words[n] = y>(768 + Math.random()*484) ? 0:y+10;
+				});
+			}
+
+			setInterval(draw,30);
+
+			//生成随机颜色
+			//方法一:rgb
+			function color1(){
+				var r = Math.floor(Math.random()*256);
+				var g = Math.floor(Math.random()*256);
+				var b = Math.floor(Math.random()*256);
+				return "rgb("+r+","+g+","+b+")";
+			}
+			//方法二: 十六进制 0-9 a-f   #aaaaaa
+			function color2(){
+				var colors = [0,1,2,3,4,5,6,7,8,9,"a","b","c","d","e","f"];//0-15
+				var color = "";
+				for (var i=0;i<6 ;i++ )
+				{
+					var n = Math.ceil(Math.random()*15);
+					color += "" + colors[n]
+				}
+				return "#" + color;
+			}
+
+			//方法三:十六进制 
+			function color3(){
+				var color = Math.ceil(Math.random()*16777215).toString(16);
+				//console.log(color);
+				while (color.length<6)
+				{
+					color += "0" + color
+				}
+				return "#" + color
+			}
+			//color3()
+
+			//方法四:
+
+			function color4(){
+				return "#" + function(color){
+					return new Array(7-color.length).join("0") + color
+				}((Math.random()*0x1000000 << 0).toString(16))
+			}
+		</script>
+	</body>
+</html>

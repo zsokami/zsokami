@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>大家都喜欢的彩妆</title>
+		<link rel="stylesheet" href="css/flower.css">
+		<style>
+			html {
+				--lo: #5e5e5e;
+				--hi: #e9185a;
+				text-align: center;
+				/* 重置计数器 */
+				counter-reset: no;
+			}
+
+			body {
+				display: inline-block;
+			}
+
+			body>div:first-child {
+				background: var(--hi);
+				color: white;
+				font-weight: bold;
+				padding: 0.5em;
+				border-radius: 9em;
+				position: relative;
+				margin-top: 3em;
+			}
+
+			body>div:not(:first-child) {
+				text-align: initial;
+				border-bottom: 1px dashed var(--lo);
+				color: var(--lo);
+				user-select: none;
+				cursor: pointer;
+			}
+			
+			body>div:not(:first-child):hover {
+				color: var(--hi);
+			}
+
+			body>div:not(:first-child)::before {
+				/* 使用计数器添加序号 */
+				counter-increment: no;
+				content: counter(no);
+				display: inline-block;
+				width: 1.5em;
+				line-height: 1.5em;
+				text-align: center;
+				border-radius: 50%;
+				margin: 0.5em;
+				background: var(--lo);
+				color: white;
+				font-weight: bold;
+			}
+
+			body>div:not(:first-child):hover::before {
+				background: var(--hi);
+			}
+			
+			div>div {
+				height: calc(160px + 2em);
+				text-align: center;
+				overflow: hidden;
+				transition: height 0.4s cubic-bezier(0, 0, 0, 1), opacity 0.2s 0.2s;
+			}
+			
+			div:not(:hover)>div {
+				height: 0;
+				opacity: 0;
+				transition: height 0.4s cubic-bezier(0, 0, 0, 1), opacity 0.2s;
+			}
+
+			img {
+				display: block;
+				margin: auto;
+			}
+			
+			body>div:not(:first-child):active {
+				filter: brightness(1.05);
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			大家都喜欢的彩妆
+			<span class="flower">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</span>
+		</div>
+		<div>
+			Za姬芮新能真皙美白隔离霜 35g
+			<div>
+				<img src="img/icon-1.jpg">
+				￥62.00 最近69122人购买
+			</div>
+		</div>
+		<div>
+			美宝莲精纯矿物奇妙新颜乳霜BB霜 30ml
+			<div>
+				<img src="img/icon-2.jpg">
+				￥89.00 最近13610人购买
+			</div>
+		</div>
+		<div>
+			菲奥娜水漾CC霜40g
+			<div>
+				<img src="img/icon-3.jpg">
+				￥59.90 最近13403人购买
+			</div>
+		</div>
+		<div>
+			DHC 蝶翠诗橄榄卸妆油 200ml
+			<div>
+				<img src="img/icon-4.jpg">
+				￥169.00 最近16757人购买
+			</div>
+		</div>
+	</body>
+</html>

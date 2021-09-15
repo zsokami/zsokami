@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<!--可以让img标签预加载网络图片-->
+		<meta name="referrer" content="no-referrer">
+		<title>中草药智能识别系统</title>
+		<style>
+			html, body {
+				--blue-1: #2b87d1;
+				--green-1: #4bdb6a;
+				--green-2: #3cb454;
+				margin: 0;
+				height: 100%;
+				overflow: auto;
+			}
+			
+			body>div {
+				/**
+				 * 最小宽度适应内容
+				 * 通用方法: 父元素加 min-width: fit-content, 部分子元素加 min-width: max-content
+				 * 特别地，当子元素是grid时只需父元素加 min-width: max-content
+				 */
+				min-width: max-content;
+			}
+			
+			.floaty {
+				background: rgba(0, 0, 0, 0.4);
+			}
+			
+			.clickable-parent>*, .clickable {
+				cursor: pointer;
+				transition: 0.3s;
+			}
+
+			#top {
+				position: relative;
+				overflow: hidden;
+				box-shadow: 0 0 1rem #000;
+			}
+			
+			#top>* {
+				position: relative;
+			}
+			
+			#top * {
+				color: white;
+			}
+
+			#bg {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background: url(img/bg.jpg) center/cover;
+				/* filter: blur(20px); */
+				transition: 2s;
+				animation: bg 2s 0.5s both;
+			}
+			
+			#title {
+				font-size: 3em;
+				font-weight: bold;
+				text-indent: 0.5em;
+				letter-spacing: 0.5em;
+				text-align: center;
+				padding: 0.5em;
+			}
+			
+			#input {
+				font-size: 0;
+				text-align: center;
+				padding: 1rem;
+			}
+			
+			#input>* {
+				border: none;
+				outline: none;
+				padding: 0.5em 1em;
+				font-size: 1rem;
+				line-height: 1.5em;
+				box-sizing: border-box;
+			}
+			
+			#input>input[type=text] {
+				width: 36em;
+				border-radius: 9em 0 0 9em;
+				transition: 0.3s;
+			}
+			
+			#input>input[type=text]:hover {
+				background: rgba(0, 0, 0, 0.5);
+			}
+			
+			#input>input[type=text]:focus {
+				background: rgba(0, 0, 0, 0.6);
+			}
+			
+			#input>input[type=text]::placeholder {
+				color: rgba(255, 255, 255, 0.5);
+			}
+			
+			#input>button {
+				background: var(--green-1);
+			}
+			
+			#input>button:hover {
+				background: var(--green-2);
+			}
+
+			#query {
+				border-radius: 0 9em 9em 0;
+				margin-right: 1em;
+			}
+			
+			#upload {
+				border-radius: 9em;
+			}
+			
+			#top #mid {
+				display: flex;
+			}
+			
+			#top #mid>:first-child {
+				margin: auto;
+				position: relative;
+			}
+			
+			#top #mid>:not([class]):first-child>#img {
+				display: none;
+			}
+			
+			#top #mid>.scanning:first-child::before {
+				content: "";
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(transparent, var(--blue-1) 50%, transparent 50%) 0/100% 200%;
+				animation: scan 1.2s infinite;
+			}
+			
+			#img {
+				display: block;
+				box-shadow: 0 0.5rem 2.5rem rgba(0, 0, 0, 0.4);
+			}
+			
+			#imgs>* {
+				margin: 1rem;
+				width: 125px;
+				height: 100px;
+				object-fit: cover;
+				display: block;
+				outline: 3px transparent solid;
+				outline-offset: -3px;
+			}
+			
+			#imgs>:not(.loaded) {
+				opacity: 0;
+			}
+			
+			#imgs>:hover {
+				outline-color: rgba(0, 0, 0, 0.3);
+			}
+			
+			#imgs>.active {
+				outline-color: var(--blue-1);
+			}
+			
+			#items {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, 250px);
+				grid-template-rows: repeat(2, 300px);
+				grid-auto-rows: 300px;
+				justify-content: space-evenly;
+				padding: 2rem;
+				gap: 2rem;
+				overflow: hidden;
+			}
+			
+			#items>* {
+				position: relative;
+				overflow: hidden;
+				border-radius: 1rem;
+				box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+				background: #fff;
+			}
+			
+			#items>:not([class]) {
+				visibility: hidden;
+			}
+			
+			#items>.in {
+				animation: item 1s;
+			}
+			
+			#items>.ok {
+				transition: all 0.3s, opacity 0s;
+			}
+			
+			#items>:hover, #items>.hover {
+				transform: translateY(-10px);
+				box-shadow: 0 0.5rem 2.5rem rgba(0, 0, 0, 0.4);
+			}
+			
+			#items>*>img {
+				width: 250px;
+				height: 250px;
+				object-fit: cover;
+			}
+			
+			#items>*::before {
+				content: "";
+				position: absolute;
+				width: 250px;
+				height: 250px;
+				transition: 0.6s;
+			}
+			
+			#items>:not(:hover):not(.hover)::before {
+				box-shadow:
+					0 0 0 1px #fff,
+					0 0 0 1px #fff inset,
+					0 0 5px 5px #fff inset,
+					0 0 10px 10px #fff inset,
+					0 0 25px 25px #fff inset;
+			}
+			
+			#items>*>:nth-child(2) {
+				font-size: 1.5rem;
+				text-indent: 0.2em;
+				letter-spacing: 0.2em;
+				text-align: center;
+			}
+			
+			[data-confidence] {
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				display: flex;
+			}
+			
+			[data-confidence]::before {
+				content: attr(data-confidence) "%";
+				border-radius: 0 0 1rem 0;
+				padding: 0.5rem;
+				color: hsl(calc(var(--confidence) * 1.2), 100%, 20%);
+				background: hsla(calc(var(--confidence) * 1.2), 100%, 70%, 0.7);
+				font-weight: bold;
+			}
+			
+			.in>[data-confidence]::before, .in>[data-confidence]::after {
+				display: none;
+			}
+			
+			.ok>[data-confidence]::before {
+				animation: confidence-before 0.5s both;
+			}
+			
+			[data-confidence]::after {
+				content: "";
+				height: 4px;
+				flex: calc(var(--confidence) / 100);
+				background: hsl(calc(var(--confidence) * 1.2), 100%, 70%);
+			}
+			
+			.ok>[data-confidence]::after {
+				animation: confidence-after 1s 0.5s both;
+			}
+			
+			footer {
+				background: #eee;
+				color: #666;
+				padding: 1rem;
+				text-align: center;
+				box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+			}
+			
+			footer>a {
+				color: inherit;
+			}
+			
+			footer>a:not(:hover) {
+				text-decoration: none;
+			}
+			
+			#items>[class*=fixed] {
+				position: fixed;
+				z-index: 1;
+				margin: auto;
+				cursor: default;
+				transform: none;
+				box-shadow: 0 0.5rem 2.5rem rgba(0, 0, 0, 0.4);
+				box-sizing: border-box;
+			}
+			
+			#items>[class*=fixed]::before {
+				content: none;
+			}
+			
+			#items>[class*=fixed]::after {
+				content: "";
+				margin: auto;
+				box-sizing: border-box;
+				border-radius: 1rem;
+			}
+			
+			#items>[class*=fixed]>img {
+				float: right;
+			}
+			
+			.fixed-in, .fixed-in::after {
+				animation: item-fixed-in 0.6s both;
+			}
+			
+			.fixed-in>img {
+				animation: item-fixed-img-in 0.6s both;
+			}
+			
+			.fixed-in>:nth-child(2), .fixed-in>[data-confidence] {
+				animation: item-fixed-text-in 0.1s both;
+			}
+			
+			#items>[class*=fixed]::after {
+				position: fixed;
+				pointer-events: none;
+			}
+			
+			.fixed::after {
+				background:
+					linear-gradient(#fff, transparent 2rem, transparent calc(100% - 2rem), #fff),
+					linear-gradient(#fff, transparent 2rem, transparent calc(100% - 2rem), #fff);
+			}
+			
+			.fixed>:nth-child(2), .fixed>[data-confidence] {
+				display: none;
+			}
+			
+			.info {
+				letter-spacing: 0.2em;
+				opacity: 0;
+				transition: 0.3s;
+			}
+			
+			.fixed>.loaded {
+				opacity: 1;
+			}
+			
+			.fixed-out {
+				animation: item-fixed-out 0.6s both;
+			}
+			
+			.fixed-out::after {
+				content: none;
+			}
+			
+			.fixed-out>img {
+				animation: item-fixed-img-out 0.6s both;
+			}
+			
+			.fixed-out>:nth-child(2), .fixed-out>[data-confidence] {
+				animation: item-fixed-text-out 0.1s 0.5s both;
+			}
+			
+			.fixed-out>.info {
+				opacity: 0;
+			}
+			
+			#items>.hover {
+				opacity: 0;
+				pointer-events: none;
+			}
+			
+			#dark {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.5);
+				transition: opacity 0.6s;
+			}
+			
+			#dark:not(.shown) {
+				opacity: 0;
+				pointer-events: none;
+			}
+			
+			@keyframes scan {
+				0% {
+					background-position: bottom;
+				}
+				
+				100% {
+					background-position: top;
+					opacity: 0;
+				}
+			}
+			
+			@keyframes bg {
+				0% {
+					filter: brightness(0);
+				}
+			}
+			
+			@keyframes item {
+				0% {
+					opacity: 0;
+					transform: translateY(100%);
+				}
+			}
+			
+			@keyframes confidence-before {
+				0% {
+					transform: translateY(-100%);
+				}
+			}
+			
+			@keyframes confidence-after {
+				0% {
+					flex: 0;
+				}
+			}
+			
+			@keyframes item-fixed-in {
+				0% {
+					width: 250px;
+					height: 300px;
+					min-width: 250px;
+					max-height: 300px;
+				}
+				
+				100% {
+					inset: 2rem;
+					width: 600px;
+					height: 800px;
+					min-width: 55%;
+					max-height: calc(100% - 4rem);
+					padding: 2rem 1rem;
+				}
+			}
+			
+			@keyframes item-fixed-img-in {
+				100% {
+					width: 300px;
+				}
+			}
+			
+			@keyframes item-fixed-text-in {
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			@keyframes item-fixed-out {
+				0% {
+					inset: 2rem;
+					width: 600px;
+					height: 800px;
+					min-width: 55%;
+					max-height: calc(100% - 4rem);
+					padding: 2rem 1rem;
+				}
+				
+				100% {
+					width: 250px;
+					height: 300px;
+					min-width: 250px;
+					max-height: 300px;
+				}
+			}
+			
+			@keyframes item-fixed-img-out {
+				0% {
+					width: 300px;
+				}
+			}
+			
+			@keyframes item-fixed-text-out {
+				0% {
+					opacity: 0;
+				}
+			}
+		</style>
+		<link rel="stylesheet" href="css/toast.css">
+		<script src="js/toast.js"></script>
+		<script src="js/scroll.js"></script>
+		<script src="js/index.js"></script>
+	</head>
+	<body>
+		<div>
+			<div id="top">
+				<div id="bg"></div>
+				<div>
+					<div id="title" class="floaty">中草药智能识别系统</div>
+					<div id="mid">
+						<div>
+							<img id="img">
+						</div>
+						<div id="imgs" class="floaty clickable-parent">
+							<img src="img/红参.jpg">
+							<img src="img/红参.jpg">
+							<img src="img/红参.jpg">
+							<img src="img/红参.jpg">
+							<img src="img/红参.jpg">
+						</div>
+					</div>
+					<div id="input" class="floaty">
+						<input id="nameOrUrl" class="floaty" type="text" placeholder="请输入中草药名称 / 粘贴中草药网络图片地址">
+						<button id="query" class="clickable">查询</button>
+						<input id="file" type="file" accept="image/*" hidden>
+						<button id="upload" class="clickable">上传中草药图片</button>
+					</div>
+				</div>
+			</div>
+			<div id="items" class="clickable-parent"></div>
+			<footer id="footer">
+				<script>
+					footer.innerHTML = `Copyright © 2020-${new Date().getFullYear()} <a href="/">中草药智能识别系统</a> 718335940@qq.com All Rights Reserved.`;
+				</script>
+			</footer>
+		</div>
+		<div id="dark"></div>
+
+		<script>
+			let all;
+			let preQ;
+			
+			setTimeout(loadAll, 1000, r => {
+				all = r;
+				search('');
+			});
+			
+			[...imgs.children].forEach(img => {
+				img.onload = function() {
+					this.classList.add('loaded');
+				};
+			});
+
+			createRadioToggle(imgs, function() {
+				loadImg(this.src);
+			});
+
+			nameOrUrl.oninput = function() {
+				query.click();
+			}
+
+			query.onclick = function() {
+				if (/^(https?:|data:\s*image).+/i.test(nameOrUrl.value)) {
+					loadImg(nameOrUrl.value);
+				} else if (/^[^\x00-\xff]*$/.test(nameOrUrl.value)) {
+					search(nameOrUrl.value);
+				}
+			};
+
+			upload.onclick = function() {
+				file.click();
+			};
+
+			file.onchange = function() {
+				const f = this.files[0];
+				if (!f) return;
+				this.value = '';
+				if (!/^image\/.+/.test(f.type)) {
+					toast('请上传图片文件，如 .jpg .png 等', false);
+					return;
+				}
+				loadImg(f);
+			};
+
+			function loadImg(urlOrBlob) {
+				if (typeof urlOrBlob == 'string') {
+					fetch(urlOrBlob)
+						.then(r => {
+							if (r.ok) {
+								return r.blob();
+							}
+						})
+						.then(blob => {
+							const name = /\/([^\/]+\.[^\/]+)(?:\?.*)?$/.exec(nameOrUrl.value);
+							loadImg(new File([blob], name ? name[1] : 'upload'));
+						});
+					return;
+				}
+				const tmp = new Image();
+				tmp.id = 'img';
+				tmp.src = URL.createObjectURL(urlOrBlob);
+				tmp.onload = function() {
+					uploadImage(tmp, urlOrBlob);
+				};
+			}
+
+			function uploadImage(tmp, file) {
+				if (tmp.naturalWidth * 4 > tmp.naturalHeight * 5) {
+					tmp.width = 600;
+					tmp.removeAttribute('height');
+				} else {
+					tmp.removeAttribute('width');
+					tmp.height = 480;
+				}
+				img.replaceWith(tmp);
+				img = tmp;
+				img.parentElement.classList.add('scanning');
+				bg.style.backgroundImage = `url(${img.src})`;
+				bg.style.filter = 'blur(20px)';
+				if (file.size > 2 * 1024 * 1024) {
+					scaleDown(img, blob => uploadBlob(blob, file.name));
+				} else {
+					uploadBlob(file, file.name);
+				}
+			}
+
+			function uploadBlob(blob, name) {
+				setTimeout(() => {
+					img.parentElement.classList.replace('scanning', 'scanned');
+					showWithConfidence([['请求','89.33'],['红等待您参','50.05'],['嗷嗷','10']]);
+				}, 3000);
+				return;
+				const fd = new FormData();
+				fd.append('upload', blob, name);
+				fetch('', {
+						method: 'POST',
+						body: fd
+					})
+					.then(r => {
+						if (!r.ok) {
+							throw new Error(`${r.status} ${r.statusText}`);
+						}
+						return r.json();
+					})
+					.catch(e => toast(`上传失败: ${e}`, false))
+					.then(r => {
+						img.parentElement.classList.replace('scanning', 'scanned');
+						showWithConfidence(r);
+					});
+			}
+			
+			function itemClick() {
+				const div = this.cloneNode(true);
+				const info = document.createElement('div');
+				info.classList.add('info');
+				div.appendChild(info);
+				div.className = 'fixed-in';
+				const { left, top, right, bottom } = this.getBoundingClientRect();
+				div.style.inset = `${top}px ${innerWidth - right}px ${innerHeight - bottom}px ${left}px`;
+				div.onanimationend = function(e) {
+					if (e.animationName != 'item-fixed-in') return;
+					this.onanimationend = null;
+					this.classList.add('fixed');
+				};
+				bindScroll(div);
+				loadInfo(info, div.children[1].innerText);
+				items.append(div);
+				
+				this.classList.add('hover');
+				dark.classList.add('shown');
+			}
+			
+			dark.onclick = function() {
+				this.classList.remove('shown');
+				const item = document.querySelector('.hover');
+				const fixed = document.querySelector('[class*=fixed]');
+				trackPos(item, fixed);
+				fixed.classList.replace('fixed-in', 'fixed-out');
+				scroll(fixed, 0, -fixed.scrollTop);
+				fixed.onanimationend = function(e) {
+					if (e.animationName == 'item-fixed-out') {
+						item.classList.remove('hover');
+						fixed.remove();
+					}
+				}
+			};
+			
+			function trackPos(item, fixed) {
+				if (!item.classList.contains('hover')) return;
+				const { left, top, right, bottom } = item.getBoundingClientRect();
+				fixed.style.inset = `${top}px ${innerWidth - right}px ${innerHeight - bottom}px ${left}px`;
+				requestAnimationFrame(() => trackPos(item, fixed));
+			}
+
+			function search(q) {
+				if (!all) return;
+				if (q == preQ) return;
+				preQ = q;
+				items.innerHTML = all.filter(name => ~name.indexOf(q)).map(name =>
+					`<div><img data-src="${'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3365503159,1655500687&fm=26&gp=0.jpg'}"><div>${name}</div></div>`
+				).join('');
+				lazyLoad(items.firstChild);
+			}
+			
+			function showWithConfidence(result) {
+				preQ = null;
+				items.innerHTML = result.map(([name, confidence]) => `<div><img data-src="${'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3365503159,1655500687&fm=26&gp=0.jpg'}"><div>${name}</div><div style="--confidence: ${confidence}" data-confidence="${confidence}"></div></div>`).join('');
+				lazyLoad(items.firstChild);
+			}
+
+			function lazyLoad(item) {
+				if (!item || item.classList.length) return;
+				if (item.getBoundingClientRect().top < innerHeight) {
+					item.firstChild.src = item.firstChild.dataset.src;
+					delete item.firstChild.dataset.src;
+					item.firstChild.onload = function() {
+						item.onclick = itemClick;
+						item.classList.add('in');
+						item.onanimationend = function(e) {
+							item.onanimationend = null;
+							this.classList.replace('in', 'ok');
+						};
+						setTimeout(lazyLoad, 100, item.nextElementSibling);
+					};
+				} else {
+					setTimeout(lazyLoad, 100, item);
+				}
+			}
+			
+			function loadInfo(div, name) {
+				div.innerHTML = `　　【中药名】麦冬 maidong
+　　【别名】麦门冬、沿阶草、不死药、禹余粮。
+　　【英文名】Radix Ophiopogonis
+　　【来源】百合科植物麦冬Ophiopogon japonicus (Thunb.) ker-Gawl.的块根。
+　　【植物形态】多年生草本。地下具细长匍匐枝，节上被膜质苞片，须根常有部分膨大成肉质的块根。叶丛生，窄线形，先端钝或锐尖，基部狭窄，叶柄鞘状，两侧有薄膜。总状花序顶生；苞片膜质，每苞腋生1～3花；花淡紫色，偶为白色，形小，略下垂；花被6片，开展，卵圆形；雄蕊6.花丝不明显，较短于花药，花药先端尖；子房半下位，3室。浆果，球状，早期绿色，成熟时深绿色或蓝黑色。花期5～8月，果期7～9月。
+　　【产地分布】生于海拔2000米以下的山坡阴湿处、林下或溪旁。分布于山东、安徽、浙江等地。
+　　【采收加工】浙江于栽培后第3年立夏时采挖，称“杭麦冬”。麦冬挖起后，剪下块根，洗净泥土，晒3～4天，堆通风处，使其反潮，蒸发水气，约3日，摊开再晒，如此反复2～3次。晒干后，除净须根杂质即可。
+　　【药材性状】纺锤形或长圆形，两端略尖，中部充实或略收缩，长1.5～3厘米，直径3～6厘米。表面黄白色或淡黄色，有不规则的纵皱纹。未干透时，质较柔软，干后质硬脆，易折断；折断面黄白色，角质样，中央有细小中柱。气微香，味微甜。
+　　【性味归经】性微寒，味甘、微苦。归心经、肺经、胃经。
+　　【功效与作用】养阴生津、润肺清心。属补虚药下分类的补阴药。
+　　【临床应用】用量6～12克，煎汤内服；或入丸、散、膏。外用适量，研末调敷；煎汤涂；或鲜品捣汁搽。用治肺燥干咳、吐血、肺痈、虚劳烦热、消渴、热病津伤、咽干口燥、便秘等。
+　　【药理研究】有保护心血管系统的作用；增强耐缺氧，延长常压缺氧的存活时间；增强免疫功能；降血糖；延缓衰老；抑制胃肠推进作用；抗菌。麦冬为良好的养阴润肺药，近年来发现其在降低血糖的作用较好；临床应用强心作用稳定而效果佳。实验还证明，麦冬中的水溶性多糖有抗缺氧和免疫促进作用。
+　　【化学成分】含多种甾体皂苷，其中麦冬皂苷A含量最高，麦冬皂苷B次之；此外含多种高异黄酮类化合物。从浙麦冬中还分离鉴定出5种黄酮类化合物。另还含麦冬黄酮A、鲁斯可皂昔元、薯蓣皂苷元、麦冬黄烷酮、α-广藿香烯、十六烷酸乙酯、齐墩果酸等。
+　　【使用禁忌】虚寒泄泻、湿浊中阻、风寒或寒痰咳喘者禁用。
+　　【配伍药方】①治肺燥咳嗽：麦冬15克，桑白皮15克。水煎服。(《新编常用中草药手册》)
+　　②治肺热咳嗽：麦冬12克，北沙参12克，黄芩9克，桔梗9克，杏仁9克，甘草6克。水煎服。(《山东中草药手册》)
+　　③治胃酸缺少：麦冬、石斛、牡荆各6克，糯稻根9克。水煎服。(《福建药物志》)
+　　④治中耳炎：鲜麦冬块根捣烂取汁，滴耳。(《广西本草选编》)
+　　⑤治小便闭淋：鲜麦冬90克(干品30克)。水煎成半杯，饮前服，2～3次。(《福建民间草药》)`.replace(/(?<=【).+?(?=】)/g, '<strong>$&</strong>').replace(/\n/g, '<br>');
+				div.classList.add('loaded');
+				return;
+				fetch('')
+					.then(r => r.text())
+					.then(r => {
+						div.innerHTML = r.replace(/(?<=【).+?(?=】)/g, '<strong>$&</strong>').replace(/\n/g, '<br>');
+						div.classList.add('loaded');
+					});
+			}
+			
+			function loadAll(fn) {
+				fn(['红参1', '嗷嗷国', '红参3', '红参4', '红参5', '红参11', '红参22', '红参6', '红参7', '红参8']);
+				return;
+				fetch('')
+					.then(r => r.json())
+					.then(r => fn(r));
+			}
+		</script>
+	</body>
+</html>

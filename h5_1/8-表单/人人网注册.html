@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>人人网注册</title>
+		<link rel="stylesheet" href="css/my_control.css">
+		<style>
+			/* 布局 */
+			
+			#top {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			
+			#container {
+				display: flex;
+				margin: 1em;
+			}
+			
+			#container>* {
+				flex: none;
+				padding: 1em;
+				border: 2px solid lightgrey;
+			}
+			
+			/* margin-left/right:auto; 水平居中，当窗口宽度不足时左对齐 */
+			
+			#container-left {
+				margin-left: auto;
+				border-right: none;
+			}
+			
+			#container-right {
+				margin-right: auto;
+				background: #F7F7F7;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			#container-right>strong {
+				margin-top: 2em;
+				align-self: flex-start;
+			}
+			
+			#container-right>div {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				margin: 0.5em;
+				gap: 1.5em;
+			}
+			
+			#container-right a {
+				text-align: center;
+				text-decoration: none;
+				color: black;
+			}
+			
+			#container-right img {
+				display: block;
+			}
+			
+			#bottom {
+				text-align: right;
+			}
+			
+			/* 表单 */
+			
+			form {
+				display: grid;
+				grid-template-columns: auto auto; 
+				grid-gap: 1em;
+				align-items: center;
+				justify-items: left;
+				margin: 2em;
+				margin-bottom: 0;
+			}
+			
+			form>*:nth-child(odd) {
+				justify-self: right;
+			}
+			
+			input:not([type=image]), select {
+				width: 15em !important;
+			}
+			
+			input[type=image] {
+				outline: none;
+				transition: 0.2s;
+			}
+			
+			input[type=image]:hover {
+				filter: hue-rotate(50deg);
+			}
+			
+			input[type=image]:active {
+				filter: hue-rotate(100deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<div>
+				<img src="img/logo.gif">
+				<strong>10秒找到你所有朋友</strong>
+			</div>
+			<span>已有人人网账号，<a href="#">登录</a></span>
+		</div>
+		<div id="container">
+			<div id="container-left">
+				<strong>免费开通人人网账号</strong>
+				<form>
+					<label>注册邮箱：</label>
+					<input class="control" type="email" name="email" placeholder="请输入邮箱地址" required>
+					<label></label>
+					<span>你还可以使用 <a href="#">账号</a> 注册或者 <a href="#">手机号</a> 注册</span>
+					<label>创建密码：</label>
+					<div>
+						<input class="control" type="password" id="pwd" name="pwd" placeholder="8-16个字符 不能纯数字" pattern="(?=.*?\D).{8,}" maxlength="16" required>
+					</div>
+					<label>真实姓名：</label>
+					<input class="control" type="text" name="name" placeholder="至少2个字符" pattern=".{2,}" required>
+					<label>性别：</label>
+					<div>
+						<input class="control" type="radio" name="sex" id="male" checked>
+						<label for="male">男</label>
+						<input class="control" type="radio" name="sex" id="female">
+						<label for="female">女</label>
+					</div>
+					<label>生日：</label>
+					<div>
+						<input class="control" type="date" name="birthday" value="2000-01-01" required>
+					</div>
+					<label>我现在：</label>
+					<select class="control" name="grad">
+						 <option value="0">正在上学</option>
+						 <option value="1">已毕业</option>
+					</select>
+					<label></label>
+					<canvas id="vimg" title="点击更换验证码"></canvas>
+					<label>验证码：</label>
+					<input class="control" type="text" id="vcode" placeholder="请输入上图4位验证码" required>
+					<label></label>
+					<input type="image" src="img/btn_reg.gif">
+				</form>
+			</div>
+			<div id="container-right">
+				<img src="img/intro-new.png">
+				<strong>最热门公共主页</strong>
+				<div>
+					<a href="#"><img src="img/icon_zhaowei.gif">赵薇</a>
+					<a href="#"><img src="img/icon_likaifu.gif">李开复</a>
+					<a href="#"><img src="./img/icon_shangjie.gif">商界</a>
+				</div>
+				<strong>最热门游戏</strong>
+				<div>
+					<a href="#"><img src="img/icon_xxzz.gif">小小战争</a>
+					<a href="#"><img src="img/icon_rrnc.gif">人人农场</a>
+				</div>
+			</div>
+		</div>
+		<div id="bottom">
+			<span>点击免费开通账号表示同意并遵守 <a href="#">人人服务条款</a></span>
+		</div>
+		
+		<script src="js/reveal.js"></script>
+		<script src="js/vcode.js"></script>
+	</body>
+</html>

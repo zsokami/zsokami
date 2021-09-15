@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+<!--
+#div1 {
+	background-color: #000000;
+	height: 600px;
+	width: 800px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#div2 {
+	height: 500px;
+	width: 500px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #FFFFFF;
+	position: relative;
+	margin-top: auto;
+	margin-bottom: auto;
+	top: 50px;
+}
+#div3 {
+	height: 100px;
+	width: 800px;
+	background-color: #00FFFF;
+	margin-right: auto;
+	margin-left: auto;
+}
+#div4 {
+	background-color: #00FFFF;
+	height: 100px;
+	width: 800px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#div5 {
+	background-color: #CC9900;
+	height: 60px;
+	width: 300px;
+	margin: 10px;
+	float: left;
+}
+#div6 {
+	float: left;
+	height: 70px;
+	width: 400px;
+	margin-top: 10px;
+	background-color: #0066FF;
+}
+#div7 {
+	margin: 10px;
+	float: left;
+	height: 50px;
+	width: 50px;
+	background-color: #00FF00;
+}
+body {
+	margin: 0px;
+}
+
+-->
+</style>
+</head>
+
+<body>
+<div id="div3">
+  <div id="div5"></div>
+  <div id="div6"></div>
+  <div id="div7"></div>
+</div>
+<div id="div1">
+  <div id="div2"><canvas id="c"/></div>
+</div>
+
+<div id="div4"></div>
+<script type="text/javascript">
+var ctx=document.getElementById("c").getContext("2d");
+var w=c.width=c.height=500;
+draw(w,0);
+function draw(w,color){
+  ctx.fillStyle=color?"#ffffff":"#000000";
+  w*=0.9;
+  if(w<1)return;
+  ctx.fillRect(250-w/2,250-w/2,w,w);
+  draw(w,!color);
+}
+</script>
+</body>
+</html>

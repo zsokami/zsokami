@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>跷跷板</title>
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				margin: 0;
+				display: flex;
+			}
+
+			.seesaw {
+				margin: auto;
+				width: 70vw;
+				box-shadow: 0 12px 8px -12px;
+			}
+
+			.seesaw::before {
+				content: "跷跷板";
+				display: block;
+				background: orange;
+				border-radius: 1em;
+				line-height: 1.5em;
+				text-align: center;
+				text-indent: 1em;
+				letter-spacing: 1em;
+				color: white;
+				transition: transform 1s;
+			}
+
+			.seesaw::after {
+				content: "";
+				display: block;
+				width: 0;
+				margin: auto;
+				border: calc((35vw - 0.75em) * 0.2588) solid transparent;
+				border-top-width: 0;
+				border-bottom-color: purple;
+			}
+
+			.seesaw.left-down::before {
+				transform: scaleZ(1) rotate(-15deg);
+			}
+
+			.seesaw.right-down::before {
+				transform: scaleZ(1) rotate(15deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="seesaw"></div>
+		<script>
+			function hover(e) {
+				if (e.offsetX < this.offsetWidth / 2) {
+					this.classList.add('left-down');
+					this.classList.remove('right-down');
+				} else {
+					this.classList.add('right-down');
+					this.classList.remove('left-down');
+				}
+			}
+
+			function leave() {
+				this.classList.remove('left-down');
+				this.classList.remove('right-down');
+			}
+
+			document.querySelectorAll('.seesaw').forEach(ss => {
+				ss.onmousemove = hover;
+				ss.onmouseleave = leave;
+			});
+		</script>
+	</body>
+</html>

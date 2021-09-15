@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<style>
+			body {
+				margin: 0;
+			}
+			
+			.container {
+				width: 100vh;
+				height: 100vh;
+				overflow: hidden;
+				margin: auto;
+				perspective: 50vh;
+				/* perspective-origin: top; */
+			}
+			
+			.box {
+				height: 100%;
+				transform: rotateX(90deg);
+				transform-origin: bottom;
+				transform-style: preserve-3d;
+				position: relative;
+			}
+			
+			.mask {
+				background: white;
+				position: absolute;
+				width: 100vmax;
+				height: 100%;
+				left: calc(50% - 50vmax);
+				bottom: 100%;
+			}
+
+			.content {
+				display: grid;
+				grid-template-columns: repeat(5, 20vh);
+				grid-auto-rows: 20vh;
+				animation: move 1s linear infinite;
+				transform-style: preserve-3d;
+			}
+			
+			.content:hover {
+				animation-play-state: paused;
+			}
+
+			@keyframes move {
+				from {
+					transform: translateY(-80vh);
+				}
+			}
+
+			span {
+				background: blue;
+				transform-origin: bottom;
+				transition: 0.5s;
+			}
+			
+			span:nth-child(2n) {
+				background: red;
+			}
+
+			span:not(:hover) {
+				opacity: 0.5;
+			}
+			
+			span:hover {
+				transform: rotateX(-90deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="box">
+				<div class="content">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<div class="mask"></div>
+			</div>
+		</div>
+	</body>
+</html>

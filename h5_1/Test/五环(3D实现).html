@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>环环相扣的五环</title>
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				margin: 0;
+				transform-style: preserve-3d;
+			}
+
+			div {
+				--w: 140px;
+				/* 0 0 为黑环的位置 */
+				--x: 0;
+				--y: 0;
+				position: absolute;
+				left: calc(50% + var(--w) * (var(--x) - 0.5));
+				top: calc(50% + var(--w) * (var(--y) - 1));
+				width: var(--w);
+				height: var(--w);
+				border: 10px solid;
+				border-radius: 50%;
+				box-sizing: border-box;
+				/* z 轴沿 x 轴倾斜 */
+				--skewZ: 1;
+				transform: matrix3d(1, 0, var(--skewZ), 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+			}
+
+			div:nth-child(1) {
+				border-color: blue;
+				--x: -1.06;
+			}
+
+			div:nth-child(2) {
+				border-color: black;
+			}
+
+			div:nth-child(3) {
+				border-color: red;
+				--x: 1.06;
+			}
+
+			div:nth-child(4) {
+				border-color: yellow;
+				--x: -0.53;
+			}
+
+			div:nth-child(5) {
+				border-color: green;
+				--x: 0.53;
+			}
+			
+			div:nth-child(n+4) {
+				--y: 0.6;
+				--skewZ: -1;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<canvas id="c"/>
+<script type="text/javascript">
+var ctx=document.getElementById("c").getContext("2d");
+var w=c.width,h=c.height;
+
+var x=0,y=0,tw=50;
+
+document.onkeydown=function(e){
+  ctx.fillStyle="#ffff00";
+  ctx.fillRect(0,0,w,h);
+  var code=e.keyCode;
+  switch(code){
+    case 37:
+	
+	  break;
+	case 38:
+	
+	  break;
+	case 39:
+	
+	  break;
+	case 40:
+	
+	  break;
+  }
+  ctx.fillStyle="#ff0000";
+  ctx.fillText(""+code,11,11);
+}
+</script>
+</body>
+</html>

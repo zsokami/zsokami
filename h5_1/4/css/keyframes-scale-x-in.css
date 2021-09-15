@@ -1,0 +1,5 @@
+@keyframes scale-x-in {
+	from {
+		transform: scaleX(0);
+	}
+}

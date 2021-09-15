@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>食物图鉴-小黄贪吃蛇</title>
+		<link rel="stylesheet" href="css/main.css">
+		<style>
+			ul {
+				flex: 1;
+				margin: 10px 30px;
+			}
+			
+			ul>h1 {
+				text-align: center;
+			}
+
+			li {
+				display: flex;
+				overflow: hidden;
+				margin: 10px auto;
+				max-width: 800px;
+				border: 6px solid rgba(0, 0, 0, 0.2);
+				border-radius: 18px;
+				animation: float-up 0.5s both;
+			}
+
+			@keyframes float-up {
+				from {
+					transform: translateY(100%);
+					opacity: 0;
+				}
+			}
+
+			li>section {
+				padding: 10px;
+			}
+
+			li>section:first-child {
+				color: white;
+				text-align: center;
+				background: rgba(0, 0, 0, 0.05);
+			}
+
+			li>section:nth-child(2) {
+				flex: 3;
+			}
+
+			li>section:last-child {
+				flex: 2;
+			}
+
+			li>section:nth-child(n+2) {
+				display: flex;
+				flex-flow: column;
+			}
+
+			li>section:nth-child(n+2)>p {
+				font-size: 1.2rem;
+				margin: auto 0;
+			}
+
+			li canvas {
+				display: block;
+				margin: auto;
+				border: 6px solid rgba(0, 0, 0, 0.2);
+				background: rgba(255, 255, 255, 0.4) padding-box;
+				border-radius: 18px;
+			}
+
+			.copper {
+				background: #dc7e4c;
+			}
+
+			.silver {
+				background: #e9e9d8;
+			}
+
+			.gold {
+				background: #f2c056;
+			}
+		</style>
+		<script src="js/core.js"></script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<script src="js/bg.js"></script>
+			<div id="container">
+				<script src="js/header.js"></script>
+				<ul>
+					<h1>食物图鉴</h1>
+					<li class="copper">
+						<section>
+							<h3>青苹果</h3>
+						</section>
+						<section>
+							<h1>描述</h1>
+							<p>酸甜可口的苹果，小黄的日常食物</p>
+						</section>
+						<section>
+							<h1>效果</h1>
+							<p>长度 + 1</p>
+						</section>
+					</li>
+					<li class="silver">
+						<section>
+							<h3>红苹果</h3>
+						</section>
+						<section>
+							<h1>描述</h1>
+							<p>富含维生素的苹果，能让小黄迸发活力</p>
+						</section>
+						<section>
+							<h1>效果</h1>
+							<p>长度 + 1<br>速度 + 0.5</p>
+						</section>
+					</li>
+					<li class="gold">
+						<section>
+							<h3>金苹果</h3>
+						</section>
+						<section>
+							<h1>描述</h1>
+							<p>传说中的苹果，吃后会提高智慧的神奇果实</p>
+						</section>
+						<section>
+							<h1>效果</h1>
+							<p>长度 + 1<br>重置速度为 1</p>
+						</section>
+					</li>
+					<script>
+						const ids = Object.values(Game.ID.FOOD);
+						const items = document.querySelectorAll('li');
+						for (let i = 0; i < items.length; i++) {
+							const no = document.createElement('h3');
+							no.innerHTML = (i < 9 ? 'No0' : 'No') + (i + 1);
+							const image = document.createElement('canvas');
+							image.width = image.height = Game.tw;
+							Game.drawTile0(image.getContext('2d'), 0, 0, ids[i]);
+							items[i].firstElementChild.firstElementChild.before(no, image);
+							items[i].style.animationDelay = 0.15 * i + 's';
+						}
+					</script>
+				</ul>
+				<script src="js/footer.js"></script>
+			</div>
+		</div>
+	</body>
+</html>

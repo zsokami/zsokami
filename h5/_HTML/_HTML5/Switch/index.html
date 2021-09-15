@@ -1,0 +1,40 @@
+<style>
+*{
+text-align: center;
+}
+#btns a {
+display: inline-block;
+border: 1px solid black;
+margin: 1px;
+width: 32px;
+height: 32px;
+line-height: 32px;
+text-align: center;
+}
+</style>
+<html>
+<body>
+<img id="pic"/>
+<br>
+<div id="btns"></div>
+<script>
+var total = 9;
+
+var btnsHtml = "";
+for(var i = 1; i <= total; i++) //循环添加1-9的按钮
+	btnsHtml += "<a>" + i + "</a>";
+btns.innerHTML = btnsHtml;
+
+for(var i = 0; i < total; i++) //为每个按钮设置鼠标移入事件
+	btns.children[i].onmouseover = function() {
+		setPic(this.innerText);
+	}
+
+function setPic(i) { //设置图片
+	pic.src = "images/" + i + ".png";
+}
+
+setPic(1); 
+</script>
+</body>
+</html>

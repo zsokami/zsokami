@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>h5</title>
+  <style type="text/css">
+    body
+    {
+      margin: 0px;
+	  text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas">浏览器不支持 canvas 标签</canvas>
+  <script src="index.js"></script>
+  <script type="text/javascript">
+    var ctx=document.getElementById("canvas").getContext("2d");
+	var w=canvas.width=1000;
+	var h=canvas.height=500;
+	var th=h/row;
+	var tw=w/col;
+	
+	var index=0;
+	var maxTime=20;
+	var dTime=0;
+	
+	ctx.shadowBlur=50;
+	ctx.fillStyle="black";
+	ctx.fillRect(0,0,w,h);
+	
+	function draw(){
+	  if(index>=points.length){
+	    if(++dTime>=maxTime){
+	      ctx.fillStyle="black";
+	      ctx.fillRect(0,0,w,h);
+		  index=0;
+		  dTime=0;
+		}
+	  }else{
+	    var point=points[index];
+		ctx.shadowColor=point.color;
+		ctx.fillStyle=point.color;
+	    drawCircle(ctx,tw*(point.x+0.5),th*(point.y+0.5),tw*0.5);
+		index++;
+      }
+	}
+	
+	setInterval(draw,100);
+	
+	function drawCircle(ctx,x,y,r){
+	  ctx.beginPath();
+	  ctx.arc(x,y,r,0,Math.PI*2);
+	  ctx.closePath();
+	  ctx.fill();
+	}
+  </script>
+</body>
+</html>

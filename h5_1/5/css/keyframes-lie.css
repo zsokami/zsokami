@@ -1,0 +1,12 @@
+@keyframes lie-1 {
+	/* 从左躺下来 */
+	from {
+		transform: translate(-100%, -100%) rotate(-45deg);
+	}
+}
+@keyframes lie-2 {
+	/* 从右躺下来 */
+	from {
+		transform: translate(100%, -100%) rotate(45deg);
+	}
+}

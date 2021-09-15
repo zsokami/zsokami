@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>课表</title>
+		<style>
+			form {
+				text-align: center;
+				margin: 8px;
+			}
+			
+			a {
+				color: seagreen;
+				text-decoration: none;
+			}
+			
+			input {
+				width: 4em;
+				text-align: center;
+				outline: none;
+				border: none;
+				border-bottom: 1px solid seagreen;
+			}
+			
+			input::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+			}
+			
+			form:focus-within a {
+				color: lightseagreen;
+			}
+			
+			form:focus-within input {
+				border-bottom-color: lightseagreen;
+			}
+		</style>
+	</head>
+
+	<body>
+		<form>
+			<a>&lt;</a>
+			<input type="number" name="week" id="inWeek">
+			<a>&gt;</a>
+		</form>
+		<table id="Table6" class="blacktab" rules="all" border="1" height="132" width="100%">
+			<tbody>
+				<tr>
+					<td colspan="2" rowspan="1" width="2%">时间</td>
+					<td align="Center" width="14%">星期一</td>
+					<td align="Center" width="14%">星期二</td>
+					<td align="Center" width="14%">星期三</td>
+					<td align="Center" width="14%">星期四</td>
+					<td align="Center" width="14%">星期五</td>
+					<td align="Center" width="14%">星期六</td>
+					<td align="Center" width="14%">星期日</td>
+				</tr>
+				<tr>
+					<td colspan="2">早晨</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td rowspan="4" width="1%">上午</td>
+					<td width="1%">第一节</td>
+					<td align="Center" rowspan="2" width="7%">鲲鹏应用开发技术<br>10-18(1,2)<br>李津<br>教学楼3202<br></td>
+					<td align="Center" width="7%">&nbsp;</td>
+					<td align="Center" rowspan="2" width="7%">JAVA Web应用开发<br>1,8-15(1,2)<br>扶卿妮<br>教学楼3202<br><br><br>JAVA Web应用开发<br>2-7(1,2)<br>扶卿妮<br>实训室3313（机房）<br></td>
+					<td align="Center" rowspan="2" width="7%">JAVA Web应用开发<br>1,8-15(1,2)<br>扶卿妮<br>教学楼3202<br><br><br>JAVA Web应用开发<br>2-7(1,2)<br>扶卿妮<br>实训室3313（机房）<br></td>
+					<td align="Center" width="7%">&nbsp;</td>
+					<td align="Center" width="7%">&nbsp;</td>
+					<td align="Center" width="7%">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>第二节</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>第三节</td>
+					<td align="Center" rowspan="2">鲲鹏应用开发技术<br>10-18(3,4)<br>李津<br>教学楼3202<br></td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">JAVA Web应用开发<br>1,8-15(3)<br>扶卿妮<br>教学楼3202<br><br><br>JAVA Web应用开发<br>2-7(3)<br>扶卿妮<br>实训室3313（机房）<br></td>
+					<td align="Center">JAVA Web应用开发<br>1,8-15(3)<br>扶卿妮<br>教学楼3202<br><br><br>JAVA Web应用开发<br>2-7(3)<br>扶卿妮<br>实训室3313（机房）<br></td>
+					<td align="Center" rowspan="2">体育3<br>2节/周<br>0<br> <br><br><br>形势与政策教育(3)<br>1-2(3,4)<br>江朝霞<br>教学楼1311<br></td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>第四节</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td rowspan="4" width="1%">下午</td>
+					<td>第五节</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center" rowspan="2">用户交互设计与实现<br>1,8-12(5,6)<br>陶玲<br>教学楼3202<br><br><br>用户交互设计与实现<br>2-7(5,6)<br>陶玲<br>实训室3313（机房）<br></td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center" rowspan="2">用户交互设计与实现<br>1,8-11(5,6)<br>陶玲<br>教学楼3202<br><br><br>用户交互设计与实现<br>2-7(5,6)<br>陶玲<br>实训室3313（机房）<br></td>
+					<td align="Center" rowspan="2">创新创业启蒙<br>3(5,6)<br>胡婷婷<br>教学楼1505<br>
+						<font color="red">(调0590)</font><br>
+					</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>第六节</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>第七节</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center" rowspan="2">用户交互设计与实现<br>1,8-11(7,8)<br>陶玲<br>教学楼3202<br><br><br>用户交互设计与实现<br>2-7(7,8)<br>陶玲<br>实训室3313（机房）<br></td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center" rowspan="2">用户交互设计与实现<br>1,8-11(7,8)<br>陶玲<br>教学楼3202<br><br><br>用户交互设计与实现<br>2-7(7,8)<br>陶玲<br>实训室3313（机房）<br></td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>第八节</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td rowspan="4" width="1%">晚上</td>
+					<td>第九节</td>
+					<td align="Center" rowspan="2">数据结构与算法<br>8-18(9,10)<br>苑占江<br>教学楼3202<br><br><br>数据结构与算法<br>5-7(9,10)<br>苑占江<br>实训室3313（机房）<br></td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center" rowspan="2">华为云服务技术<br>1,8-9(9,10)<br>张诗源<br>教学楼3202<br><br><br>华为云服务技术<br>2-7(9,10)<br>张诗源<br>实训室3313（机房）<br></td>
+					<td align="Center" rowspan="2">Photoshop图像处理<br>8-18(9,10)<br>何雪琪<br>教学楼3202<br><br><br>Photoshop图像处理<br>5-7(9,10)<br>何雪琪<br>实训室3313（机房）<br></td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>第10节</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>第11节</td>
+					<td align="Center" rowspan="2">数据结构与算法<br>8-17(11,12)<br>苑占江<br>教学楼3202<br><br><br>数据结构与算法<br>5-7(11,12)<br>苑占江<br>实训室3313（机房）<br></td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center" rowspan="2">华为云服务技术<br>1,8-9(11,12)<br>张诗源<br>教学楼3202<br><br><br>华为云服务技术<br>2-7(11,12)<br>张诗源<br>实训室3313（机房）<br></td>
+					<td align="Center" rowspan="2">Photoshop图像处理<br>8-17(11,12)<br>何雪琪<br>教学楼3202<br><br><br>Photoshop图像处理<br>5-7(11,12)<br>何雪琪<br>实训室3313（机房）<br></td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>第12节</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+					<td align="Center">&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+		<script>
+			document.querySelector('tr:nth-child(2)').remove();
+			const cols = getCols(Table6);
+			cols[2 + (new Date().getDay() + 6) % 7].forEach(td => td.style.background = '#f0f8f8');
+			let curWeek = location.search.match(/week=(\d+)/i);
+			curWeek = curWeek ? parseInt(curWeek[1]) : (new Date() - new Date(2020, 8, 0)) / 1000 / 60 / 60 / 24 / 7 | 0;
+			initForm(curWeek);
+			const re = /(.+\n(\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*)\(.+\)\n.+\n.+)\s*/g;
+			for (let j = 2; j < 9; j++) {
+				next: for (const td of cols[j].slice(1)) {
+					re.lastIndex = 0;
+					for (let t = td.innerText, m; m = re.exec(t);) {
+						for (const week of m[2].split(',').map(i => i.split('-'))) {
+							if (curWeek == week[0] || week.length == 2 && curWeek >= week[0] && curWeek <= week[1]) {
+								td.innerText = m[1];
+								continue next;
+							}
+						}
+					}
+					td.innerText = '';
+				}
+			}
+
+			function initForm(week) {
+				inWeek.value = week;
+				inWeek.previousElementSibling.href = '?week=' + (week - 1);
+				inWeek.nextElementSibling.href = '?week=' + (week + 1);
+			}
+
+			/**
+			 * @param {HTMLTableElement} table
+			 * @return {Array}
+			 */
+			function getCols(table) {
+				let cols = [];
+				let index = Array.from(table.rows, () => 0);
+				let count = Array.from(table.rows, row => row.cells.length == 0 ? 0 : 1);
+				for (let j = 1, i; ~(i = count.indexOf(j)); j++) {
+					let col = [];
+					do {
+						const cell = table.rows[i].cells[index[i]];
+						col.push(cell);
+						const max = Math.min(i + cell.rowSpan, table.rows.length);
+						if (++index[i] == table.rows[i].cells.length)
+							count[i] = 0;
+						do {
+							if (count[i] > 0)
+								count[i] += cell.colSpan;
+						} while (++i < max);
+					} while (~(i = count.indexOf(j, i)));
+					cols.push(col);
+				}
+				return cols;
+			}
+		</script>
+	</body>
+
+</html>

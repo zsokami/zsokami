@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#box {
+				margin: auto;
+				position: relative;
+				width: 800px;
+				height: 280px;
+				overflow: hidden;
+				box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.4);
+			}
+
+			#box::after {
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(transparent 60%, rgba(0, 0, 0, 0.8));
+			}
+
+			#content {
+				display: flex;
+				transition: 0.2s;
+			}
+
+			#box:hover>#content {
+				filter: brightness(0.9);
+			}
+
+			#dots {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				bottom: 10px;
+				display: flex;
+				gap: 6px;
+				z-index: 1;
+			}
+
+			#dots>div {
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: grey;
+				transition: 0.6s;
+			}
+
+			#dots>div.cur {
+				background: white;
+			}
+
+			.btn {
+				width: 50px;
+				height: 100px;
+				background: rgba(0, 0, 0, 0.1) url(img/spirte.png);
+				position: absolute;
+				top: calc(50% - 50px);
+				transition: 0.2s;
+				z-index: 1;
+			}
+
+			#box:not(:hover)>.btn {
+				opacity: 0;
+			}
+
+			.btn:hover {
+				background-color: rgba(0, 0, 0, 0.2);
+			}
+
+			.btn:active {
+				background-color: rgba(0, 0, 0, 0.4);
+			}
+
+			#bPrev {
+				left: 0;
+			}
+
+			#bNext {
+				right: 0;
+				background-position: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div id="content"></div>
+			<div id="dots"></div>
+			<div id="bPrev" class="btn"></div>
+			<div id="bNext" class="btn"></div>
+		</div>
+		<script>
+			const n = 5;
+
+			content.innerHTML = Array.from({ length: n }, (_, i) => `<img src="img/${(i+1).toString().padStart(2,0)}.jpg">`).join('');
+			dots.innerHTML = '<div></div>'.repeat(n);
+
+			const dot = dots.children;
+			let cur = 1;
+			let timer;
+
+			move(0);
+			autoNext();
+
+			bPrev.onclick = () => {
+				prev();
+				autoNext();
+			};
+			bNext.onclick = () => {
+				next();
+				autoNext();
+			};
+
+			function move(i) {
+				dot[cur - 1].classList.remove('cur');
+				content.style.transform = `translateX(${-800*((cur+=i)-1)}px)`;
+				dot[cur - 1].classList.add('cur');
+			}
+
+			function prev() {
+				move(cur == 1 ? n - 1 : -1);
+			}
+
+			function next() {
+				move(cur == n ? 1 - n : 1);
+			}
+
+			function autoNext() {
+				clearInterval(timer);
+				timer = setInterval(next, 2000);
+			}
+		</script>
+	</body>
+</html>

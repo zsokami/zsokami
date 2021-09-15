@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>小黄贪吃蛇</title>
+		<link rel="stylesheet" href="css/main.css">
+		<style>
+			#container, nav>div, canvas {
+				transition: opacity 0.5s;
+			}
+			
+			nav {
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				font-size: 3rem;
+			}
+
+			nav>div {
+				display: flex;
+				flex-flow: column;
+				justify-content: space-evenly;
+				align-items: center;
+			}
+			
+			.hide {
+				opacity: 0;
+			}
+		</style>
+		<script src="js/core.js"></script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<script src="js/bg.js"></script>
+			<script src="js/snake-bar.js"></script>
+			<div id="container">
+				<script src="js/header.js"></script>
+				<nav>
+					<div>
+						<a href="javascript:toggle()">开始游戏</a>
+						<a href="foodex.html">食物图鉴</a>
+						<a href="help.html">游戏帮助</a>
+					</div>
+					<div style="display: none; opacity: 0;">
+						<a href="game.html?mode=1">生存</a>
+						<a href="game.html?mode=3">挑战</a>
+						<a href="game.html?mode=4">双人对战(测试)</a>
+						<a href="javascript:toggle()">返回</a>
+					</div>
+					<script>
+						const div = document.querySelectorAll('nav>div');
+						let cur = 0;
+
+						function toggle() {
+							if (div[cur].style.cssText) return;
+							div[cur].style.opacity = 0;
+							setTimeout(realToggle, 200);
+						}
+
+						function realToggle() {
+							div[cur].style.display = 'none';
+							div[cur ^= 1].style.display = '';
+							requestAnimationFrame(() => requestAnimationFrame(() => div[cur].style = ''));
+						}
+					</script>
+				</nav>
+				<script src="js/footer.js"></script>
+			</div>
+		</div>
+		<script>
+			Game.param['non-first'] || container.classList.add('hide');
+		</script>
+	</body>
+</html>

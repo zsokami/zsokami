@@ -1,0 +1,12 @@
+@keyframes enter-1 {
+	/* 从左进入 */
+	from{
+		transform: translateX(calc(-50vw - 100%));
+	}
+}
+@keyframes enter-2 {
+	/* 从右进入 */
+	from{
+		transform: translateX(calc(50vw + 100%));
+	}
+}

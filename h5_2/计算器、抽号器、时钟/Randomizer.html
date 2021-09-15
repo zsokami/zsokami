@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>抽号器</title>
+		<link rel="stylesheet" href="css/my_control.css">
+		<style>
+			body {
+				display: grid;
+				grid-template-columns: repeat(2, 16rem);
+				gap: 5rem;
+				margin: 5rem;
+				justify-content: center;
+				justify-items: center;
+				align-items: start;
+			}
+			
+			#out {
+				min-width: 14rem;
+				height: 16rem;
+				padding: 0 1rem;
+				border-radius: 50%;
+				box-shadow: 0 0 13px, 0 0 8px inset;
+				color: dodgerblue;
+				text-align: center;
+				font: 10rem/16rem comic sans ms;
+			}
+			
+			#panel {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			#warning {
+				color: red;
+			}
+
+			.center {
+				text-align: center;
+			}
+
+			input[type=number] {
+				width: 4em;
+				text-align: center;
+				border-style: none none solid;
+				border-radius: 0;
+			}
+
+			input[type=number]::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+			}
+			
+			#btn {
+				width: 4em;
+				height: 4em;
+				padding: 0;
+			}
+			
+			#analogClock {
+				width: 16rem;
+				height: 16rem;
+			}
+			
+			#historyResult {
+				width: 16rem;
+				word-spacing: 1em;
+			}
+			
+			@keyframes up {
+				0% {
+					transform: translateY(100%);
+					opacity: 0;
+				}
+				
+				66% {
+					transform: none;
+					opacity: 1;
+				}
+			}
+			
+			@keyframes flash {
+				12.5% {
+					color: #f42;
+				}
+				
+				25% {
+					color: dodgerblue;
+				}
+				
+				37.5% {
+					color: #f42;
+				}
+				
+				50% {
+					color: dodgerblue;
+				}
+				
+				62.5% {
+					color: #f42;
+				}
+				
+				75% {
+					color: dodgerblue;
+				}
+				
+				87.5% {
+					color: #f42;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="out">0</div>
+		<canvas id="analogClock"></canvas>
+		<div>
+			<div id="panel">
+				<div class="center">
+					<input class="control" type="number" id="inMin" value="1" required><span> ~ </span><input class="control" type="number" id="inMax" value="60" required><br>
+					<input class="control" type="number" id="inTimes" value="1" required><span>次</span><br>
+					<input class="control" type="checkbox" id="inNoRepeat"><label for="inNoRepeat">不重复</label>
+				</div>
+				<input class="control" type="button" id="btn" value="开始">
+			</div>
+			<div id="warning" class="center"></div>
+		</div>
+		<div id="historyResult"></div>
+		<script src="js/analogClock.js"></script>
+		<script src="js/Randomizer.js"></script>
+	</body>
+</html>

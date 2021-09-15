@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>增减购物车商品信息 </title>
+		<style type="text/css">
+			* {
+				font-size: 12px;
+			}
+		</style>
+
+	</head>
+	<body>
+		<table border="1" cellpadding="0" cellspacing="0">
+			<tr>
+				<th><input type='checkbox' />全选</th>
+				<th>商品信息</th>
+				<th>宜美惠价</th>
+				<th>数量</th>
+				<th>操作</th>
+
+			</tr>
+
+			<tr class="tr_0">
+				<td>
+					<input name="" type="checkbox" value="" />
+				</td>
+				<td>
+					<img src="images/sang.gif" class="products" /><a href="#">天堂雨伞</a></td>
+				<td>￥32.9元
+				</td>
+				<td>
+					<img src="images/subtraction.gif" width="20" height="20" />
+					<input type="text" class="quantity" value="1" />
+					<img src="images/add.gif" width="20" height="20" />
+				</td>
+				<td>
+					<a href="#" class="del">删除</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input name="" type="checkbox" value="" />
+				</td>
+				<td>
+					<img src="images/iphone.gif" class="products" /><a href="#">苹果手机iphone5</a></td>
+				<td>￥3339元
+				</td>
+				<td>
+					<img src="images/subtraction.gif" width="20" height="20" />
+					<input type="text" class="quantity" value="1" />
+					<img src="images/add.gif" width="20" height="20" />
+				</td>
+				<td>
+					<a href="#" class="del">删除</a>
+				</td>
+			</tr>
+
+		</table>
+
+		<a href="#" class="add">添加</a>
+		<script src="js/jquery-1.12.4.js"></script>
+		<script>
+			$(function() {
+				$('.add').click(function() {
+					$('tr:last').after($('tr:last').clone());
+				});
+				$('table').on('click', '.del', function() {
+					$(this).parents('tr').remove();
+				});
+				$(':checkbox:first').click(function() {
+					$(':checkbox:gt(0)').prop('checked', $(this).prop('checked'));
+				});
+				$('table').on('click', ':checkbox:gt(0)', function() {
+					$(':checkbox:first').prop('checked', $(':checkbox:gt(0)').get().every(i => i.checked));
+				});
+				$('table').on('click', 'td:nth-child(4)>img', function() {
+					switch ($(this).index()) {
+						case 0:
+							$(this).next().val((i, v) => Math.max(--v, 0));
+							break;
+						case 2:
+							$(this).prev().val((i, v) => ++v);
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

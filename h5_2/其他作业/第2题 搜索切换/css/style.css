@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.search-form {
+    width: 575px;
+    margin: 100px auto;
+    overflow: hidden;
+}
+
+.search-form .search-bd {
+    height: 25px;
+}
+
+.search-form .search-bd li {
+    font-size: 12px;
+    width: 60px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+    background-color: #eee;
+    color: #666;
+}
+
+.search-form .search-bd li.selected {
+    color: #fff;
+    font-weight: 700;
+    background-color: #B61D1D;
+}
+
+.search-form .search-hd {
+    height: 34px;
+    background-color: #B61D1D;
+    padding: 3px;
+    position: relative;
+}
+
+.search-form .search-hd .search-input {
+    width: 490px;
+    height: 22px;
+    line-height: 22px;
+    padding: 6px 0;
+    background: none;
+    text-indent: 10px;
+    border: 0;
+    outline: none;
+    position: relative;
+    left: 3px;
+    top: 0;
+    z-index: 5;
+    #margin-left: -10px;
+}
+
+.search-form .search-hd .btn-search {
+    width: 70px;
+    height: 34px;
+    line-height: 34px;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    border: 0;
+    z-index: 6;
+    cursor: pointer;
+    font-size: 12px;
+    color: #fff;
+    font-weight: 700;
+    background: none;
+    outline: none;
+}
+
+.search-form .search-hd .pholder {
+    display: inline-block;
+    padding: 2px 0;
+    font-size: 12px;
+    color: #999;
+    position: absolute;
+    left: 13px;
+    top: 11px;
+    z-index: 4;
+    background: url(../images/zoom.jpg) no-repeat 0 0;
+    padding-left: 25px;
+    #top: 11px;
+}
+
+.search-form .search-hd .s2,
+.search-form .search-hd #s2 {
+    display: none;
+}
+
+.search-form .search-bg {
+    width: 495px;
+    height: 34px;
+    background-color: #fff;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    z-index: 1;
+}

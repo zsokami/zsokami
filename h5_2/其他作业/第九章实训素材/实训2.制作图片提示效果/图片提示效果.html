@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>鼠标滑过图片时预览大图</title>
+
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 40px;
+				background: #fff;
+				font: 80% Arial, Helvetica, sans-serif;
+				color: #555;
+				line-height: 180%;
+			}
+
+			img {
+				vertical-align: top;
+			}
+
+			ul, li {
+				margin: 0;
+				padding: 0;
+			}
+
+			li {
+				list-style: none;
+				float: left;
+				display: inline;
+				margin-right: 10px;
+				border: 1px solid #AAAAAA;
+			}
+
+			/* tooltip */
+			#tooltip {
+				position: absolute;
+				border: 1px solid #ccc;
+				background: #333;
+				padding: 2px;
+				display: none;
+				color: #fff;
+				text-align: center;
+				pointer-events: none;
+			}
+		</style>
+
+	</head>
+	<body>
+		<ul>
+			<li><a href="images/012.jpg" class="tooltip" title="拉萨效外"><img src="images/011.jpg" alt="拉萨效外" /></a></li>
+			<li><a href="images/022.jpg" class="tooltip" title="圣湖的传说"><img src="images/021.jpg" alt="圣湖的传说" /></a></li>
+			<li><a href="images/032.jpg" class="tooltip" title="童话九寨沟"><img src="images/031.jpg" alt="童话九寨沟" /></a></li>
+			<li><a href="images/042.jpg" class="tooltip" title="丹巴藏寨"><img src="images/041.jpg" alt="丹巴藏寨" /></a></li>
+		</ul>
+
+		<div id="tooltip"><img><br><span></span></div>
+
+		<script src="../jquery-1.12.4.js"></script>
+		<script>
+			$(() => {
+				$('a').hover(function() {
+					$('#tooltip').toggle();
+					$('#tooltip>img').attr('src', $(this).attr('href'));
+					$('#tooltip>span').text($(this).attr('title'));
+				}).mousemove(function(e) {
+					$('#tooltip').css({
+						'left': e.pageX + 'px',
+						'top': e.pageY + 'px'
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

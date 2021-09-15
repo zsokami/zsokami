@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>作业(chrome)</title>
+		<style>
+			body {
+				position: fixed;
+				top: calc(50% - 400px);
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: 0;
+			}
+			
+			a {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 200px;
+				height: 200px;
+				border-top-left-radius: 100%;
+				border-bottom-right-radius: 100%;
+				text-decoration: none;
+				box-shadow: 0 0 30px #cccccc;
+				background: #9fefff;
+				margin-left: calc(50% - 100px);
+				transform: rotate(45deg);
+				transition: all 1.5s;
+				transition-timing-function: cubic-bezier(0.3, 2, 0.4, 0.7);
+			}
+			
+			a:hover {
+				box-shadow: 0 0 30px 10px #bbbbbb;
+				background: #0000ff;
+				transform: rotate(405deg) scale(1.2);
+			}
+			
+			span {
+				color: #000000;
+				font-size: 2em;
+				font-weight: bold;
+				text-shadow: 0 0 3px #ffffff;
+				transform: rotate(-45deg);
+				animation: color-change 6s infinite 1s;
+			}
+			
+			@keyframes from-left {
+				0% {
+					margin-left: -200px;
+					transform: rotate(0deg);
+				}
+				50% {
+					margin-left: calc(50% - 100px);
+				}
+				60% {
+					transform: rotate(0deg);
+				}
+			}
+			
+			@keyframes from-right {
+				0% {
+					margin-left: 100%;
+					transform: rotate(90deg);
+				}
+				50% {
+					margin-left: calc(50% - 100px);
+				}
+				60% {
+					transform: rotate(90deg);
+				}
+			}
+			
+			@keyframes color-change {
+				0% {
+					color: #000000
+				}
+				18.75% {
+					color: #ff0000
+				}
+				37.5% {
+					color: #000000
+				}
+				56.25% {
+					color: #ff7f00
+				}
+				75% {
+					color: #000000
+				}
+				79.1667% {
+					color: #ffff00
+				}
+				83.3333% {
+					color: #000000
+				}
+				87.5% {
+					color: #00ff00
+				}
+				91.6667% {
+					color: #000000
+				}
+				95.8333% {
+					color: #ff00ff
+				}
+				100% {
+					color: #000000
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<script>
+			for(let i = 1; i <= 4; i++)
+				setTimeout(() => document.body.insertAdjacentHTML('beforeend',
+					'<a style="animation: from-' + (i & 1 ? 'left' : 'right') +
+					' 1s" href="' + i + '.html"><span>第 ' + i + ' 题</span></a>'), 200 * (i - 1));
+		</script>
+		<script src="js/index.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,90 @@
+@font-face {
+	font-family: 方正舒体-备用;
+	src: url(../font/FZSTK.TTF);
+}
+
+@font-face {
+	font-family: comic sans ms spare;
+	src: url(../font/comic.ttf);
+}
+
+@font-face {
+	font-family: comic sans ms spare;
+	font-weight: bold;
+	src: url(../font/comicbd.ttf);
+}
+
+@font-face {
+	font-family: comic sans ms spare;
+	font-style: italic;
+	src: url(../font/comici.ttf);
+}
+
+@font-face {
+	font-family: comic sans ms spare;
+	font-weight: bold;
+	font-style: italic;
+	src: url(../font/comicz.ttf);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: comic sans ms, comic sans ms spare, 方正舒体, 方正舒体-备用;
+}
+
+html, body {
+	height: 100vh;
+}
+
+#wrapper {
+	overflow: hidden;
+}
+
+#container {
+	min-height: 100vh;
+	display: flex;
+	flex-flow: column;
+}
+
+a {
+	text-decoration: inherit;
+	color: inherit;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+header, footer {
+	padding: 1rem;
+	background: rgba(0, 0, 0, 0.07);
+	color: #666;
+	box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+	z-index: 1;
+}
+
+header>h1 {
+	font-size: 2.5rem;
+	color: #E9B300;
+	text-shadow: 0 0 6px yellow, 3px -3px 9px yellow;
+}
+
+header>h4 {
+	margin-left: 4rem;
+	font-style: italic;
+}
+
+footer {
+	text-align: center;
+}
+
+.dash::before {
+	content: "——";
+	font-family: arial;
+}
+
+.orange {
+	color: orange;
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function move(self){
+   var p = self.parentNode;//获取当前节点的父节点
+   self.remove();//移除当前节点
+   p.appendChild(self);   //父节点添加当前节点
+}
+</script>
+</head>
+<body>
+<div>
+  <input type="button" id="button1"   value="1" onclick="move(this)">
+  <input type="button" id="button2"  value="2"/>
+</div>
+</body>
+</html>

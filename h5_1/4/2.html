@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>畅销书排行榜</title>
+		<style>
+			@import url("css/keyframes-springing.css");
+			@import url("css/keyframes-scale-x-in.css");
+			@import url("css/keyframes-enter.css");
+			@import url("css/keyframes-color-change.css");
+			@import url("css/keyframes-fade-in.css");
+			* {
+				font-family: 宋体, sans-serif;
+				font-weight: bold;
+			}
+			#canvas-title {
+				display: block;
+				margin: 20px auto 0 auto;
+			}
+			hr {
+				margin-bottom: 20px;
+				border: 1px solid red;
+				animation: scale-x-in 2s cubic-bezier(0.8, 0, 0.2, 1);
+			}
+			ol {
+				width: 300px;
+				margin: auto;
+				padding: 0;
+				list-style: none;
+			}
+			li div {
+				display: inline-block;
+				vertical-align: middle;
+				width: 25px;
+				height: 25px;
+			}
+			a {
+				display: inline-block;
+				vertical-align: middle;
+				margin: 5px 0;
+				text-decoration: none;
+				color: #08f;
+				transition: .05s;
+			}
+			a:hover {
+				transform: scale(1.1);
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="canvas-title">畅销书排行榜</canvas>
+		<hr />
+		<ol>
+			<li>
+				<div></div>
+				<a href="#">不抱怨的世界(畅...</a>
+			</li>
+			<li>
+				<div></div>
+				<a href="#">遇见未知的自己...</a>
+			</li>
+			<li>
+				<div></div>
+				<a href="#">活法（季羡林、...</a>
+			</li>
+			<li>
+				<div></div>
+				<a href="#">高效能人士的七个习惯</a>
+			</li>
+			<li>
+				<div></div>
+				<a href="#">被迫强大（北外女生香奈儿...</a>
+			</li>
+			<li>
+				<div></div>
+				<a href="#">遇见心想事成的自己（《遇...</a>
+			</li>
+			<li>
+				<div></div>
+				<a href="#">世界上最伟大的推销员（插...</a>
+			</li>
+			<li>
+				<div></div>
+				<a href="#">我的成功可以复制（唐骏亲...</a>
+			</li>
+			<li>
+				<div></div>
+				<a href="#">少有人走的路：心智成熟的...</a>
+			</li>
+			<li>
+				<div></div>
+				<a href="#">活出全新的自己——唤醒..</a>
+			</li>
+		</ol>
+		<script>
+			const delay = 1;
+
+			const a = document.getElementsByTagName('a');
+			for (let i = 0; i < a.length; i++) {
+				// 添加文字动画，自定义速度曲线，简单实现回弹效果
+				a[i].style.animation = `enter-${1+(i&1)} .5s ${delay+i*.1}s cubic-bezier(0.3, 2, 0.4, 0.7) backwards, color-change 6s ${delay+.5+i*.2}s infinite both`;
+			}
+
+			const no = document.querySelectorAll('li div');
+			for (let i = 0; i < no.length; i++) {
+				// 添加背景序号图标
+				no[i].style.background = `url(img/book_no${String(i+1).padStart(2,0)}.gif) ${i<3?0:3}px center no-repeat`;
+				// 添加淡入动画
+				no[i].style.animation = `fade-in .5s ${delay+.5+i*.1}s both`;
+			}
+
+			// 生成标题的弹跳动画
+			let springing = [];
+			for (let i = 1, sum = delay, t = .3; i < 8; i++, sum += t, t = i % 2 == 0 ? t / 2 : t) {
+				springing.push(`springing-${(i>>1)+1} ${t}s ${sum}s ease-in${i % 2 == 0 ? ' reverse' : ''}`);
+			}
+			springing[0] += ' backwards';
+			console.log(springing);
+			document.getElementById('canvas-title').style.animation = springing.join();
+		</script>
+		<script src="js/canvas-title-arc.js"></script>
+		<script src="js/rings.js"></script>
+	</body>
+
+</html>

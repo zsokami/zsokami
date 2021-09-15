@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<style>
+			.content {
+				background: grey;
+				width: 1000px;
+				height: 1000px;
+				margin: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div class="content"></div> -->
+		<!-- <div class="content"></div> -->
+		<div data-href="http://baidu.com" id="b">➕</div>
+
+		<script>
+			setCss(
+				`--w: 3em;
+				text-align: center;
+				background: white;
+				width: var(--w);
+				line-height: var(--w);
+				border-radius: 50%;
+				box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.3);
+				position: fixed;
+				left: calc(90% - var(--w));
+				top: calc(80% - var(--w));
+				z-index: 2147483647;
+				user-select: none;
+				transition: transform 0.5s`
+			);
+
+			let down, ox, oy, moved;
+
+			if ('ontouchstart' in b) {
+				b.addEventListener('touchstart', f(() => true, e => onDown(e.targetTouches[0])));
+				b.addEventListener('touchend', f(() => down, onUp));
+				b.addEventListener('touchcancel', f(() => down, onCancel));
+				b.addEventListener('touchmove', f(() => down, e => onMove(e.targetTouches[0])));
+			} else {
+				b.addEventListener('mousedown', f(() => true, onDown));
+				addEventListener('mouseup', f(() => down, onUp));
+				addEventListener('mousemove', f(e => down && e.buttons, onMove));
+			}
+
+			function onDown(p) {
+				down = true;
+				moved = false;
+				ox = b.offsetLeft - p.clientX;
+				oy = b.offsetTop - p.clientY;
+				setCss('transform: scaleZ(1) rotateZ(45deg)');
+			}
+
+			function onUp() {
+				onCancel();
+				if (!moved) {
+					location = b.getAttribute('data-href');
+				}
+			}
+			
+			function onCancel() {
+				down = false;
+				setCss('transform: none;');
+			}
+
+			function onMove(p) {
+				moved = true;
+				let x = Math.min(Math.max(p.clientX + ox, 0), document.documentElement.clientWidth - b.offsetWidth);
+				let y = Math.min(Math.max(p.clientY + oy, 0), document.documentElement.clientHeight - b.offsetHeight);
+				setCss(`left: ${100*x/document.documentElement.clientWidth}%; top: ${100*y/document.documentElement.clientHeight}%`);
+			}
+			
+			function f(f1, f2) {
+				return e => {
+					if (f1(e)) {
+						e.preventDefault();
+						f2(e);
+					}
+				};
+			}
+
+			function setCss(cssText) {
+				b.style.cssText += cssText;
+			}
+		</script>
+	</body>
+</html>

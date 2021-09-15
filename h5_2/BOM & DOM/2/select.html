@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="css/my_control.css">
+		<style>
+			body {
+				display: grid;
+				grid-template-columns: repeat(3, auto);
+				align-items: center;
+				gap: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>0010</div>
+		<div>小米</div>
+		<input type="button" value="选择" class="control">
+		<div>0012</div>
+		<div>小含</div>
+		<input type="button" value="选择" class="control">
+		<script>
+			function click() {
+				const doc = opener.document;
+				doc.getElementById('no').value = this.previousElementSibling.previousElementSibling.innerHTML;
+				doc.getElementById('name').value = this.previousElementSibling.innerHTML;
+			}
+			document.querySelectorAll('input').forEach(b => b.onclick = click);
+		</script>
+	</body>
+</html>

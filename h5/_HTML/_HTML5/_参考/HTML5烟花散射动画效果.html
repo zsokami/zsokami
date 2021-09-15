@@ -1,0 +1,183 @@
+﻿<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div style="position: absolute; top: 50px; left: 50px;background-color: #000000"> 
+		<canvas id="canvas" width="666" height="666">
+		</canvas>
+		</div>
+		<button type="button" onclick="clearall()">
+			清空屏幕
+		</button>
+		<button type="button" onclick="dopowder()">
+			粉末效果
+		</button>
+		<button type="button" onclick="unpowder()">
+			放射效果
+		</button>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){ 
+			//new drawpowder('canvas').point(200,200,"rgba(255,252,255,1)");
+			new drawpowder('canvas').init();
+		}
+		function clearall(){ 
+			var element = document.getElementById('canvas'); 
+			context=element.getContext('2d'); 
+			context.clearRect(0,0,666,666);
+		}
+		function unpowder(){
+			clearall();
+			ispowder=false;
+		}
+		function dopowder(){
+			clearall();
+			ispowder=true;
+		}
+		function drawpowder(id){
+			var that = this; 
+			that.element = document.getElementById(id);
+		}
+		drawpowder.prototype = { 
+			init:function(e){
+				var that = this;
+				that.element.addEventListener(START_EVENT, that, false); 
+				document.addEventListener(MOVE_EVENT, that, false);
+				that.element.addEventListener(END_EVENT, that, false);
+			}, 
+			handleEvent: function(e){ 
+				var that = this; 
+				switch (e.type){ 
+					case START_EVENT: 
+						that.touchStart(e); 
+					break; 
+					case MOVE_EVENT: 
+						that.touchMove(e);
+					break; 
+					case END_EVENT: 
+						that.touchEnd(e); 
+					break; 
+				} 
+			}, 
+			getPage: function(e, page){ 
+				return isTouch ? e.targetTouches[0][page] : e[page]; 
+			}, 
+			destroy: function(e){ 
+				var that = this; 
+				that.element.removeEventListener(START_EVENT, that, false); 
+				document.removeEventListener(MOVE_EVENT, that, false); 
+				that.element.removeEventListener(END_EVENT, that, false);
+			}, 
+			touchStart: function(e){ 
+				try{ 
+					if(e.touches.length > 1){ 
+						// 仅处理一根手指 
+						e.stopPropagation(); 
+						e.preventDefault(); 
+						return; 
+					} 
+				}catch(e){} 
+				var that = this; 
+				e.preventDefault(); 
+				e.stopPropagation(); 
+				if(isspread){
+					return; 
+				} 
+				isspread=true; 
+				downplacex = that.getPage(e,'clientX');
+				downplacey = that.getPage(e,'clientY'); 
+				for(var i=0;i<88;i++){ 
+					var tempangle= Math.floor(Math.random()*360); 
+					var tempRadians= tempangle*Math.PI/180; 
+					var tempdistance= Math.floor(Math.random()*60); 
+					var tempcolor1= Math.floor(Math.random()*255); 
+					var tempcolor2= Math.floor(Math.random()*255); 
+					var tempcolor3= Math.floor(Math.random()*255);
+					powder[i]={angle:tempangle,Radians:tempRadians,distance:tempdistance,color1:tempcolor1,color2:tempcolor2,color3:tempcolor3,hyaline:1}; 
+				} 
+				//alert(powder.length) 
+				for(var j=0;j<powder.length;j++){ 
+					//alert(j) 
+					var Px=Math.cos(powder[j].Radians)*powder[j].distance+downplacex-50; 
+					var Py=Math.sin(powder[j].Radians)*powder[j].distance+downplacey-50; 
+					//alert(Py) 
+					//alert(Px) 
+					that.point(Px,Py,"rgba("+powder[j].color1+","+powder[j].color2+","+powder[j].color3+","+powder[j].hyaline+")");
+				} 
+				that.spread(); 
+			}, 
+			touchMove: function(e){ 
+				try{ 
+					if(e.touches.length > 1){ 
+						// 仅处理一根手指
+						e.stopPropagation();
+						e.preventDefault();
+						return; 
+					} 
+				}catch(e){} 
+				var that = this; 
+				e.preventDefault();
+				e.stopPropagation(); 
+			}, 
+			touchEnd: function(e){ 
+				try{ 
+					if(e.touches.length > 1){ 
+						// 仅处理一根手指 e.stopPropagation(); 
+						e.preventDefault();
+						return;
+					} 
+				}catch(e){} 
+				var that = this; 
+				e.preventDefault();
+				e.stopPropagation(); 
+			}, 
+			point: function(x,y,color){ 
+				var that = this; 
+				context=that.element.getContext('2d'); 
+				//context.clearRect(0,0,400,400); 
+				context.save();
+				context.beginPath();
+				context.arc(x,y,1,0,Math.PI*2,true);
+				context.fillStyle = color; context.closePath(); 
+				context.fill();
+				context.restore(); 
+			},
+			spread:function(){
+				var that=this; 
+				var time=0; 
+				context=that.element.getContext('2d');
+				var spreadtimer=setInterval(function(){
+					time++ 
+					if(time>=100){
+						clearInterval(spreadtimer); 
+						powder=[]; 
+						if(ispowder){ 
+							context.clearRect(0,0,666,666); 
+						} 
+						isspread=false; 
+						return; 
+					} 
+					if(ispowder){ 
+						context.clearRect(0,0,666,666);
+					} 
+					for(var j=0;j<powder.length;j++){
+						powder[j].distance=powder[j].distance+1;
+						powder[j].hyaline=powder[j].hyaline-1/100; 
+						var Px=Math.cos(powder[j].Radians)*powder[j].distance+downplacex-50; 
+						var Py=Math.sin(powder[j].Radians)*powder[j].distance+downplacey-50; 
+						that.point(Px,Py,"rgba("+powder[j].color1+","+powder[j].color2+","+powder[j].color3+","+powder[j].hyaline+")");
+					} 
+				},10) 
+			}
+		}
+		var isTouch = 'ontouchstart' in window,START_EVENT = isTouch ? 'touchstart' : 'mousedown',
+			MOVE_EVENT = isTouch ? 'touchmove' : 'mousemove',
+			END_EVENT = isTouch ? 'touchend' : 'mouseup';
+		var powder=[];
+		var isspread=false;
+		var ispowder=true;
+	</script> 
+</html>

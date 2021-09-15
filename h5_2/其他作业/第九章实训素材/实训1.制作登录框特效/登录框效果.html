@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>登录框特效</title>
+<style type="text/css">
+body{
+	width:915px;
+	margin:0px auto;
+	background:url(images/back.jpg);
+	font-size:14px;
+}
+td{
+	height:35px;
+	line-height:30px;
+}
+.right{
+	text-align:right;
+}
+.center{
+	text-align:center;
+}
+.border{
+	border:1px solid #000;
+}
+.empty {
+	color:#CCC;
+}
+</style>
+
+</head>
+
+<body>
+<div id="top"><img src="images/image1.jpg"/></div>
+<h3>首页—登录</h3>
+<table width="30%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="right">用户名：</td>
+    <td><input type="text" id="address" value="请输入邮箱地址" class="border empty"/></td>
+  </tr>
+  <tr>
+    <td class="right">密&nbsp;&nbsp;码：</td>
+    <td><input type="text" id="password" value="请输入邮箱密码" class="border empty"/></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="center"><input type="button" value="登  陆"/></td>
+   
+  </tr>
+</table>
+<script src="../jquery-1.12.4.js"></script>
+<script>
+	$(() => {
+		$(':text').focus(function() {
+			$(this).hasClass('empty') && $(this).removeClass('empty').val('');
+		}).blur(function() {
+			$(this).val() || $(this).addClass('empty').val($(this).prop('defaultValue'));
+		});
+	});
+</script>
+</body>
+</html>

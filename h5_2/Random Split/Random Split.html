@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#container>* {
+				width: calc((100% - 12px - 1em * var(--text-width)) * var(--k));
+				height: 3em;
+				margin-bottom: 8px;
+				background: var(--color);
+				border: 3px solid var(--color);
+				padding: 3px;
+				background-clip: content-box;
+				position: relative;
+			}
+			
+			#container>*::after {
+				content: attr(value) "￥";
+				position: absolute;
+				left: 100%;
+				padding-left: 6px;
+				line-height: 3em;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<script>
+				let moneys = randomSplit(100, 10).sort((a, b) => b - a);
+				document.styleSheets[0].rules[0].style.setProperty('--text-width', moneys[0].toFixed(2).length / 2 + 1.5);
+				container.innerHTML = moneys.map(money => `<div style="--k: ${money/moneys[0]}; --color: hsl(${60-60*money/moneys[0]}, 100%, 50%);" value="${money.toFixed(2)}"></div>`).join('') + `总金额 = ${moneys.reduce((a, b) => a + b).toFixed(2)}￥`;
+
+				function randomSplit(total, n) {
+					total = total * 100 - n;
+					if (total < 0) return null;
+					const parts = new Array(n);
+					while (n > 1) {
+						const part =  Math.random() * (2 * total / n + 1) | 0;
+						parts[--n] = part;
+						total -= part;
+					}
+					parts[0] = total;
+					return parts.map(part => (part + 1) / 100);
+				}
+			</script>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,106 @@
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>。。。</title>
+</head>
+
+<body style="margin:0px">
+  <canvas id="canvas" onclick="startDraw()">浏览器不支持 canvas 标签</canvas>
+</body>
+
+<script>
+var c = canvas.getContext("2d");
+canvas.width = canvas.height = 600;
+/*
+c.fillStyle = "#eee";
+c.fillRect(0, 0, 600, 600);
+
+c.beginPath();
+for(var i = 0; i < 360; i++) {
+  var lo = Math.sin(Math.PI / 180 * 2 * i) * 200;
+  var x = 200 + Math.cos(Math.PI / 180 * i) * lo;
+  var y = 200 + Math.sin(Math.PI / 180 * i) * lo;
+  c.lineTo(x, y);
+  
+  c.fillStyle = "#000";
+  c.fillRect(x, y, 1, 1);
+  lo = Math.cos(Math.PI / 180 * 2 * i) * 200;
+  x = 200 + Math.cos(Math.PI / 180 * i) * lo;
+  y = 200 + Math.sin(Math.PI / 180 * i) * lo;
+  c.fillStyle = "#f00";
+  c.fillRect(x, y, 1, 1);
+  
+}
+c.closePath();
+c.strokeStyle = "#000";
+c.stroke();
+//c.beginPath();
+for(var i = 0; i < 360; i++) {
+  var lo = Math.cos(Math.PI / 180 * 2 * i) * 200;
+  var x = 200 + Math.cos(Math.PI / 180 * i) * lo;
+  var y = 200 + Math.sin(Math.PI / 180 * i) * lo;
+  //c.fillStyle = color(Math.floor(0x1000 * i / 360));
+  //c.fillRect(x, y, 1, 1);
+  c.lineTo(x, y);
+}
+c.closePath();
+c.strokeStyle = "#f00";
+c.stroke();
+*/
+
+var started = 0;
+var i = 0;
+var h = 0;
+
+c.strokeStyle = "#f00";
+//c.fillStyle = "#f00";
+//c.beginPath();
+
+function startDraw() {
+  if(!started) {
+    drawFrame2();
+    started = 1;
+  }
+}
+
+function drawFrame() {
+  var lo = Math.sin(Math.PI / 180 * 2 * i) * 200;
+  var x = 200 + Math.cos(Math.PI / 180 * i) * lo;
+  var y = 200 + Math.sin(Math.PI / 180 * i) * lo;
+  c.lineTo(x, y);
+  c.stroke();
+  i++;
+  if(i < 360)
+    setTimeout(drawFrame, 20);
+  else started = 0;
+}
+
+function drawFrame2() {
+  c.beginPath();
+  for(var j = 0; j < 360; j++) {
+    var lo = Math.sin(Math.PI / 180 * 2 * (j + i)) * 200;
+    var x = 200 + Math.cos(Math.PI / 180 * j) * lo;
+    var y = 200 + Math.sin(Math.PI / 180 * j) * lo;
+    c.lineTo(x, y);
+  }
+  c.closePath();
+  c.clearRect(0, 0, 600, 600);
+  c.fillStyle = hsv(h += 6);
+  c.fill();
+  i++;
+  setTimeout(drawFrame2, 20);
+}
+
+function color(n) {
+  n = n.toString(16);
+  return "#000".slice(0, -n.length) + n;
+}
+
+function hsv(h){
+  var a=h%255,b=(h-a)/255,c=b%2,d=(b+1)%3;
+  var e=((255<<(d+c+1)%3*8)|((c?255-a:a)<<d*8)).toString(16);
+  return "#000000".slice(0,-e.length)+e;
+}
+</script>
+</html>
+<script>

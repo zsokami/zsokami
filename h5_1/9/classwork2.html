@@ -1,0 +1,237 @@
+<html>
+	<head>
+		<style>
+			body {
+				counter-reset: no;
+			}
+
+			body>* {
+				counter-increment: no;
+				float: left;
+				margin: 10px;
+				position: relative;
+			}
+
+			body>:nth-child(2n+1) {
+				clear: both;
+			}
+
+			div {
+				background: black;
+				width: 90px;
+				height: 90px;
+				display: flex;
+				box-shadow: 5px 5px 5px lightgrey;
+			}
+
+			div::after {
+				content: counter(no);
+				margin: auto;
+				color: white;
+				font-weight: bold;
+			}
+
+			div:nth-child(1) {
+				border-radius: 50%;
+				background: deeppink;
+			}
+
+			div:nth-child(2) {
+				border-radius: 50% 50% 0 0;
+				background: pink;
+			}
+
+			div:nth-child(3) {
+				width: 120px;
+				height: 60px;
+				border-radius: 60px 60px 0 0;
+				background: purple;
+			}
+
+			div:nth-child(4) {
+				width: 60px;
+				height: 60px;
+				border-top-left-radius: 100px;
+				background: lawngreen;
+			}
+
+			div:nth-child(5) {
+				border-radius: 50%;
+				background: pink;
+				border: 30px solid orange;
+				box-sizing: border-box;
+			}
+
+			div:nth-child(6) {
+				width: 120px;
+				height: 60px;
+				border-radius: 50%;
+				background: red;
+			}
+
+			div:nth-child(7) {
+				width: 90px;
+				height: 135px;
+				border-radius: 50% / 60% 60% 40% 40%;
+				background: khaki;
+			}
+
+
+
+			.heart {
+				--size: 180px;
+				--2-3: calc(var(--size) * 2 / 3);
+				--1-3: calc(var(--size) / 3);
+				transform-origin: var(--1-3) var(--1-3);
+				transform: rotate(-45deg);
+			}
+
+			.heart::before {
+				content: "";
+				display: block;
+				background: pink;
+				width: var(--2-3);
+				height: calc(var(--1-3) + 1px);
+				margin-bottom: -1px;
+				border-radius: var(--1-3) var(--1-3) 0 0;
+				box-shadow: 0 7px 5px lightgrey;
+			}
+
+			.heart::after {
+				content: "";
+				display: block;
+				background: pink;
+				width: var(--size);
+				height: var(--2-3);
+				border-radius: 0 var(--1-3) var(--1-3) 0;
+				box-shadow: 0 7px 5px lightgrey;
+			}
+
+			.heart>span {
+				font: bold 2em sans-serif;
+				text-indent: 0.5em;
+				letter-spacing: 0.5em;
+				color: red;
+				white-space: nowrap;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%) rotate(45deg) translateY(50%);
+				text-shadow: 5px 5px 5px hotpink;
+			}
+
+			.flower {
+				--size: 180px;
+				--r: calc(var(--size) * 0.1);
+				--R: calc(var(--size) / 2 - var(--r));
+				--petal: calc(var(--R) / 1.414);
+				width: var(--size);
+				height: var(--size);
+				padding: var(--R);
+				box-sizing: border-box;
+				transform-style: preserve-3d;
+			}
+
+			.flower>:not(:last-child) {
+				position: absolute;
+				width: var(--petal);
+				height: var(--petal);
+				border-radius: 100% 0;
+				--xy: var(--r) / 1.414;
+				--pos: calc(50% + var(--xy));
+				left: var(--pos);
+				bottom: var(--pos);
+				--k: 1;
+				--step: calc(1turn / 12 * var(--k));
+				background: linear-gradient(to right bottom, hsl(var(--step), 100%, 70%) 20%, hsl(var(--step), 100%, 40%) 50%, hsl(var(--step), 100%, 70%) 80%);
+				transform: translateZ(-1px) rotate(var(--step)) rotate3d(1, -1, 0, -1deg);
+				transform-origin: calc(0% - var(--xy)) calc(100% + var(--xy));
+				box-shadow: 0 0 5px yellow;
+			}
+
+			.flower>:nth-child(2) {
+				--k: 2;
+			}
+
+			.flower>:nth-child(3) {
+				--k: 3;
+			}
+
+			.flower>:nth-child(4) {
+				--k: 4;
+			}
+
+			.flower>:nth-child(5) {
+				--k: 5;
+			}
+
+			.flower>:nth-child(6) {
+				--k: 6;
+			}
+
+			.flower>:nth-child(7) {
+				--k: 7;
+			}
+
+			.flower>:nth-child(8) {
+				--k: 8;
+			}
+
+			.flower>:nth-child(9) {
+				--k: 9;
+			}
+
+			.flower>:nth-child(10) {
+				--k: 10;
+			}
+
+			.flower>:nth-child(11) {
+				--k: 11;
+			}
+
+			.flower>:nth-child(12) {
+				--k: 12;
+			}
+
+			.flower>:last-child {
+				background:
+					repeating-linear-gradient(to right, transparent, rgba(255, 255, 0, 0.2) 10%),
+					repeating-linear-gradient(to bottom, transparent, rgba(255, 255, 0, 0.2) 10%),
+					radial-gradient(orange, orangered 50%);
+				display: block;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				transform: scale(1.7);
+				box-shadow: 0 0 5px yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<span class="heart">
+			<span>一颗心</span>
+		</span>
+		<span class="flower">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>canvas高级功能实现</title>
+</head>
+<body>
+<canvas id="canvas1" width="1000" height="1000"></canvas>
+
+</body>
+<script>
+
+/*显示图像*/
+var k=document.getElementById("canvas1");
+var kellen=k.getContext("2d");
+var disk=new Image();
+disk.src="../img/zhuanpan.png";
+disk.onload=function(){
+kellen.drawImage(disk,300,100,400,400);
+}
+/*创建像素对象*/
+   var imagData=kellen.createImageData(200,200);
+   for(var i=0;i<200*200*4;i+=4)
+   {
+    imagData.data[i]=0;
+    imagData.data[i+1]=0;
+    imagData.data[i+2]=255;
+    imagData.data[i+3]=255;
+   }
+kellen.putImageData(imagData,0,0);
+/*把图片反色*/
+
+   for(var i=0;i<200*200*4;i+=4)
+   {
+    imagData.data[i]=255-imagData.data[i];
+    imagData.data[i+1]=255-imagData.data[i+1];
+    imagData.data[i+2]=255-imagData.data[i+2];
+
+   }
+   kellen.putImageData(imagData,0,200);
+/*平移旋转缩放*/
+
+
+   kellen.strokeRect(200,0,50,50);
+   kellen.save();
+   kellen.translate(50,0);
+   kellen.strokeRect(200,0,50,50);
+   kellen.translate(-50,0);
+   kellen.restore();
+
+   kellen.save();
+   kellen.translate(50,0);//平移画布
+   kellen.rotate(45*Math.PI/180);//旋转画布
+   kellen.strokeRect(200,0,50,50);
+   kellen.rotate(-45*Math.PI/180);
+   kellen.translate(-50,0);
+   kellen.restore();
+
+   /*缩放的就不写了，没意思了这个*/
+            /*平移旋转这些主要是靠移动画布来实现，感觉很麻烦。。。但是大家都这么干，希望以后可以推出方面的函数*/
+   /*新图绘制默认会覆盖旧图，否则用canvas.globalCompositeOperation值来调节.
+*/
+</script>
+</html>

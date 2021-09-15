@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			div {
+				width: 40px;
+				height: 65px;
+				border: 10px solid pink;
+				border-bottom: none;
+				border-radius: 5px 5px 0 0;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="540" height="540"></canvas>
+		<div></div>
+		<script>
+			let ctx = canvas.getContext('2d');
+			ctx.fillStyle = 'hsla(180, 100%, 50%, 0.1)';
+			ctx.fillRect(0, 0, 540, 540);
+			
+			ctx.beginPath();
+			ctx.moveTo(120, 120);
+			// ctx.arcTo(120, 50, 170, 50, 20);
+			// ctx.arcTo(170, 50, 170, 120, 20);
+			
+			// ctx.arc(140, 70, 20, Math.PI, -Math.PI / 2);
+			// ctx.arc(150, 70, 20, -Math.PI / 2, 0);
+			
+			ctx.arc(145, 75, 25, Math.PI, 0);
+			ctx.lineTo(170, 120);
+			ctx.strokeStyle = 'pink';
+			ctx.lineCap = 'round';
+			ctx.lineWidth = 10;
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.moveTo(50, 120);
+			ctx.lineTo(50, 50);
+			ctx.lineTo(100, 50);
+			ctx.lineTo(100, 120);
+			ctx.lineJoin = 'round';
+			ctx.stroke();
+		</script>
+	</body>
+</html>
