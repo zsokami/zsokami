@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>什么二维码</title>
+  <style>
+    body {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <script src="qrcode.js"></script>
+</head>
+<body>
+  <script>
+    const params = Object.fromEntries(new URLSearchParams(location.search))
+    const id = params.id ? params.id.slice(0, 24) : '5f7ea7b656bf54e2e853de16'
+    const qrcode = new QRCode(document.body)
+    const draw = () => {
+      qrcode.makeCode(id + Date.now())
+      requestAnimationFrame(draw)
+    }
+    draw()
+  </script>
+</body>
+</html>
