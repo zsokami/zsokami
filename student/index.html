@@ -20,8 +20,8 @@
 </head>
 <body>
   <script>
-    const params = Object.fromEntries(new URLSearchParams(location.search))
-    const id = params.id ? params.id.slice(0, 24) : '5f7ea7b656bf54e2e853de16'
+    const idParam = location.search.slice(1).split('&').map(i => i.split('=')).find(i => i[0] == 'id')
+    const id = idParam && idParam[1] ? idParam[1].slice(0, 24) : '5f7ea7b656bf54e2e853de16'
     const qrcode = new QRCode(document.body)
     const draw = () => {
       qrcode.makeCode(id + Date.now())
